@@ -12,7 +12,7 @@ declare -A NODES
 NODES=( [klimentova20]=" 20" [klimentova50]=" 50" [klimentova100]="100" )
 
 declare -A METHODNAME
-METHODNAME=( [c]="Benders" [p]="Benders PICEF" )
+METHODNAME=( [c]="cut-CC" [p]="cut-PICEF" )
 
 declare -A METHODNUMBER
 METHODNUMBER=( [c]="1" [p]="2" )
