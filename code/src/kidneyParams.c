@@ -29,8 +29,9 @@
 #define DEFAULT_CYCHAINCONSSINITIAL          TRUE
 #define DEFAULT_USETWOTHIRDCLIQUES           FALSE
 #define DEFAULT_MINARCCOUNTTRIPLET           4
-#define DEFAULT_METHOD                       2           /**< Method options (1: Benders, 2: Benders + PICEF, 3: Glorie et al.) */
+#define DEFAULT_METHOD                       1           /**< Method options (1: Benders, 2: Benders + PICEF, 3: Glorie et al.) */
 #define DEFAULT_LIFTINGBENDERSCUTS           TRUE
+#define DEFAULT_RECOURSEPOLICY               2           /**< Method options (1: full recourse, 2: keep unaffected CC, 3: guaranteed transplant unaffected CC) */
 
 /** Set basic SCIP parameters that are relevant for the kidney exchange  problem */
 SCIP_RETCODE setSCIPParameters(
@@ -76,6 +77,9 @@ SCIP_RETCODE addKidneyParameters(
 
    SCIP_CALL( SCIPaddBoolParam(scip, "kidney/liftbenderscuts", "Shall we lift KEP solutions on a subgraph to a KEP solution on the entire graph?",
          NULL, TRUE, DEFAULT_LIFTINGBENDERSCUTS, NULL, NULL) );
+
+   SCIP_CALL( SCIPaddIntParam(scip, "kidney/recoursepolicy", "Which recourse policy do we use?",
+         NULL, TRUE, DEFAULT_RECOURSEPOLICY, 1, 3, NULL, NULL));
 
    return SCIP_OKAY;
 }
