@@ -19,8 +19,8 @@
 
 #include "graph.h"
 #include "parseOptions.h"
-#include "problem_master_kidneyexchange.h"
 #include "problem_master_kidneyexchange_picef.h"
+#include "problem_master_kidneyexchange.h"
 #include "problem_kidneyexchange.h"
 #include "kidneyParams.h"
 #include "kidneyPlugins.h"

@@ -35,11 +35,29 @@ extern "C" {
 /** sets up the problem data */
 SCIP_RETCODE SCIPbendersdataCreate(
    SCIP*                 bendersscip,        /**< SCIP data structure */
+   SCIP*                 masterscip,         /**< SCIP data structure for master problem */
    const char*           probname,           /**< problem name */
+   SCIP_SOL*             sol,                /**< SCIP solution to masterscip */
    Graph*                graph,              /**< pointer to underlying graph */
    Cycles*               cycles,             /**< pointer to cycle structures of graph */
    Chains*               chains,             /**< pointer to chain structures of graph */
    int                   adversarybound      /**< bound on adversary attack */
+   );
+
+/** returns whether a given cycle intersects a target cycle / chain in initial solution */
+SCIP_Bool SCIPcycleIntersectsTarget(
+   Cycles*               cycles,
+   Chains*               chains,
+   int                   cycle_idx,
+   int                   target_idx
+   );
+
+/** returns whether a given chain intersects a target cycle / chain in initial solution */
+SCIP_Bool SCIPchainIntersectsTarget(
+   Cycles*               cycles,
+   Chains*               chains,
+   int                   chain_idx,
+   int                   target_idx
    );
 
 /** adds given variable to the problem data */
@@ -50,8 +68,13 @@ SCIP_RETCODE SCIPbendersdataAddSolCons(
    int                   nvars               /**< number of variables */
    );
 
-/** returns array of cycle constraints */
-SCIP_CONS** SCIPbendersdataGetCycleconss(
+/** returns array of cycle lower bound constraints */
+SCIP_CONS** SCIPbendersdataGetCyclelbconss(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns array of cycle upper bound constraints */
+SCIP_CONS** SCIPbendersdataGetCycleubconss(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 
@@ -65,8 +88,13 @@ int SCIPbendersdataGetNCycles(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 
-/** returns array of chain constraints */
-SCIP_CONS** SCIPbendersdataGetChainconss(
+/** returns array of chain lower bound constraints */
+SCIP_CONS** SCIPbendersdataGetChainlbconss(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns array of chain upper bound constraints */
+SCIP_CONS** SCIPbendersdataGetChainubconss(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 

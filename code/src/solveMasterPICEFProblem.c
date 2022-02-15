@@ -26,6 +26,7 @@
 
 #include "auxiliaryStructures.h"
 #include "graph.h"
+#include "probdata_master_kidney.h"
 #include "probdata_master_kidney_picef.h"
 #include "probdata_benders_picef.h"
 #include "probdata_benders_subproblem_picef.h"

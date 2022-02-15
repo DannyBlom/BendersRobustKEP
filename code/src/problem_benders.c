@@ -13,6 +13,8 @@
 /* creates initial model of the kidney exchange problem */
 SCIP_RETCODE SCIPcreateBendersModel(
    SCIP*                 scip,               /**< SCIP data structure */
+   SCIP*                 masterscip,         /**< SCIP data structure for master problem */
+   SCIP_SOL*             sol,                /**< SCIP solution to master problem */
    Graph*                graph,              /**< pointer to kidney exchange graph */
    Cycles*               cycles,             /**< pointer to cycle structures of graph */
    Chains*               chains,             /**< pointer to chain structures of graph */
@@ -66,7 +68,7 @@ SCIP_RETCODE SCIPcreateBendersModel(
             u, nodelist[u]->id, nodelist[u]->failprob, nodelist[u]->ispair);
       SCIPinfoMessage(scip, NULL, "\n");
    }
-   SCIP_CALL( SCIPbendersdataCreate(scip, "name", graph, cycles, chains, adversarybound) );
+   SCIP_CALL( SCIPbendersdataCreate(scip, masterscip, "name", sol, graph, cycles, chains, adversarybound) );
 
    return SCIP_OKAY;
 }

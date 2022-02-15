@@ -35,6 +35,22 @@ SCIP_RETCODE SCIPupdateMasterProblem(
    int                   nattacks            /**< number of attacks encoded in attackpattern */
    );
 
+/** returns whether a given cycle is attacked */
+SCIP_Bool SCIPcycleIsAttacked(
+   int*                  attackpattern,      /**< array of attacked vertices */
+   int                   nattacks,           /**< number of attacked vertices */
+   Cycles*               cycles,             /**< data structure for the cycles in the graph of suitable length */
+   int                   cycleidx            /**< index of cycle in cycles data structure */
+   );
+
+/** returns whether a given chain is attacked */
+SCIP_Bool SCIPchainIsAttacked(
+   int*                  attackpattern,      /**< array of attacked vertices */
+   int                   nattacks,           /**< number of attacked vertices */
+   Chains*               chains,             /**< data structure for the chains in the graph of suitable length */
+   int                   chainidx            /**< index of chain in chains data structure */
+   );
+
 /** get xvarinit array */
 SCIP_VAR** masterProblemGetXvarinit(
    SCIP_PROBDATA*        probdata            /**< problem data */

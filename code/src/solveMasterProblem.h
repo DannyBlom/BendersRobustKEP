@@ -55,23 +55,6 @@ SCIP_RETCODE SCIPgetAttackPattern(
    int                   method              /**< Which method is used for stage 2/3? (1:Benders, 2:B&P) */
    );
 
-/** returns whether a given cycle is attacked */
-SCIP_Bool SCIPcycleIsAttacked(
-   int*                  attackpattern,      /**< array of attacked vertices */
-   int                   nattacks,           /**< number of attacked vertices */
-   Cycles*               cycles,             /**< data structure for the cycles in the graph of suitable length */
-   int                   cycleidx            /**< index of cycle in cycles data structure */
-   );
-
-/** returns whether a given chain is attacked */
-SCIP_Bool SCIPchainIsAttacked(
-   int*                  attackpattern,      /**< array of attacked vertices */
-   int                   nattacks,           /**< number of attacked vertices */
-   Chains*               chains,             /**< data structure for the chains in the graph of suitable length */
-   int                   chainidx            /**< index of chain in chains data structure */
-   );
-
-
 #ifdef __cplusplus
 }
 #endif

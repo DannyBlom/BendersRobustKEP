@@ -62,6 +62,7 @@ SCIP_Bool solvingloopShallTerminate(
    /* terminate if the instance could not be solved to optimality */
    if ( scip != NULL && SCIPgetStatus(scip) != SCIP_STATUS_OPTIMAL )
    {
+      SCIP_CALL( SCIPprintStatus(scip, NULL) );
       assert( SCIPgetStatus(scip) < SCIP_STATUS_OPTIMAL );
 
       return TRUE;
@@ -236,48 +237,91 @@ SCIP_RETCODE SCIPupdateRhsKEPProblem(
    return SCIP_OKAY;
 }
 
-/** returns whether a given cycle is attacked */
-SCIP_Bool SCIPcycleIsAttacked(
-   int*                  attackpattern,      /**< array of attacked vertices */
-   int                   nattacks,           /**< number of attacked vertices */
-   Cycles*               cycles,             /**< data structure for the cycles in the graph of suitable length */
-   int                   cycleidx            /**< index of cycle in cycles data structure */
+
+/** updates the right hand sides of the KEP problem based on an attack pattern */
+static
+SCIP_RETCODE SCIPenforceUnaffectedCyclesChains(
+   SCIP*                 kepscip,            /**< SCIP instance of the KEP */
+   SCIP*                 masterscip,         /**< SCIP instance of master problem */
+   SCIP_SOL*             sol,                /**< SCIP solution to master problem */
+   SCIP_PROBDATA*        kepdata,            /**< problem data */
+   Cycles*               cycles,             /**< cycles data structure */
+   Chains*               chains,             /**< chains data structure */
+   int*                  attackpattern,      /**< array encoding attack pattern */
+   int                   nattacks            /**< number of attacks in attackpattern */
    )
 {
+   SCIP_VAR** initxvars;
+   SCIP_VAR** kepcyclevars;
+   SCIP_VAR** kepchainvars;
+   SCIP_Bool attacked;
+   int ncycles;
+   int nchains;
+   int c;
    int i;
-   int j;
+   int v;
 
-   for (i = 0; i < nattacks; ++i)
+   assert( kepscip != NULL );
+   assert( masterscip != NULL );
+   assert( kepdata != NULL );
+   assert( attackpattern != NULL );
+
+   initxvars = masterProblemGetXvarinit(SCIPgetProbData(masterscip));
+   kepcyclevars = SCIPKEPdataGetCyclevars(kepdata);
+   kepchainvars = SCIPKEPdataGetChainvars(kepdata);
+
+   ncycles = SCIPKEPdataGetNCycles(kepdata);
+   nchains = SCIPKEPdataGetNChains(kepdata);
+
+   for (c = 0; c < ncycles; ++c)
    {
-      for (j = cycles->nodelistsbegin[cycleidx]; j < cycles->nodelistsbegin[cycleidx+1]; ++j)
+      SCIP_CALL( SCIPchgVarLb(kepscip, kepcyclevars[c], 0.0) );
+      if( SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5 )
       {
-         if (attackpattern[i] == cycles->nodelists[j])
-            return TRUE;
+         attacked = FALSE;
+         for( i = cycles->nodelistsbegin[c]; i < cycles->nodelistsbegin[c+1]; ++i )
+         {
+            for( v = 0; v < nattacks; ++v )
+            {
+               if( cycles->nodelists[i] == attackpattern[v] )
+               {
+                  attacked = TRUE;
+                  break;
+               }
+            }
+            if( attacked )
+               break;
+         }
+         if( !attacked )
+            SCIP_CALL( SCIPchgVarLb(kepscip, kepcyclevars[c], 1.0) );
       }
    }
-   return FALSE;
-}
 
-/** returns whether a given chain is attacked */
-SCIP_Bool SCIPchainIsAttacked(
-   int*                  attackpattern,      /**< array of attacked vertices */
-   int                   nattacks,           /**< number of attacked vertices */
-   Chains*               chains,             /**< data structure for the chains in the graph of suitable length */
-   int                   chainidx            /**< index of chain in chains data structure */
-   )
-{
-   int i;
-   int j;
-
-   for (i = 0; i < nattacks; ++i)
+   for (c = 0; c < nchains; ++c)
    {
-      for (j = chains->nodelistsbegin[chainidx]; j < chains->nodelistsbegin[chainidx+1]; ++j)
+      SCIP_CALL( SCIPchgVarLb(kepscip, kepchainvars[c], 0.0) );
+      if( SCIPgetSolVal(masterscip, sol, initxvars[ncycles + c]) > 0.5 )
       {
-         if (attackpattern[i] == chains->nodelists[j])
-            return TRUE;
+         attacked = FALSE;
+         for( i = chains->nodelistsbegin[c]; i < chains->nodelistsbegin[c+1]; ++i )
+         {
+            for( v = 0; v < nattacks; ++v )
+            {
+               if( chains->nodelists[i] == attackpattern[v] )
+               {
+                  attacked = TRUE;
+                  break;
+               }
+            }
+            if( attacked )
+               break;
+         }
+         if( !attacked )
+            SCIP_CALL( SCIPchgVarLb(kepscip, kepchainvars[c], 1.0) );
       }
    }
-   return FALSE;
+
+   return SCIP_OKAY;
 }
 
 /** updates the right hand sides of the KEP problem based on an attack pattern */
@@ -347,6 +391,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
    SCIP*                 bendersscip,        /**< SCIP data structure for Benders model */
    SCIP*                 kepscip,            /**< SCIP data structure for the subproblem of Benders (a KEP) */
    SCIP*                 masterscip,         /**< SCIP data structure for the masterproblem */
+   SCIP_SOL*             mastersol,          /**< solution of the master problem */
    SCIP_Real             masterobj,          /**< objective value of the master problem */
    Cycles*               cycles,             /**< data structure needed for cycle weights when adding Benders cuts */
    Chains*               chains,             /**< data structure needed for chain weights when adding Benders cuts */
@@ -383,6 +428,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
    SCIP_Real endtime;
    SCIP_Real smallestub;
    int cnt = 0;
+   int policy;
 
    assert( bendersscip != NULL );
    assert( kepscip != NULL );
@@ -413,6 +459,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
    nnodes = maxnvarsinsolcons;
 
    SCIP_CALL( SCIPgetRealParam(masterscip, "limits/memory", &memlimit) );
+   SCIP_CALL( SCIPgetIntParam(masterscip, "kidney/recoursepolicy", &policy) );
 
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &attackpattern, adversarybound) );
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &vars, maxnvarsinsolcons) );
@@ -469,14 +516,13 @@ SCIP_RETCODE SCIPsolveBendersModel(
       /* make sure that we can modify the KEP SCIP instance */
       SCIP_CALL( SCIPfreeTransform(kepscip) );
 
+      if( policy == POLICY_KEEPUNAFFECTEDCC )
+         SCIP_CALL( SCIPenforceUnaffectedCyclesChains(kepscip, masterscip, mastersol, kepdata, cycles, chains, attackpattern, nattacks) );
+
       if ( ! liftsols )
-      {
          SCIP_CALL( SCIPupdateRhsKEPProblem(kepscip, kepdata, attackpattern, nattacks) );
-      }
       else
-      {
          SCIP_CALL( SCIPupdateObjCoefsKEPProblem(kepscip, kepdata, cycles, chains, attackpattern, nattacks) );
-      }
 
       SCIP_CALL( SCIPsetLimitsAndVerbose(kepscip, begintime, timelimit,
             MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576 - SCIPgetMemUsed(bendersscip) / 1048576), TRUE) );
@@ -505,6 +551,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
 
       kepobj = 0;
       cnt = 0;
+
       for (c = 0; c < ncycles; ++c)
       {
          /* Only take into account cycles in kepsol that are not attacked by the current attack pattern */
@@ -1054,6 +1101,7 @@ SCIP_RETCODE solveMasterProblem(
          goto FREEMASTERPROBLEM;
 
       SCIP_CALL( SCIPsetLimitsAndVerbose(masterscip, begintime, modtimelimit, memlimit, verbose) );
+      SCIP_CALL( SCIPsetIntParam(masterscip, "display/verblevel", 3) );
       SCIP_CALL( SCIPsolve(masterscip) );
 
       if ( solvingloopShallTerminate(masterscip, begintime, modtimelimit) )
@@ -1080,7 +1128,7 @@ SCIP_RETCODE solveMasterProblem(
          beginsubtime = clock();
 
          SCIP_CALL( SCIPcreateBasicInstance(masterscip, &scip, verbose) );
-         SCIP_CALL( SCIPcreateBendersModel(scip, graph, cycles, chains, adversarybound) );
+         SCIP_CALL( SCIPcreateBendersModel(scip, masterscip, sol, graph, cycles, chains, adversarybound) );
          SCIP_CALL( SCIPsetObjIntegral(scip) );
 
          endsubtime = clock();
@@ -1130,7 +1178,7 @@ SCIP_RETCODE solveMasterProblem(
          curtime = clock();
          newtimelimit = modtimelimit - (SCIP_Real) (curtime - begintime) / CLOCKS_PER_SEC;
 
-         SCIP_CALL( SCIPsolveBendersModel(scip, subscip, masterscip, masterobj, cycles, chains,
+         SCIP_CALL( SCIPsolveBendersModel(scip, subscip, masterscip, sol, masterobj, cycles, chains,
                newtimelimit, &didnotfinish, &optimal, &timestage2, &timestage3) );
 
          timesecondstage += timestage2;
