@@ -333,6 +333,36 @@ SCIP_Bool SCIPcycleIntersectsTarget(
    return FALSE;
 }
 
+/**< returns whether chain2 is a superchain of chain1 */
+SCIP_Bool SCIPchainIsSuperchain(
+   Chains*              chains,              /**< chains data structure */
+   int                  chain1,              /**< index of chain */
+   int                  chain2               /**< index of possible superchain */
+)
+{
+   int current_c;
+   int subchainidx;
+   int chainlen1;
+   int chainlen2;
+
+   chainlen1 = chains->nodelistsbegin[chain1 + 1] - chains->nodelistsbegin[chain1];
+   chainlen2 = chains->nodelistsbegin[chain2 + 1] - chains->nodelistsbegin[chain2];
+
+   if( chainlen1 >= chainlen2 )
+      return FALSE;
+
+   current_c = chain2;
+   subchainidx = chains->subchains[current_c];
+   while( subchainidx != -1 )
+   {
+      if( subchainidx == chain1 )
+         return TRUE;
+      current_c = subchainidx;
+      subchainidx = chains->subchains[current_c];
+   }
+   return FALSE;
+}
+
 /** returns whether a given chain intersects a target cycle / chain in initial solution */
 SCIP_Bool SCIPchainIntersectsTarget(
    Cycles*               cycles,
@@ -358,16 +388,23 @@ SCIP_Bool SCIPchainIntersectsTarget(
          }
       }
       else
+      // both chain and target are chain. Only return true if target is NOT a superchain of chain
       {
-         for( j = chains->nodelistsbegin[target_idx - cycles->ncycles]; j < chains->nodelistsbegin[target_idx - cycles->ncycles + 1]; ++j )
+         if( SCIPchainIsSuperchain(chains, chain_idx, target_idx - cycles->ncycles) )
+            return FALSE;
+         else
          {
-            if( chains->nodelists[i] == chains->nodelists[j] )
-               return TRUE;
+            for( j = chains->nodelistsbegin[target_idx - cycles->ncycles]; j < chains->nodelistsbegin[target_idx - cycles->ncycles + 1]; ++j )
+            {
+               if( chains->nodelists[i] == chains->nodelists[j] )
+                  return TRUE;
+            }
          }
       }
    }
    return FALSE;
 }
+
 
 /** creates the initial variables of the problem */
 static

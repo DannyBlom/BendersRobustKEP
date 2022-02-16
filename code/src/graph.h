@@ -72,12 +72,13 @@ typedef struct Cycles
 
 typedef struct Chains
 {
-   int                  nchains;            /**< Number of cycles in the problem */
-   int                  nnodesinchains;     /**< Sum of node appearences over all cycles. */
-   int*                 nodelists;          /**< Array containing the list of nodes in all cycles.*/
-   int*                 nodelistsbegin;     /**< Array containing start positions of the nodelists per cycle.*/
-   int*                 chainweights;       /**< Array containing the weights of each cycle.*/
-   int                  maxchainlen;        /**< maximum length of a cycle */
+   int                  nchains;            /**< Number of chains in the problem */
+   int                  nnodesinchains;     /**< Sum of node appearences over all chains. */
+   int*                 nodelists;          /**< Array containing the list of nodes in all chains.*/
+   int*                 nodelistsbegin;     /**< Array containing start positions of the nodelists per chain.*/
+   int*                 chainweights;       /**< Array containing the weights of each chain.*/
+   int*                 subchains;          /**< Array of length nchains indicating index of largest subchain (-1 if chain has 1 arc) */
+   int                  maxchainlen;        /**< maximum length of a chain */
 } Chains;
 
 typedef struct Triplets
@@ -88,7 +89,7 @@ typedef struct Triplets
    int*                 cycle2tripletsbegin;/**< array to encode where the sublist of triplets for a node begins in cycle2triplets */
    int                  nindicescycle2triplet;/**< Number of triplet indices in cycle2triplets */
    int*                 chain2triplets;     /**< Array containing for each chain the indices of triplets with at least 2 intersecting nodes */
-   int*                 chain2tripletsbegin;/**< array to encode where the sublist of triplets for a node begins in cycle2triplets */
+   int*                 chain2tripletsbegin;/**< array to encode where the sublist of triplets for a node begins in chain2triplets */
    int                  nindiceschain2triplet;/**< Number of triplet indices in chain2triplets */
 } Triplets;
 

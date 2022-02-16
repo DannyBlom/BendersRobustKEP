@@ -52,6 +52,13 @@ SCIP_Bool SCIPcycleIntersectsTarget(
    int                   target_idx
    );
 
+/**< returns whether chain2 is a superchain of chain1 */
+SCIP_Bool SCIPchainIsSuperchain(
+   Chains*              chains,              /**< chains data structure */
+   int                  chain1,              /**< index of chain */
+   int                  chain2               /**< index of possible superchain */
+   );
+
 /** returns whether a given chain intersects a target cycle / chain in initial solution */
 SCIP_Bool SCIPchainIntersectsTarget(
    Cycles*               cycles,

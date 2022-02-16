@@ -223,6 +223,15 @@ SCIP_RETCODE findcycles(
    (*cycles)->nodelistsbegin[cntcycle] = int(cntnodesincycle);
    (*cycles)->maxcyclelen = maxcyclelen;
 
+   // for(int i=0; i < cntcycle; ++i)
+   // {
+   //    for(int j=nodelistsbegin[i]; j < nodelistsbegin[i+1]; ++j)
+   //    {
+   //       printf("%d ", (*cycles)->nodelists[j]);
+   //    }
+   //    printf("\n");
+   // }
+
    return SCIP_OKAY;
 }
 
@@ -239,7 +248,9 @@ SCIP_RETCODE findchains(
    SCIP_CALL( SCIPallocBlockMemory(scip, chains) );
    cout << "Enumerating all chains" << endl;
 
+   SCIP_Bool issubchain;
    int maxchainlen = 0;
+   int chainlen;
    int chainlengthlimit;
 
    SCIP_CALL( SCIPgetIntParam(scip, "kidney/maxchainlength", &chainlengthlimit) );
@@ -331,6 +342,7 @@ SCIP_RETCODE findchains(
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &((*chains)->nodelists), cntnodesinchain) );
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &((*chains)->nodelistsbegin), cntchain + 1) );
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &((*chains)->chainweights), cntchain) );
+   SCIP_CALL( SCIPallocBlockMemoryArray(scip, &((*chains)->subchains), cntchain) );
 
    for (int i = 0; i < cntnodesinchain; i++)
       (*chains)->nodelists[i] = nodelists[i];
@@ -348,6 +360,37 @@ SCIP_RETCODE findchains(
    (*chains)->nodelistsbegin[cntchain] = int(cntnodesinchain);
    (*chains)->maxchainlen = maxchainlen;
 
+   /**< We make use of the fact that smaller chains have smaller indices based on our chain finding algorithm */
+   for( int i = 0; i < cntchain; i++ )
+   {
+      (*chains)->subchains[i] = -1;
+      chainlen = nodelistsbegin[i+1] - nodelistsbegin[i];
+
+      // This chain has no proper subchain
+      if( chainlen == 2 )
+         continue;
+
+      for( int j = 0; j < i; ++j )
+      {
+         if( chainlen != nodelistsbegin[j+1] - nodelistsbegin[j] + 1 )
+            continue;
+
+         issubchain = TRUE;
+         for( int k = 0; k < chainlen - 1; ++k )
+         {
+            if( (*chains)->nodelists[nodelistsbegin[i]+k] != (*chains)->nodelists[nodelistsbegin[j]+k] )
+            {
+               issubchain = FALSE;
+               break;
+            }
+         }
+         if( issubchain )
+         {
+            (*chains)->subchains[i] = j;
+            break;
+         }
+      }
+   }
    return SCIP_OKAY;
 }
 

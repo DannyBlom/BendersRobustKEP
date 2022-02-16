@@ -378,15 +378,18 @@ SCIP_RETCODE masterProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundyinitconss, nmaxscenarios);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
-      for (j = 0; j < ncycleschains; ++j)
+      for (i = nscenarios - 1; i >= 0; --i)
       {
-         SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->enforcexscenarioconss[i][j]) );
+         for (j = 0; j < ncycleschains; ++j)
+         {
+            SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->enforcexscenarioconss[i][j]) );
+         }
+         SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss[i], ncycleschains);
       }
-      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss[i], ncycleschains);
+      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss, nmaxscenarios);
    }
-   SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss, nmaxscenarios);
 
    for (i = nnodes - 1; i >= 0; --i)
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->dummyconss[i]) );

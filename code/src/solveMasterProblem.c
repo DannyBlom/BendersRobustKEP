@@ -404,6 +404,8 @@ SCIP_RETCODE SCIPsolveBendersModel(
 {
    int* attackpattern;
    int c;
+   int current_c;
+   int subchainidx;
    int nattacks;
    int nnodes;
    int adversarybound;
@@ -480,6 +482,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
       /* solve Benders model */
       SCIP_CALL( SCIPsetLimitsAndVerbose(bendersscip, begintime, timelimit,
             MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576), TRUE) );
+      // SCIP_CALL( SCIPsetIntParam(bendersscip, "display/verblevel", 3) );
       SCIP_CALL( SCIPsolve(bendersscip) );
 
       if ( solvingloopShallTerminate(bendersscip, begintime, timelimit) )
@@ -528,6 +531,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
             MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576 - SCIPgetMemUsed(bendersscip) / 1048576), TRUE) );
       SCIP_CALL( SCIPsolve(kepscip) );
 
+      // SCIP_CALL( SCIPwriteOrigProblem(kepscip, "kepscip.lp", NULL, FALSE) );
       if ( solvingloopShallTerminate(kepscip, begintime, timelimit) )
       {
          *didnotfinish = TRUE;
@@ -572,9 +576,23 @@ SCIP_RETCODE SCIPsolveBendersModel(
          {
             if ( SCIPvarGetObj(chainvars[c]) > nnodes )
                kepobj += chains->chainweights[c];
-
-            vars[cnt] = benderschainvars[c];
-            vals[cnt++] = chains->chainweights[c];
+            // vars[cnt] = benderschainvars[c];
+            // vals[cnt++] = chains->chainweights[c];
+            current_c = c;
+            subchainidx = chains->subchains[current_c];
+            while( TRUE )
+            {
+               vars[cnt] = benderschainvars[current_c];
+               if( subchainidx == -1 )
+               {
+                  vals[cnt++] = chains->chainweights[current_c];
+                  break;
+               }
+               else
+                  vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
+               current_c = subchainidx;
+               subchainidx = chains->subchains[current_c];
+            }
          }
       }
       SCIPinfoMessage(bendersscip, NULL, "@95 KEP objective: %f\n", kepobj);
@@ -601,6 +619,8 @@ SCIP_RETCODE SCIPsolveBendersModel(
       vars[cnt++] = SCIPbendersdataGetObjvar(bendersdata);
 
       SCIP_CALL( SCIPbendersdataAddSolCons(bendersscip, vals, vars, cnt) );
+
+      // SCIP_CALL( SCIPwriteOrigProblem(bendersscip, "bendersscip.lp", NULL, FALSE) );
 
       /* Stronger bound on objective variable, as it is monotone increasing with respect to future iterations */
       SCIP_CALL( SCIPchgVarLb(bendersscip, SCIPbendersdataGetObjvar(bendersdata), bendersobj) );
@@ -968,6 +988,8 @@ SCIP_RETCODE SCIPaddInitialBendersCut(
    int nchains;
    int cnt;
    int c;
+   int current_c; // copy chain index
+   int subchainidx;
 
    assert( masterscip != NULL );
    assert( bendersscip != NULL );
@@ -1008,8 +1030,21 @@ SCIP_RETCODE SCIPaddInitialBendersCut(
       /* Only take into account cycles in kepsol that are not attacked by the current attack pattern */
       if ( SCIPgetSolVal(masterscip, sol, initcycleschains[cycles->ncycles + c]) > 0.5 )
       {
-         vars[cnt] = benderschainvars[c];
-         vals[cnt++] = chains->chainweights[c];
+         current_c = c;
+         subchainidx = chains->subchains[current_c];
+         while( TRUE )
+         {
+            vars[cnt] = benderschainvars[current_c];
+            if( subchainidx == -1 )
+            {
+               vals[cnt++] = chains->chainweights[current_c];
+               break;
+            }
+            else
+               vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
+            current_c = subchainidx;
+            subchainidx = chains->subchains[current_c];
+         }
       }
    }
 
