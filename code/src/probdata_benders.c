@@ -704,17 +704,10 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
    initxvars = masterProblemGetXvarinit(SCIPgetProbData(masterscip));
    ninitcc = 0;
 
-   printf("Initial solution:\n");
    for( c = 0; c < ncycles + nchains; ++c )
    {
       if( SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5 )
-      {
          initcc[ninitcc++] = c;
-         if( c < ncycles)
-            printf("Cycle %d\n", c);
-         else
-            printf("Chain %d\n", c - cycles->ncycles);
-      }
    }
 
    for( c = 0; c < ncycles; ++c )
