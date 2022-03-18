@@ -755,6 +755,8 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       vals[cnt] = 1.0;
       vars[cnt++] = bendersdata->probdatakucc->dummyinitposarcvars[c];
 
+      printf("%d\n", posarcs->nodelists[2*initposarcs[c]] );
+
       if( posarcs->nodelists[2*initposarcs[c]] >= npairs )
       {
          /* Such arcs start from an NDD, hence k = 1. We add an extra constraint to say the NDD is covered as well */
@@ -768,6 +770,8 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
          /* \eta_ijl - y_i = 0 */
          SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->probdatakucc->nodecoverconss[v], name, cnt + 1,
                vars, vals, 0.0, 0.0, initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
+
+         SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->probdatakucc->nodecoverconss[v]) );
 
          hasnodecovercons[v] = TRUE;
       }
