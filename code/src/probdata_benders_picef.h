@@ -35,6 +35,8 @@ extern "C" {
 /** sets up the problem data */
 SCIP_RETCODE SCIPbendersdataPICEFCreate(
    SCIP*                 bendersscip,        /**< SCIP data structure */
+   SCIP*                 masterscip,         /**< SCIP data structure of master problem */
+   SCIP_SOL*             mastersol,          /**< SCIP solution structure */
    const char*           probname,           /**< problem name */
    Graph*                graph,              /**< pointer to underlying graph */
    Cycles*               cycles,             /**< pointer to cycle structures of graph */
@@ -61,7 +63,7 @@ SCIP_RETCODE SCIPbendersdataPICEFAddSolCons(
    );
 
 /** returns array of cycle constraints */
-SCIP_CONS** SCIPbendersdataPICEFGetCycleconss(
+SCIP_CONS** SCIPbendersdataPICEFGetCyclelbconss(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 
@@ -105,6 +107,31 @@ SCIP_VAR** SCIPbendersdataPICEFGetUVars(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 
+/** returns yvarcovered variables */
+SCIP_VAR** SCIPbendersdataPICEFGetYvarcovered(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns array of initial cycles */
+int* SCIPbendersdataPICEFGetInitcycles(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns the number of initial cycles */
+int SCIPbendersdataPICEFGetNinitcycles(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns array of initial position indexed arcs */
+int* SCIPbendersdataPICEFGetInitposarcs(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
+/** returns number of initial position indexed arcs */
+int SCIPbendersdataPICEFGetNinitposarcs(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
 /** returns the budget for the adversary */
 int SCIPbendersdataPICEFGetAdversaryBound(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
@@ -115,10 +142,17 @@ int SCIPbendersdataPICEFGetNumNodes(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
 
+/** returns number of pairs in instance */
+int SCIPbendersdataPICEFGetNumPairs(
+   SCIP_PROBDATA*        bendersdata         /**< problem data */
+   );
+
 /** returns objvar */
 SCIP_VAR* SCIPbendersdataPICEFGetObjvar(
    SCIP_PROBDATA*        bendersdata         /**< problem data */
    );
+
+
 
 #ifdef __cplusplus
 }

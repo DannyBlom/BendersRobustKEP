@@ -51,6 +51,11 @@ SCIP_Bool SCIPchainIsAttacked(
    int                   chainidx            /**< index of chain in chains data structure */
    );
 
+/** get objvar */
+SCIP_VAR* masterProblemGetObjvar(
+   SCIP_PROBDATA*        probdata            /**< problem data */
+   );
+
 /** get xvarinit array */
 SCIP_VAR** masterProblemGetXvarinit(
    SCIP_PROBDATA*        probdata            /**< problem data */

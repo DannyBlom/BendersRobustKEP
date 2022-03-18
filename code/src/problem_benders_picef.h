@@ -16,6 +16,8 @@ extern "C" {
 /** creates initial model of the kidney exchange problem */
 SCIP_RETCODE SCIPcreateBendersPICEFModel(
    SCIP*                 scip,               /**< SCIP data structure */
+   SCIP*                 masterscip,         /**< SCIP data structure of master problem */
+   SCIP_SOL*             mastersol,          /**< SCIP solution structure of master solution */
    Graph*                graph,              /**< pointer to kidney exchange graph */
    Cycles*               cycles,             /**< pointer to cycle structures of graph */
    PositionedArcs*       posarcs,            /**< pointer to arc structures of graph */

@@ -46,6 +46,11 @@ int SCIPKEPdataPICEFGetNumNodes(
    SCIP_PROBDATA*        kepdata            /**< problem data */
    );
 
+/** returns the number of pairs in the KEP instance */
+int SCIPKEPdataPICEFGetNumPairs(
+   SCIP_PROBDATA*        kepdata            /**< problem data */
+   );
+
 /** returns the number of arcs in the KEP instance */
 int SCIPKEPdataPICEFGetNumArcs(
    SCIP_PROBDATA*        kepdata            /**< problem data */

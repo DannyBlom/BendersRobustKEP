@@ -804,7 +804,6 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
          vars[cnt++] = probdata->xvarscenario[nscenarios][j];
       }
 
-      /* TODO: for the new recourse policy KUCC, adapt the bound_scenario_y_scenario_conss to be able to remove enforcement constraints */
       if( policy == POLICY_KEEPUNAFFECTEDCC )
       {
          for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
@@ -848,7 +847,6 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
          vars[cnt++] = probdata->xvarscenario[nscenarios][j];
       }
 
-      /* TODO: for the new recourse policy KUCC, adapt the bound_scenario_x_conss to be able to remove enforcement constraints*/
       if( policy == POLICY_KEEPUNAFFECTEDCC )
       {
          for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
@@ -1143,6 +1141,14 @@ SCIP_RETCODE SCIPupdateMasterProblem(
    return SCIP_OKAY;
 }
 
+/** get objvar */
+SCIP_VAR* masterProblemGetObjvar(
+   SCIP_PROBDATA*        probdata            /**< problem data */
+   )
+{
+   assert ( probdata != NULL );
+   return probdata->objvar;
+}
 
 /** get xvarinit array */
 SCIP_VAR** masterProblemGetXvarinit(

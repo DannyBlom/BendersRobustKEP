@@ -54,6 +54,7 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    SCIP*                 bendersscip,        /**< SCIP data structure for Benders model */
    SCIP*                 kepscip,            /**< SCIP data structure for the subproblem of Benders (a KEP) */
    SCIP*                 masterscip,         /**< SCIP data structure for the master model */
+   SCIP_SOL*             mastersol,          /**< SCIP solution to master problem */
    SCIP_Real             masterobj,          /**< Objective value of the master problem */
    Cycles*               cycles,             /**< Data structure needed for cycle weights when adding Benders cuts */
    PositionedArcs*       posarcs,            /**< Data structure needed for arc weights when adding Benders cuts */
@@ -61,7 +62,9 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    SCIP_Bool*            didnotfinish,       /**< pointer to store whether we have hit the time limit */
    SCIP_STATUS*          bendersstatus,      /**< pointer to store the status of the bendersmodel */
    SCIP_Real*            timestage2,         /**< pointer to store time spent in stage 2 */
-   SCIP_Real*            timestage3          /**< pointer to store time spent in stage 3 */
+   SCIP_Real*            timestage3,         /**< pointer to store time spent in stage 3 */
+   SCIP_Real*            kepobj              /**< pointer to store value of final iteration kepscip solution */
+
    );
 
 /** returns whether an arc is attacked based on node attack */
