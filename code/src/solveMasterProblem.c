@@ -1247,6 +1247,7 @@ SCIP_RETCODE solveMasterProblem(
 
       /* extract attack pattern and update master problem */
       SCIP_CALL( SCIPfreeTransform(masterscip) );
+      SCIP_CALL( SCIPchgVarUb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), masterobj) );
 
       if ( method != METHOD_BRANCHANDBOUND )
       {
@@ -1257,14 +1258,25 @@ SCIP_RETCODE solveMasterProblem(
 
          SCIP_CALL( SCIPgetAttackPattern(scip, SCIPgetBestSol(scip), attackpattern, &nattacks, graph->nnodes, method) );
 
-         SCIP_CALL( SCIPchgVarUb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), masterobj) );
-
          if( SCIPisLT(masterscip, kepobj, masterobj) )
             SCIP_CALL( SCIPchgVarLb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), kepobj) );
 
          endsubtime = clock();
          timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
       }
+      else
+      {
+         SCIP_Real beginsubtime;
+         SCIP_Real endsubtime;
+         
+         beginsubtime = clock();
+         if( SCIPisLT(masterscip, subobj, masterobj) )
+            SCIP_CALL( SCIPchgVarLb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), subobj) );
+         endsubtime = clock();
+
+         timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
+      }
+
       SCIPinfoMessage(masterscip, NULL, "nattacks: %d\n", nattacks);
       SCIPinfoMessage(masterscip, NULL, "first attack: %d\n", attackpattern[0]);
       SCIP_CALL( SCIPupdateMasterProblem(masterscip, attackpattern, nattacks) );
