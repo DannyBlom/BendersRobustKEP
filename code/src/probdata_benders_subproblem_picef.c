@@ -287,8 +287,10 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
    char name[SCIP_MAXSTRLEN];
    int ncycles;
    int narcs;
+   int nnodes;
    int nposarcs;
-   int i;
+   int npositions;
+   int i, j, k;
 
    assert( kepscip != NULL );
    assert( kepdata != NULL );
@@ -297,7 +299,9 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
 
    ncycles = kepdata->cycles->ncycles;
    nposarcs = kepdata->posarcs->nposarcs;
+   npositions = kepdata->posarcs->npositions;
    narcs = kepdata->narcs;
+   nnodes = kepdata->nnodes;
 
    /* create x_c-variables */
    SCIP_CALL( SCIPallocBlockMemoryArray(kepscip, &kepdata->cyclevars, ncycles) );
@@ -314,22 +318,29 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
       SCIP_CALL( SCIPaddVar(kepscip, kepdata->cyclevars[i]) );
    }
 
-   for (i = 0; i < nposarcs; ++i)
+   for( k = 0; k < npositions; ++k )
    {
-      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvar_%d", i);
-      SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->arcvars[i], name, 0.0, 1.0, kepdata->posarcs->arcweights[i],
-            SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
-      SCIP_CALL( SCIPaddVar(kepscip, kepdata->arcvars[i]) );
+      for( i = kepdata->posarcs->positionbegins[k]; i < kepdata->posarcs->positionbegins[k+1]; i += 2 )
+      {
+         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvar_(%d,%d,%d)", kepdata->posarcs->nodelists[i], kepdata->posarcs->nodelists[i+1], k + 1);
+
+         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->arcvars[i/2], name, 0.0, 1.0, kepdata->posarcs->arcweights[i/2],
+               SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+         SCIP_CALL( SCIPaddVar(kepscip, kepdata->arcvars[i/2]) );
+      }
    }
 
    if ( lifting )
    {
-      for (i = 0; i < narcs; ++i)
+      for( i = 0; i < nnodes; ++i )
       {
-         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "dummyarcvar_%d", i);
-         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->dummyarcvars[i], name, 0.0, 1.0, 0.0,
-               SCIP_VARTYPE_CONTINUOUS, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
-         SCIP_CALL( SCIPaddVar(kepscip, kepdata->dummyarcvars[i]) );
+         for( j = kepdata->graph->adjacencylistbegins[i]; j < kepdata->graph->adjacencylistbegins[i + 1]; ++j )
+         {
+            (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "dummyarcvar_(%d, %d)", i, kepdata->graph->adjacencylists[j]);
+            SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->dummyarcvars[j], name, 0.0, 1.0, 0.0,
+                  SCIP_VARTYPE_CONTINUOUS, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+            SCIP_CALL( SCIPaddVar(kepscip, kepdata->dummyarcvars[j]) );
+         }
       }
    }
 
@@ -453,7 +464,7 @@ SCIP_RETCODE SCIPcreateInitialKEPConstraints(
             }
          }
 
-         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcprecedencecons_%d", index);
+         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcprecedencecons_(%d, %d)", i, k);
 
          /* sum of incident cyclevars and arcvars does not exceed 1*/
          SCIP_CALL( SCIPcreateConsBasicLinear(kepscip, &kepdata->arcprecedenceconss[index], name, cnt,
@@ -536,17 +547,8 @@ SCIP_RETCODE SCIPcreateInitialKEPConstraints(
             (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "dummyarcusedcons_%d", j);
 
             /* dummy arc is used only whenever any of the corresponding arcs is used */
-            if ( i < npairs )
-            {
-               SCIP_CALL( SCIPcreateConsBasicLinear(kepscip, &kepdata->dummyarcusedconss[j], name, cnt,
-                     vars, vals, 0.0, SCIPinfinity(kepscip)) );
-            }
-            else
-            {
-               /* For the first arc in a chain, we can reduce this to an equality constraint */
-               SCIP_CALL( SCIPcreateConsBasicLinear(kepscip, &kepdata->dummyarcusedconss[j], name, cnt,
-                     vars, vals, 0.0, 0.0) );
-            }
+            SCIP_CALL( SCIPcreateConsBasicLinear(kepscip, &kepdata->dummyarcusedconss[j], name, cnt,
+                  vars, vals, 0.0, SCIPinfinity(kepscip)) );
 
             SCIP_CALL( SCIPaddCons(kepscip, kepdata->dummyarcusedconss[j]) );
          }

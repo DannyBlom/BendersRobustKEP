@@ -46,8 +46,8 @@ for line in f:
             time[name] = timelimit
         else:
             time[name] = min(float(totaltime), timelimit)
-        timestage2[name] = time2 / totaltime
-        timestage3[name] = time3 / totaltime
+        timestage2[name] = time2 / totaltime if totaltime > 0 else 0
+        timestage3[name] = time3 / totaltime if totaltime > 0 else 0
                              
     elif "scenario" in line:
         nscen += 1
@@ -95,8 +95,9 @@ if nopt > 0:
     avgmasteriter = sum(nfirststage[name] for name in values) / nopt
     avgthirditer = sum(nthirdstage[name] for name in values) / nopt
 
-avgtime2 = 100 * sum(timestage2[name] for name in instances) / len(instances)
-avgtime3 = 100 * sum(timestage3[name] for name in instances) / len(instances)
+# If instances are missing "terminated after", we have hit a timeout of slurm job, meaning that the timelimit is reached indefinitely
+avgtime2 = 100 * sum(timestage2[name] if name in timestage2 else 0 for name in instances) / len(instances)
+avgtime3 = 100 * sum(timestage3[name] if name in timestage3 else 0 for name in instances) / len(instances)
 
 avgtime = arith
 if avg == "g":

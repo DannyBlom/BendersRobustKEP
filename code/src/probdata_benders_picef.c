@@ -132,7 +132,7 @@ SCIP_RETCODE bendersdataPICEFCreate(
 
    SCIP_CONS**           solconss,           /**< array of linear inequalities, each corresponding to a kidney exchange solution */
    SCIP_CONS*            attackboundcons,    /**< constraint bounding adversary attacks */
-   SCIP_CONS**           cyclelbconss,         /**< cycle constraints (cyclevars[c] = 1 if and only if
+   SCIP_CONS**           cyclelbconss,       /**< cycle constraints (cyclevars[c] = 1 if and only if
                                               *   all uvars[v] = 1 for v in cycle c) */
    SCIP_CONS**           posarcconss,        /**< arc varbound constraints (arcvar[a,k] = 1 if and only if all uvars[v] = 1
                                               *   for v in arc a and there is a preceding arc used)*/
@@ -411,11 +411,9 @@ SCIP_RETCODE bendersdataPICEFFree(
 
    if( policytype == POLICY_KEEPUNAFFECTEDCC )
    {
-      // int ninitcycles;
       int ninitposarcs;
       int ncycleubconss;
 
-      // ninitcycles = (*bendersdata)->probdatakucc->ninitcycles;
       ninitposarcs = (*bendersdata)->probdatakucc->ninitposarcs;
       ncycleubconss = (*bendersdata)->probdatakucc->ncycleubconss;
 
@@ -608,7 +606,7 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraints(
    }
 
    SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->attackboundcons, "boundattack", nnodes,
-         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes,
+         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes - bendersdata->adversarybound,
          TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
    SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->attackboundcons) );
    /* do not release constraint here, will be done later */
@@ -735,7 +733,7 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
          v = cycles->nodelists[i];
          vals[cnt] = -1.0;
          vars[cnt] = bendersdata->probdatakucc->yvarcovered[v];
-         SCIP_CALL( SCIPchgVarUb(bendersscip, bendersdata->probdatakucc->yvarcovered[v], 1.0) );
+         // SCIP_CALL( SCIPchgVarUb(bendersscip, bendersdata->probdatakucc->yvarcovered[v], 1.0) );
 
          (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "nodecovercons_%d", v);
 
@@ -754,8 +752,6 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
 
       vals[cnt] = 1.0;
       vars[cnt++] = bendersdata->probdatakucc->dummyinitposarcvars[c];
-
-      printf("%d\n", posarcs->nodelists[2*initposarcs[c]] );
 
       if( posarcs->nodelists[2*initposarcs[c]] >= npairs )
       {
@@ -839,8 +835,6 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       }
    }
 
-   // SCIP_CALL( SCIPwriteOrigProblem(bendersscip, "benderspicef.lp", NULL, FALSE) );
-
    i = 0;
    for( c = 0; c < ninitposarcs; ++c )
    {
@@ -904,8 +898,6 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->probdatakucc->dummyinitposarclbconss[considx]) );
 
    }
-
-
 
    /* create constraints that provide lower bounds on the cycle variables */
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &(bendersdata->cyclelbconss), ncycles) );
@@ -990,17 +982,25 @@ SCIP_DECL_PROBTRANS(probtransBendersPICEF)
    SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    /* create transform bendersdata */
-   SCIP_CALL( bendersdataPICEFCreate(scip, targetdata, sourcedata->graph, sourcedata->nnodes, sourcedata->cycles, sourcedata->posarcs,
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
+   {
+      SCIP_CALL( bendersdataPICEFCreate(scip, targetdata, sourcedata->graph, sourcedata->nnodes, sourcedata->cycles, sourcedata->posarcs,
          sourcedata->cyclevars, sourcedata->arcvars, sourcedata->uvars, sourcedata->objvar, sourcedata->nsolconss, sourcedata->narcvars,
          sourcedata->maxnsolconss, sourcedata->maxnarcvars, sourcedata->arcindices, sourcedata->adversarybound, sourcedata->solconss,
          sourcedata->attackboundcons, sourcedata->cyclelbconss, sourcedata->posarcconss, sourcedata->policytype, sourcedata->probdatakucc->masterscip, sourcedata->probdatakucc->mastersol,
          sourcedata->probdatakucc->yvarcovered, sourcedata->probdatakucc->dummyinitposarcvars, sourcedata->probdatakucc->initcycleubconss,
          sourcedata->probdatakucc->dummyinitposarclbconss, sourcedata->probdatakucc->dummyinitposarcubconss, sourcedata->probdatakucc->nodecoverconss) );
+   }
+   else
+   {
+      SCIP_CALL( bendersdataPICEFCreate(scip, targetdata, sourcedata->graph, sourcedata->nnodes, sourcedata->cycles, sourcedata->posarcs,
+         sourcedata->cyclevars, sourcedata->arcvars, sourcedata->uvars, sourcedata->objvar, sourcedata->nsolconss, sourcedata->narcvars,
+         sourcedata->maxnsolconss, sourcedata->maxnarcvars, sourcedata->arcindices, sourcedata->adversarybound, sourcedata->solconss,
+         sourcedata->attackboundcons, sourcedata->cyclelbconss, sourcedata->posarcconss, sourcedata->policytype, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) );
+   }
 
    nnodes = sourcedata->graph->nnodes;
    ncycles = sourcedata->cycles->ncycles;
-   ncycleubconss = sourcedata->probdatakucc->ncycleubconss;
-   ninitposarcs = sourcedata->probdatakucc->ninitposarcs;
    assert( nnodes > 0 );
 
    /* transform all constraints */
@@ -1017,6 +1017,9 @@ SCIP_DECL_PROBTRANS(probtransBendersPICEF)
 
    if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
+      ncycleubconss = sourcedata->probdatakucc->ncycleubconss;
+      ninitposarcs = sourcedata->probdatakucc->ninitposarcs;
+
       SCIP_CALL( SCIPtransformConss(scip, ncycleubconss, (*targetdata)->probdatakucc->initcycleubconss, (*targetdata)->probdatakucc->initcycleubconss) );
       SCIP_CALL( SCIPtransformConss(scip, ninitposarcs, (*targetdata)->probdatakucc->dummyinitposarclbconss, (*targetdata)->probdatakucc->dummyinitposarclbconss) );
       SCIP_CALL( SCIPtransformConss(scip, 2*ninitposarcs, (*targetdata)->probdatakucc->dummyinitposarcubconss, (*targetdata)->probdatakucc->dummyinitposarcubconss) );
@@ -1029,7 +1032,7 @@ SCIP_DECL_PROBTRANS(probtransBendersPICEF)
    return SCIP_OKAY;
 }
 
-// /** frees user data of transformed Benders problem (called when the transformed problem is freed) */
+/* frees user data of transformed Benders problem (called when the transformed problem is freed) */
 static
 SCIP_DECL_PROBDELTRANS(probdeltransBendersPICEF)
 {
@@ -1094,8 +1097,6 @@ SCIP_RETCODE SCIPbendersdataPICEFCreate(
 
    /* set user problem data */
    SCIP_CALL( SCIPsetProbData(bendersscip, bendersdata) );
-
-   SCIP_CALL( SCIPwriteOrigProblem(bendersscip, "bendersscip.lp", NULL, FALSE) );
 
    return SCIP_OKAY;
 }
@@ -1322,7 +1323,7 @@ SCIP_RETCODE SCIPbendersdataPICEFAddSolCons(
    bendersdata->nsolconss++;
 
    SCIPdebugMsg(bendersscip, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
-   SCIPinfoMessage(bendersscip, NULL, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
+   // SCIPinfoMessage(bendersscip, NULL, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
 
    return SCIP_OKAY;
 }

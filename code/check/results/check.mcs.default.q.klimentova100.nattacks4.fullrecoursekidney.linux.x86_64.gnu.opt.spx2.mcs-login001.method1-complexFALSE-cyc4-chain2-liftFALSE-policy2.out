@@ -1,0 +1,4217 @@
+
+Linux mcs-computeA011 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt ===========
+-----------------------------
+Wed Nov  2 12:02:45 CET 2022
+-----------------------------
+@03 1667386965
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 16463
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 1785
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.01
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 43.000000.
+@97 Set up Benders model 1.
+Benders obj: 27.000000
+Attack pattern: 
+28 35 38 45 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 27.000000.
+nattacks: 4
+first attack: 28
+@98 masteriteration 2: objective value 40.000000.
+@97 Set up Benders model 2.
+Benders obj: 26.000000
+Attack pattern: 
+2 9 33 54 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 26.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 3: objective value 40.000000.
+@97 Set up Benders model 3.
+Benders obj: 27.000000
+Attack pattern: 
+10 21 27 28 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 27.000000.
+nattacks: 4
+first attack: 10
+@98 masteriteration 4: objective value 40.000000.
+@97 Set up Benders model 4.
+Benders obj: 27.000000
+Attack pattern: 
+0 81 89 91 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 27.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 5: objective value 40.000000.
+@97 Set up Benders model 5.
+Benders obj: 27.000000
+Attack pattern: 
+7 11 28 79 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 27.000000.
+nattacks: 4
+first attack: 7
+@98 masteriteration 6: objective value 40.000000.
+@97 Set up Benders model 6.
+Benders obj: 27.000000
+Attack pattern: 
+19 39 57 64 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 27.000000.
+nattacks: 4
+first attack: 19
+@98 masteriteration 7: objective value 40.000000.
+@97 Set up Benders model 7.
+Benders obj: 27.000000
+Attack pattern: 
+11 28 54 57 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 27.000000.
+nattacks: 4
+first attack: 11
+@98 masteriteration 8: objective value 40.000000.
+@97 Set up Benders model 8.
+Benders obj: 27.000000
+Attack pattern: 
+14 41 54 57 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 8: objective value 27.000000.
+nattacks: 4
+first attack: 14
+@98 masteriteration 9: objective value 40.000000.
+@97 Set up Benders model 9.
+Benders obj: 27.000000
+Attack pattern: 
+18 21 39 64 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 9: objective value 27.000000.
+nattacks: 4
+first attack: 18
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.720000 seconds (stage 2: 69.850000, stage 3: 0.140000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      28      35      38      45
+[scenario]    1:	       2       9      33      54
+[scenario]    2:	      10      21      27      28
+[scenario]    3:	       0      81      89      91
+[scenario]    4:	       7      11      28      79
+[scenario]    5:	      19      39      57      64
+[scenario]    6:	      11      28      54      57
+[scenario]    7:	      14      41      54      57
+[scenario]    8:	      18      21      39      64
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 183454 (183453 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2856 initial, 2856 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390567
+-----------------------------
+Wed Nov  2 13:02:47 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA008 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt ===========
+-----------------------------
+Wed Nov  2 12:02:54 CET 2022
+-----------------------------
+@03 1667386974
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 12889
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 5306
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.01
+Create the model
+Time to create master model:	0.01
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 46.000000.
+@97 Set up Benders model 1.
+Benders obj: 30.000000
+Attack pattern: 
+20 22 29 89 
+@95 KEP objective: 40.000000
+The recourse value 40.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 30.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 2: objective value 41.000000.
+@97 Set up Benders model 2.
+Benders obj: 29.000000
+Attack pattern: 
+10 17 20 39 
+@95 KEP objective: 41.000000
+Benders obj: 29.000000
+Attack pattern: 
+2 28 35 51 
+@95 KEP objective: 41.000000
+Benders obj: 29.000000
+Attack pattern: 
+2 28 45 51 
+@95 KEP objective: 41.000000
+Benders obj: 29.000000
+Attack pattern: 
+17 22 28 84 
+@95 KEP objective: 41.000000
+Benders obj: 29.000000
+Attack pattern: 
+10 17 39 43 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 29.000000.
+nattacks: 4
+first attack: 10
+@98 masteriteration 3: objective value 41.000000.
+@97 Set up Benders model 3.
+Benders obj: 30.000000
+Attack pattern: 
+17 28 39 62 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+19 22 28 39 
+@95 KEP objective: 41.000000
+Benders obj: 30.000000
+Attack pattern: 
+5 19 22 92 
+@95 KEP objective: 40.000000
+The recourse value 40.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 30.000000.
+nattacks: 4
+first attack: 5
+@98 masteriteration 4: objective value 41.000000.
+@97 Set up Benders model 4.
+Benders obj: 30.000000
+Attack pattern: 
+35 36 62 73 
+@95 KEP objective: 41.000000
+Benders obj: 30.000000
+Attack pattern: 
+5 17 20 43 
+@95 KEP objective: 41.000000
+Benders obj: 31.000000
+Attack pattern: 
+73 78 83 92 
+@95 KEP objective: 40.000000
+The recourse value 40.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 31.000000.
+nattacks: 4
+first attack: 73
+@98 masteriteration 5: objective value 41.000000.
+@97 Set up Benders model 5.
+Benders obj: 30.000000
+Attack pattern: 
+10 29 44 62 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+10 19 44 47 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+4 22 29 44 
+@95 KEP objective: 40.000000
+The recourse value 40.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 30.000000.
+nattacks: 4
+first attack: 4
+@98 masteriteration 6: objective value 41.000000.
+@97 Set up Benders model 6.
+Benders obj: 30.000000
+Attack pattern: 
+3 17 34 62 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+2 10 17 29 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+3 5 10 53 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+2 22 35 80 
+@95 KEP objective: 40.000000
+The recourse value 40.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 30.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 7: objective value 41.000000.
+@97 Set up Benders model 7.
+Benders obj: 30.000000
+Attack pattern: 
+17 19 45 69 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+10 29 36 69 
+@95 KEP objective: 42.000000
+Benders obj: 30.000000
+Attack pattern: 
+4 29 62 91 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 30.000000.
+nattacks: 4
+first attack: 4
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3600.700000 seconds (stage 2: 88.190000, stage 3: 5.950000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      20      22      29      89
+[scenario]    1:	      10      17      39      43
+[scenario]    2:	       5      19      22      92
+[scenario]    3:	      73      78      83      92
+[scenario]    4:	       4      22      29      44
+[scenario]    5:	       2      22      35      80
+[scenario]    6:	       4      29      62      91
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 146319 (146318 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2224 initial, 2224 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390575
+-----------------------------
+Wed Nov  2 13:02:55 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA002 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt ===========
+-----------------------------
+Wed Nov  2 12:02:58 CET 2022
+-----------------------------
+@03 1667386978
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 37929
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 321
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.04
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 48.000000.
+@97 Set up Benders model 1.
+Benders obj: 32.000000
+Attack pattern: 
+19 66 70 71 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 32.000000.
+nattacks: 4
+first attack: 19
+@98 masteriteration 2: objective value 46.000000.
+@97 Set up Benders model 2.
+Benders obj: 30.000000
+Attack pattern: 
+7 16 34 52 
+@95 KEP objective: 42.000000
+The recourse value 42.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 30.000000.
+nattacks: 4
+first attack: 7
+@98 masteriteration 3: objective value 46.000000.
+@97 Set up Benders model 3.
+Benders obj: 31.000000
+Attack pattern: 
+15 34 70 87 
+@95 KEP objective: 43.000000
+The recourse value 43.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 31.000000.
+nattacks: 4
+first attack: 15
+@98 masteriteration 4: objective value 45.000000.
+@97 Set up Benders model 4.
+Benders obj: 31.000000
+Attack pattern: 
+13 49 70 94 
+@95 KEP objective: 43.000000
+The recourse value 43.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 31.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 5: objective value 45.000000.
+@97 Set up Benders model 5.
+Benders obj: 32.000000
+Attack pattern: 
+7 8 23 55 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 32.000000.
+nattacks: 4
+first attack: 7
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.150000 seconds (stage 2: 265.780000, stage 3: 0.160000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      19      66      70      71
+[scenario]    1:	       7      16      34      52
+[scenario]    2:	      15      34      70      87
+[scenario]    3:	      13      49      70      94
+[scenario]    4:	       7       8      23      55
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 230096 (230095 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1696 initial, 1696 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390580
+-----------------------------
+Wed Nov  2 13:03:00 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA011 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt ===========
+-----------------------------
+Wed Nov  2 12:03:06 CET 2022
+-----------------------------
+@03 1667386986
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 26165
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 5104
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.04
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 65.000000.
+@97 Set up Benders model 1.
+Benders obj: 49.000000
+Attack pattern: 
+30 46 54 88 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 49.000000.
+nattacks: 4
+first attack: 30
+@98 masteriteration 2: objective value 62.000000.
+@97 Set up Benders model 2.
+Benders obj: 48.000000
+Attack pattern: 
+23 58 62 90 
+@95 KEP objective: 59.000000
+The recourse value 59.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 48.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 3: objective value 62.000000.
+@97 Set up Benders model 3.
+Benders obj: 49.000000
+Attack pattern: 
+25 30 57 88 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 49.000000.
+nattacks: 4
+first attack: 25
+@98 masteriteration 4: objective value 62.000000.
+@97 Set up Benders model 4.
+Benders obj: 49.000000
+Attack pattern: 
+12 76 79 88 
+@95 KEP objective: 60.000000
+The recourse value 60.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 49.000000.
+nattacks: 4
+first attack: 12
+@98 masteriteration 5: objective value 61.000000.
+@97 Set up Benders model 5.
+Benders obj: 49.000000
+Attack pattern: 
+11 22 50 88 
+@95 KEP objective: 60.000000
+The recourse value 60.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 49.000000.
+nattacks: 4
+first attack: 11
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.380000 seconds (stage 2: 64.160000, stage 3: 0.130000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      30      46      54      88
+[scenario]    1:	      23      58      62      90
+[scenario]    2:	      25      30      57      88
+[scenario]    3:	      12      76      79      88
+[scenario]    4:	      11      22      50      88
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 188180 (188179 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1636 initial, 1636 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390588
+-----------------------------
+Wed Nov  2 13:03:08 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA009 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt ===========
+-----------------------------
+Wed Nov  2 12:03:11 CET 2022
+-----------------------------
+@03 1667386991
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 26420
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2972
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 62.000000.
+@97 Set up Benders model 1.
+Benders obj: 46.000000
+Attack pattern: 
+2 18 23 78 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 46.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 2: objective value 58.000000.
+@97 Set up Benders model 2.
+Benders obj: 44.000000
+Attack pattern: 
+23 28 54 70 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 44.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 3: objective value 58.000000.
+@97 Set up Benders model 3.
+Benders obj: 45.000000
+Attack pattern: 
+23 33 54 70 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 45.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 4: objective value 58.000000.
+@97 Set up Benders model 4.
+Benders obj: 44.000000
+Attack pattern: 
+7 47 51 70 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 44.000000.
+nattacks: 4
+first attack: 7
+@98 masteriteration 5: objective value 58.000000.
+@97 Set up Benders model 5.
+Benders obj: 45.000000
+Attack pattern: 
+23 27 54 67 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 45.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 6: objective value 58.000000.
+@97 Set up Benders model 6.
+Benders obj: 45.000000
+Attack pattern: 
+23 54 70 75 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 45.000000.
+nattacks: 4
+first attack: 23
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.590000 seconds (stage 2: 119.330000, stage 3: 0.140000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2      18      23      78
+[scenario]    1:	      23      28      54      70
+[scenario]    2:	      23      33      54      70
+[scenario]    3:	       7      47      51      70
+[scenario]    4:	      23      27      54      67
+[scenario]    5:	      23      54      70      75
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 206421 (206420 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1959 initial, 1959 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390593
+-----------------------------
+Wed Nov  2 13:03:13 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt ===========
+-----------------------------
+Wed Nov  2 12:03:17 CET 2022
+-----------------------------
+@03 1667386997
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 17405
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2681
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.01
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 39.000000.
+@97 Set up Benders model 1.
+Benders obj: 23.000000
+Attack pattern: 
+14 59 82 93 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 23.000000.
+nattacks: 4
+first attack: 14
+@98 masteriteration 2: objective value 37.000000.
+@97 Set up Benders model 2.
+Benders obj: 22.000000
+Attack pattern: 
+8 20 25 74 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 22.000000.
+nattacks: 4
+first attack: 8
+@98 masteriteration 3: objective value 37.000000.
+@97 Set up Benders model 3.
+Benders obj: 23.000000
+Attack pattern: 
+20 68 74 92 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 23.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 4: objective value 36.000000.
+@97 Set up Benders model 4.
+Benders obj: 22.000000
+Attack pattern: 
+3 23 77 91 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 22.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 5: objective value 35.000000.
+@97 Set up Benders model 5.
+Benders obj: 22.000000
+Attack pattern: 
+25 35 36 54 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 22.000000.
+nattacks: 4
+first attack: 25
+@98 masteriteration 6: objective value 35.000000.
+@97 Set up Benders model 6.
+Benders obj: 22.000000
+Attack pattern: 
+23 36 68 80 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 22.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 7: objective value 35.000000.
+@97 Set up Benders model 7.
+Benders obj: 23.000000
+Attack pattern: 
+61 68 75 80 
+@95 KEP objective: 35.000000
+Benders obj: 23.000000
+Attack pattern: 
+21 26 54 80 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 23.000000.
+nattacks: 4
+first attack: 21
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3606.590000 seconds (stage 2: 86.260000, stage 3: 0.760000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      14      59      82      93
+[scenario]    1:	       8      20      25      74
+[scenario]    2:	      20      68      74      92
+[scenario]    3:	       3      23      77      91
+[scenario]    4:	      25      35      36      54
+[scenario]    5:	      23      36      68      80
+[scenario]    6:	      21      26      54      80
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 161468 (161467 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2266 initial, 2266 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390604
+-----------------------------
+Wed Nov  2 13:03:24 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt ===========
+-----------------------------
+Wed Nov  2 12:03:23 CET 2022
+-----------------------------
+@03 1667387003
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 6558
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 346
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.01
+Create the model
+Time to create master model:	0
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 41.000000.
+@97 Set up Benders model 1.
+Benders obj: 25.000000
+Attack pattern: 
+2 57 61 94 
+@95 KEP objective: 36.000000
+The recourse value 36.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 25.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 2: objective value 38.000000.
+@97 Set up Benders model 2.
+Benders obj: 22.000000
+Attack pattern: 
+38 42 82 97 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 22.000000.
+nattacks: 4
+first attack: 38
+@98 masteriteration 3: objective value 37.000000.
+@97 Set up Benders model 3.
+Benders obj: 24.000000
+Attack pattern: 
+3 50 64 83 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 24.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 4: objective value 36.000000.
+@97 Set up Benders model 4.
+Benders obj: 25.000000
+Attack pattern: 
+25 38 50 61 
+@95 KEP objective: 35.000000
+The recourse value 35.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 25.000000.
+nattacks: 4
+first attack: 25
+@98 masteriteration 5: objective value 36.000000.
+@97 Set up Benders model 5.
+Benders obj: 24.000000
+Attack pattern: 
+13 21 31 97 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 24.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 6: objective value 35.000000.
+@97 Set up Benders model 6.
+Benders obj: 25.000000
+Attack pattern: 
+54 57 61 97 
+@95 KEP objective: 35.000000
+Benders obj: 25.000000
+Attack pattern: 
+3 36 85 97 
+@95 KEP objective: 36.000000
+Benders obj: 25.000000
+Attack pattern: 
+10 21 36 97 
+@95 KEP objective: 31.000000
+The recourse value 31.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 25.000000.
+nattacks: 4
+first attack: 10
+@98 masteriteration 7: objective value 35.000000.
+@97 Set up Benders model 7.
+Benders obj: 24.000000
+Attack pattern: 
+21 25 38 57 
+@95 KEP objective: 35.000000
+Benders obj: 24.000000
+Attack pattern: 
+2 40 61 67 
+@95 KEP objective: 34.000000
+The recourse value 34.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 24.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 8: objective value 35.000000.
+@97 Set up Benders model 8.
+Benders obj: 24.000000
+Attack pattern: 
+20 54 84 94 
+@95 KEP objective: 35.000000
+Benders obj: 24.000000
+Attack pattern: 
+21 31 36 67 
+@95 KEP objective: 32.000000
+The recourse value 32.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 8: objective value 24.000000.
+nattacks: 4
+first attack: 21
+@98 masteriteration 9: objective value 34.000000.
+@97 Set up Benders model 9.
+Benders obj: 23.000000
+Attack pattern: 
+20 21 38 97 
+@95 KEP objective: 34.000000
+Benders obj: 23.000000
+Attack pattern: 
+3 87 94 96 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 9: objective value 23.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 10: objective value 34.000000.
+@97 Set up Benders model 10.
+Benders obj: 24.000000
+Attack pattern: 
+50 63 83 93 
+@95 KEP objective: 35.000000
+Benders obj: 24.000000
+Attack pattern: 
+67 84 87 94 
+@95 KEP objective: 34.000000
+Benders obj: 24.000000
+Attack pattern: 
+2 63 87 93 
+@95 KEP objective: 35.000000
+Benders obj: 24.000000
+Attack pattern: 
+2 50 83 84 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 10: objective value 24.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 11: objective value 34.000000.
+@97 Set up Benders model 11.
+Benders obj: 24.000000
+Attack pattern: 
+19 50 57 63 
+@95 KEP objective: 36.000000
+Benders obj: 24.000000
+Attack pattern: 
+57 61 82 86 
+@95 KEP objective: 36.000000
+Benders obj: 24.000000
+Attack pattern: 
+20 57 63 64 
+@95 KEP objective: 36.000000
+Benders obj: 24.000000
+Attack pattern: 
+50 57 67 94 
+@95 KEP objective: 34.000000
+Benders obj: 24.000000
+Attack pattern: 
+3 11 82 83 
+@95 KEP objective: 35.000000
+Benders obj: 24.000000
+Attack pattern: 
+8 64 67 82 
+@95 KEP objective: 33.000000
+The recourse value 33.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 11: objective value 24.000000.
+nattacks: 4
+first attack: 8
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3600.420000 seconds (stage 2: 28.500000, stage 3: 1.830000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2      57      61      94
+[scenario]    1:	      38      42      82      97
+[scenario]    2:	       3      50      64      83
+[scenario]    3:	      25      38      50      61
+[scenario]    4:	      13      21      31      97
+[scenario]    5:	      10      21      36      97
+[scenario]    6:	       2      40      61      67
+[scenario]    7:	      21      31      36      67
+[scenario]    8:	       3      87      94      96
+[scenario]    9:	       2      50      83      84
+[scenario]   10:	       8      64      67      82
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 84027 (84026 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 3468 initial, 3468 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390603
+-----------------------------
+Wed Nov  2 13:03:23 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt ===========
+-----------------------------
+Thu Nov 24 15:06:50 CET 2022
+-----------------------------
+@03 1669298810
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 156324
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 4320
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.16
+Create the model
+Time to create master model:	0.24
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 68.000000.
+@97 Set up Benders model 1.
+Benders obj: 52.000000
+Attack pattern: 
+20 42 45 48 
+@95 KEP objective: 63.000000
+The recourse value 63.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 52.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 2: objective value 64.000000.
+@97 Set up Benders model 2.
+Benders obj: 48.000000
+Attack pattern: 
+27 44 50 67 
+@95 KEP objective: 60.000000
+The recourse value 60.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 48.000000.
+nattacks: 4
+first attack: 27
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3604.050000 seconds (stage 2: 461.120000, stage 3: 0.390000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      20      42      45      48
+[scenario]    1:	      27      44      50      67
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 482227 (482226 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 791 initial, 791 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669302417
+-----------------------------
+Thu Nov 24 16:06:57 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA004 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt ===========
+-----------------------------
+Thu Nov 24 15:07:14 CET 2022
+-----------------------------
+@03 1669298834
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 68251
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 5116
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.07
+Create the model
+Time to create master model:	0.12
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 57.000000.
+@97 Set up Benders model 1.
+Benders obj: 41.000000
+Attack pattern: 
+26 44 52 59 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 41.000000.
+nattacks: 4
+first attack: 26
+@98 masteriteration 2: objective value 54.000000.
+@97 Set up Benders model 2.
+Benders obj: 39.000000
+Attack pattern: 
+22 47 60 70 
+@95 KEP objective: 51.000000
+The recourse value 51.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 39.000000.
+nattacks: 4
+first attack: 22
+@98 masteriteration 3: objective value 54.000000.
+@97 Set up Benders model 3.
+Benders obj: 41.000000
+Attack pattern: 
+1 25 31 70 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 41.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 4: objective value 54.000000.
+@97 Set up Benders model 4.
+Benders obj: 41.000000
+Attack pattern: 
+5 43 52 70 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 41.000000.
+nattacks: 4
+first attack: 5
+@98 masteriteration 5: objective value 54.000000.
+@97 Set up Benders model 5.
+Benders obj: 41.000000
+Attack pattern: 
+25 52 59 79 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 41.000000.
+nattacks: 4
+first attack: 25
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3614.800000 seconds (stage 2: 832.910000, stage 3: 0.390000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      26      44      52      59
+[scenario]    1:	      22      47      60      70
+[scenario]    2:	       1      25      31      70
+[scenario]    3:	       5      43      52      70
+[scenario]    4:	      25      52      59      79
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 440773 (440772 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1646 initial, 1646 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669302455
+-----------------------------
+Thu Nov 24 16:07:35 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA011 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt ===========
+-----------------------------
+Thu Nov 24 15:07:25 CET 2022
+-----------------------------
+@03 1669298845
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 129024
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 10246
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.13
+Create the model
+Time to create master model:	0.27
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 61.000000.
+@97 Set up Benders model 1.
+Benders obj: 45.000000
+Attack pattern: 
+0 10 64 83 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 45.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 2: objective value 60.000000.
+@97 Set up Benders model 2.
+Benders obj: 45.000000
+Attack pattern: 
+0 25 29 31 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 45.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 3: objective value 60.000000.
+@97 Set up Benders model 3.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3607.880000 seconds (stage 2: 1675.790000, stage 3: 0.530000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0      10      64      83
+[scenario]    1:	       0      25      29      31
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 418093 (418092 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 767 initial, 767 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669302456
+-----------------------------
+Thu Nov 24 16:07:36 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt ===========
+-----------------------------
+Wed Nov  2 12:04:04 CET 2022
+-----------------------------
+@03 1667387044
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 66143
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 5854
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.06
+Create the model
+Time to create master model:	0.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 63.000000.
+@97 Set up Benders model 1.
+Benders obj: 47.000000
+Attack pattern: 
+2 11 69 83 
+@95 KEP objective: 59.000000
+The recourse value 59.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 47.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 2: objective value 61.000000.
+@97 Set up Benders model 2.
+Benders obj: 45.000000
+Attack pattern: 
+26 52 71 86 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 45.000000.
+nattacks: 4
+first attack: 26
+@98 masteriteration 3: objective value 59.000000.
+@97 Set up Benders model 3.
+Benders obj: 46.000000
+Attack pattern: 
+8 52 69 78 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 46.000000.
+nattacks: 4
+first attack: 8
+@98 masteriteration 4: objective value 58.000000.
+@97 Set up Benders model 4.
+Benders obj: 46.000000
+Attack pattern: 
+0 5 10 56 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 5 45 78 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 28 45 88 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+45 56 75 78 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 15 39 45 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+45 56 66 84 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+15 40 45 88 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 45 75 84 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 15 44 45 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+27 33 45 52 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 5 7 45 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 1 56 66 
+@95 KEP objective: 58.000000
+Benders obj: 46.000000
+Attack pattern: 
+0 7 79 84 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 46.000000.
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.190000 seconds (stage 2: 2084.900000, stage 3: 28.210000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2      11      69      83
+[scenario]    1:	      26      52      71      86
+[scenario]    2:	       8      52      69      78
+[scenario]    3:	       0       7      79      84
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 360466 (360465 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1365 initial, 1365 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390647
+-----------------------------
+Wed Nov  2 13:04:07 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA011 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt ===========
+-----------------------------
+Wed Nov  2 12:04:08 CET 2022
+-----------------------------
+@03 1667387048
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 52645
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 1642
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.04
+Create the model
+Time to create master model:	0.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 61.000000.
+@97 Set up Benders model 1.
+Benders obj: 45.000000
+Attack pattern: 
+23 39 51 73 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 45.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 2: objective value 58.000000.
+@97 Set up Benders model 2.
+Benders obj: 43.000000
+Attack pattern: 
+1 50 66 78 
+@95 KEP objective: 55.000000
+The recourse value 55.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 43.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 3: objective value 58.000000.
+@97 Set up Benders model 3.
+Benders obj: 45.000000
+Attack pattern: 
+13 19 20 33 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 45.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 4: objective value 58.000000.
+@97 Set up Benders model 4.
+Benders obj: 45.000000
+Attack pattern: 
+20 40 65 82 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 45.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 5: objective value 57.000000.
+@97 Set up Benders model 5.
+Benders obj: 44.000000
+Attack pattern: 
+6 33 41 43 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 44.000000.
+nattacks: 4
+first attack: 6
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.870000 seconds (stage 2: 523.760000, stage 3: 0.240000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      23      39      51      73
+[scenario]    1:	       1      50      66      78
+[scenario]    2:	      13      19      20      33
+[scenario]    3:	      20      40      65      82
+[scenario]    4:	       6      33      41      43
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 326318 (326317 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1696 initial, 1696 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390651
+-----------------------------
+Wed Nov  2 13:04:11 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt ===========
+-----------------------------
+Wed Nov  2 12:04:08 CET 2022
+-----------------------------
+@03 1667387048
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 34167
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 3410
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 66.000000.
+@97 Set up Benders model 1.
+Benders obj: 50.000000
+Attack pattern: 
+33 39 47 76 
+@95 KEP objective: 62.000000
+The recourse value 62.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 50.000000.
+nattacks: 4
+first attack: 33
+@98 masteriteration 2: objective value 63.000000.
+@97 Set up Benders model 2.
+Benders obj: 48.000000
+Attack pattern: 
+13 18 19 32 
+@95 KEP objective: 60.000000
+The recourse value 60.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 48.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 3: objective value 63.000000.
+@97 Set up Benders model 3.
+Benders obj: 49.000000
+Attack pattern: 
+13 19 27 33 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 49.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 4: objective value 62.000000.
+@97 Set up Benders model 4.
+Benders obj: 49.000000
+Attack pattern: 
+14 65 76 81 
+@95 KEP objective: 59.000000
+The recourse value 59.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 49.000000.
+nattacks: 4
+first attack: 14
+@98 masteriteration 5: objective value 62.000000.
+@97 Set up Benders model 5.
+Benders obj: 49.000000
+Attack pattern: 
+14 16 39 70 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 49.000000.
+nattacks: 4
+first attack: 14
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.960000 seconds (stage 2: 203.410000, stage 3: 0.180000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      33      39      47      76
+[scenario]    1:	      13      18      19      32
+[scenario]    2:	      13      19      27      33
+[scenario]    3:	      14      65      76      81
+[scenario]    4:	      14      16      39      70
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 226038 (226037 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1656 initial, 1656 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390651
+-----------------------------
+Wed Nov  2 13:04:11 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt ===========
+-----------------------------
+Wed Nov  2 12:04:42 CET 2022
+-----------------------------
+@03 1667387082
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 76579
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 1681
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.06
+Create the model
+Time to create master model:	0.11
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 58.000000.
+@97 Set up Benders model 1.
+Benders obj: 42.000000
+Attack pattern: 
+16 22 23 52 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 42.000000.
+nattacks: 4
+first attack: 16
+@98 masteriteration 2: objective value 56.000000.
+@97 Set up Benders model 2.
+Benders obj: 42.000000
+Attack pattern: 
+14 22 26 45 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 42.000000.
+nattacks: 4
+first attack: 14
+@98 masteriteration 3: objective value 56.000000.
+@97 Set up Benders model 3.
+Benders obj: 41.000000
+Attack pattern: 
+0 14 31 46 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 41.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 4: objective value 55.000000.
+@97 Set up Benders model 4.
+Benders obj: 41.000000
+Attack pattern: 
+0 4 11 55 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 41.000000.
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3603.540000 seconds (stage 2: 905.470000, stage 3: 0.290000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      16      22      23      52
+[scenario]    1:	      14      22      26      45
+[scenario]    2:	       0      14      31      46
+[scenario]    3:	       0       4      11      55
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 391797 (391796 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1397 initial, 1397 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390687
+-----------------------------
+Wed Nov  2 13:04:47 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA008 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt ===========
+-----------------------------
+Wed Nov  2 12:04:56 CET 2022
+-----------------------------
+@03 1667387096
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 18129
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 4331
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.01
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 49.000000.
+@97 Set up Benders model 1.
+Benders obj: 33.000000
+Attack pattern: 
+2 29 56 79 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 33.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 2: objective value 48.000000.
+@97 Set up Benders model 2.
+Benders obj: 32.000000
+Attack pattern: 
+0 34 39 83 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 32.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 3: objective value 47.000000.
+@97 Set up Benders model 3.
+Benders obj: 33.000000
+Attack pattern: 
+22 24 50 83 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 33.000000.
+nattacks: 4
+first attack: 22
+@98 masteriteration 4: objective value 47.000000.
+@97 Set up Benders model 4.
+Benders obj: 32.000000
+Attack pattern: 
+15 38 41 46 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 32.000000.
+nattacks: 4
+first attack: 15
+@98 masteriteration 5: objective value 47.000000.
+@97 Set up Benders model 5.
+Benders obj: 33.000000
+Attack pattern: 
+26 38 42 48 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 33.000000.
+nattacks: 4
+first attack: 26
+@98 masteriteration 6: objective value 47.000000.
+@97 Set up Benders model 6.
+Benders obj: 33.000000
+Attack pattern: 
+20 56 70 93 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 33.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 7: objective value 47.000000.
+@97 Set up Benders model 7.
+Benders obj: 33.000000
+Attack pattern: 
+38 72 83 93 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 33.000000.
+nattacks: 4
+first attack: 38
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.280000 seconds (stage 2: 48.930000, stage 3: 0.130000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2      29      56      79
+[scenario]    1:	       0      34      39      83
+[scenario]    2:	      22      24      50      83
+[scenario]    3:	      15      38      41      46
+[scenario]    4:	      26      38      42      48
+[scenario]    5:	      20      56      70      93
+[scenario]    6:	      38      72      83      93
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 180446 (180445 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2238 initial, 2238 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390698
+-----------------------------
+Wed Nov  2 13:04:58 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA003 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt ===========
+-----------------------------
+Wed Nov  2 12:05:10 CET 2022
+-----------------------------
+@03 1667387110
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 21628
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 3917
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.02
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 59.000000.
+@97 Set up Benders model 1.
+Benders obj: 43.000000
+Attack pattern: 
+1 3 55 91 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 43.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 2: objective value 55.000000.
+@97 Set up Benders model 2.
+Benders obj: 40.000000
+Attack pattern: 
+20 37 73 77 
+@95 KEP objective: 52.000000
+The recourse value 52.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 40.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 3: objective value 55.000000.
+@97 Set up Benders model 3.
+Benders obj: 43.000000
+Attack pattern: 
+6 46 82 85 
+@95 KEP objective: 55.000000
+Benders obj: 43.000000
+Attack pattern: 
+1 37 41 85 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 43.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 4: objective value 55.000000.
+@97 Set up Benders model 4.
+Benders obj: 43.000000
+Attack pattern: 
+31 34 46 73 
+@95 KEP objective: 55.000000
+Benders obj: 43.000000
+Attack pattern: 
+6 34 43 66 
+@95 KEP objective: 55.000000
+Benders obj: 43.000000
+Attack pattern: 
+11 16 29 43 
+@95 KEP objective: 51.000000
+The recourse value 51.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 43.000000.
+nattacks: 4
+first attack: 11
+@98 masteriteration 5: objective value 55.000000.
+@97 Set up Benders model 5.
+Benders obj: 43.000000
+Attack pattern: 
+5 37 55 77 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 43.000000.
+nattacks: 4
+first attack: 5
+@98 masteriteration 6: objective value 55.000000.
+@97 Set up Benders model 6.
+Benders obj: 43.000000
+Attack pattern: 
+5 10 34 55 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 43.000000.
+nattacks: 4
+first attack: 5
+@98 masteriteration 7: objective value 55.000000.
+@97 Set up Benders model 7.
+Benders obj: 43.000000
+Attack pattern: 
+5 34 39 44 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 43.000000.
+nattacks: 4
+first attack: 5
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3600.930000 seconds (stage 2: 78.810000, stage 3: 1.870000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       1       3      55      91
+[scenario]    1:	      20      37      73      77
+[scenario]    2:	       1      37      41      85
+[scenario]    3:	      11      16      29      43
+[scenario]    4:	       5      37      55      77
+[scenario]    5:	       5      10      34      55
+[scenario]    6:	       5      34      39      44
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 205126 (205125 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2238 initial, 2238 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390711
+-----------------------------
+Wed Nov  2 13:05:11 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA003 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt ===========
+-----------------------------
+Wed Nov  2 12:05:22 CET 2022
+-----------------------------
+@03 1667387122
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 37344
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2234
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 50.000000.
+@97 Set up Benders model 1.
+Benders obj: 34.000000
+Attack pattern: 
+4 12 15 85 
+@95 KEP objective: 46.000000
+The recourse value 46.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 34.000000.
+nattacks: 4
+first attack: 4
+@98 masteriteration 2: objective value 49.000000.
+@97 Set up Benders model 2.
+Benders obj: 33.000000
+Attack pattern: 
+18 23 40 46 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 33.000000.
+nattacks: 4
+first attack: 18
+@98 masteriteration 3: objective value 49.000000.
+@97 Set up Benders model 3.
+Benders obj: 34.000000
+Attack pattern: 
+25 49 51 76 
+@95 KEP objective: 46.000000
+The recourse value 46.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 34.000000.
+nattacks: 4
+first attack: 25
+@98 masteriteration 4: objective value 48.000000.
+@97 Set up Benders model 4.
+Benders obj: 34.000000
+Attack pattern: 
+15 25 74 95 
+@95 KEP objective: 46.000000
+The recourse value 46.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 34.000000.
+nattacks: 4
+first attack: 15
+@98 masteriteration 5: objective value 48.000000.
+@97 Set up Benders model 5.
+Benders obj: 34.000000
+Attack pattern: 
+18 30 47 95 
+@95 KEP objective: 46.000000
+The recourse value 46.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 34.000000.
+nattacks: 4
+first attack: 18
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.800000 seconds (stage 2: 260.500000, stage 3: 0.140000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       4      12      15      85
+[scenario]    1:	      18      23      40      46
+[scenario]    2:	      25      49      51      76
+[scenario]    3:	      15      25      74      95
+[scenario]    4:	      18      30      47      95
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 238054 (238053 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1676 initial, 1676 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390725
+-----------------------------
+Wed Nov  2 13:05:25 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA008 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt ===========
+-----------------------------
+Wed Nov  2 12:05:47 CET 2022
+-----------------------------
+@03 1667387147
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 21030
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 465
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.02
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 43.000000.
+@97 Set up Benders model 1.
+Benders obj: 27.000000
+Attack pattern: 
+25 68 76 77 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 27.000000.
+nattacks: 4
+first attack: 25
+@98 masteriteration 2: objective value 40.000000.
+@97 Set up Benders model 2.
+Benders obj: 25.000000
+Attack pattern: 
+3 11 37 81 
+@95 KEP objective: 37.000000
+The recourse value 37.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 25.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 3: objective value 40.000000.
+@97 Set up Benders model 3.
+Benders obj: 27.000000
+Attack pattern: 
+7 37 46 94 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 27.000000.
+nattacks: 4
+first attack: 7
+@98 masteriteration 4: objective value 40.000000.
+@97 Set up Benders model 4.
+Benders obj: 27.000000
+Attack pattern: 
+2 28 71 81 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 27.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 5: objective value 40.000000.
+@97 Set up Benders model 5.
+Benders obj: 27.000000
+Attack pattern: 
+3 27 42 85 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 27.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 6: objective value 40.000000.
+@97 Set up Benders model 6.
+Benders obj: 27.000000
+Attack pattern: 
+11 71 81 83 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 27.000000.
+nattacks: 4
+first attack: 11
+@98 masteriteration 7: objective value 40.000000.
+@97 Set up Benders model 7.
+Benders obj: 27.000000
+Attack pattern: 
+1 43 46 71 
+@95 KEP objective: 39.000000
+The recourse value 39.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 27.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 8: objective value 40.000000.
+@97 Set up Benders model 8.
+Benders obj: 27.000000
+Attack pattern: 
+44 46 62 94 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 8: objective value 27.000000.
+nattacks: 4
+first attack: 44
+@98 masteriteration 9: objective value 39.000000.
+@97 Set up Benders model 9.
+Benders obj: 27.000000
+Attack pattern: 
+54 68 71 94 
+@95 KEP objective: 39.000000
+Benders obj: 27.000000
+Attack pattern: 
+1 2 12 63 
+@95 KEP objective: 38.000000
+The recourse value 38.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 9: objective value 27.000000.
+nattacks: 4
+first attack: 1
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.630000 seconds (stage 2: 133.040000, stage 3: 0.700000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      25      68      76      77
+[scenario]    1:	       3      11      37      81
+[scenario]    2:	       7      37      46      94
+[scenario]    3:	       2      28      71      81
+[scenario]    4:	       3      27      42      85
+[scenario]    5:	      11      71      81      83
+[scenario]    6:	       1      43      46      71
+[scenario]    7:	      44      46      62      94
+[scenario]    8:	       1       2      12      63
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 215933 (215932 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2874 initial, 2874 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390749
+-----------------------------
+Wed Nov  2 13:05:49 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt ===========
+-----------------------------
+Wed Nov  2 12:06:07 CET 2022
+-----------------------------
+@03 1667387167
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 20661
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 4930
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.02
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 61.000000.
+@97 Set up Benders model 1.
+Benders obj: 45.000000
+Attack pattern: 
+13 20 56 61 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 45.000000.
+nattacks: 4
+first attack: 13
+@98 masteriteration 2: objective value 57.000000.
+@97 Set up Benders model 2.
+Benders obj: 44.000000
+Attack pattern: 
+6 42 71 80 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 44.000000.
+nattacks: 4
+first attack: 6
+@98 masteriteration 3: objective value 57.000000.
+@97 Set up Benders model 3.
+Benders obj: 44.000000
+Attack pattern: 
+0 25 85 87 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 44.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 4: objective value 57.000000.
+@97 Set up Benders model 4.
+Benders obj: 44.000000
+Attack pattern: 
+10 21 44 53 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 44.000000.
+nattacks: 4
+first attack: 10
+@98 masteriteration 5: objective value 57.000000.
+@97 Set up Benders model 5.
+Benders obj: 45.000000
+Attack pattern: 
+25 38 56 72 
+@95 KEP objective: 57.000000
+Benders obj: 45.000000
+Attack pattern: 
+1 2 20 25 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 45.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 6: objective value 57.000000.
+@97 Set up Benders model 6.
+Benders obj: 45.000000
+Attack pattern: 
+25 42 43 82 
+@95 KEP objective: 57.000000
+Benders obj: 45.000000
+Attack pattern: 
+3 6 15 74 
+@95 KEP objective: 57.000000
+Benders obj: 45.000000
+Attack pattern: 
+3 6 30 65 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 45.000000.
+nattacks: 4
+first attack: 3
+@98 masteriteration 7: objective value 56.000000.
+@97 Set up Benders model 7.
+Benders obj: 44.000000
+Attack pattern: 
+25 30 38 71 
+@95 KEP objective: 56.000000
+Benders obj: 44.000000
+Attack pattern: 
+0 5 45 87 
+@95 KEP objective: 56.000000
+Benders obj: 44.000000
+Attack pattern: 
+74 75 79 85 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 44.000000.
+nattacks: 4
+first attack: 74
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.610000 seconds (stage 2: 94.440000, stage 3: 3.430000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      13      20      56      61
+[scenario]    1:	       6      42      71      80
+[scenario]    2:	       0      25      85      87
+[scenario]    3:	      10      21      44      53
+[scenario]    4:	       1       2      20      25
+[scenario]    5:	       3       6      30      65
+[scenario]    6:	      74      75      79      85
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 205487 (205486 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2224 initial, 2224 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390770
+-----------------------------
+Wed Nov  2 13:06:10 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA008 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt ===========
+-----------------------------
+Wed Nov  2 12:06:10 CET 2022
+-----------------------------
+@03 1667387170
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 77016
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2420
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.06
+Create the model
+Time to create master model:	0.09
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 52.000000.
+@97 Set up Benders model 1.
+Benders obj: 36.000000
+Attack pattern: 
+20 40 45 61 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 36.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 2: objective value 50.000000.
+@97 Set up Benders model 2.
+Benders obj: 35.000000
+Attack pattern: 
+9 10 43 51 
+@95 KEP objective: 47.000000
+The recourse value 47.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 35.000000.
+nattacks: 4
+first attack: 9
+@98 masteriteration 3: objective value 50.000000.
+@97 Set up Benders model 3.
+Benders obj: 36.000000
+Attack pattern: 
+46 61 62 79 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 36.000000.
+nattacks: 4
+first attack: 46
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.980000 seconds (stage 2: 764.680000, stage 3: 0.200000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      20      40      45      61
+[scenario]    1:	       9      10      43      51
+[scenario]    2:	      46      61      62      79
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 318136 (318135 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1086 initial, 1086 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390774
+-----------------------------
+Wed Nov  2 13:06:14 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA002 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt ===========
+-----------------------------
+Wed Nov  2 12:06:14 CET 2022
+-----------------------------
+@03 1667387174
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 44954
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2785
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.05
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 54.000000.
+@97 Set up Benders model 1.
+Benders obj: 38.000000
+Attack pattern: 
+17 31 33 63 
+@95 KEP objective: 50.000000
+The recourse value 50.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 38.000000.
+nattacks: 4
+first attack: 17
+@98 masteriteration 2: objective value 50.000000.
+@97 Set up Benders model 2.
+Benders obj: 37.000000
+Attack pattern: 
+17 31 43 88 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 37.000000.
+nattacks: 4
+first attack: 17
+@98 masteriteration 3: objective value 50.000000.
+@97 Set up Benders model 3.
+Benders obj: 38.000000
+Attack pattern: 
+17 21 33 76 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+10 20 59 61 
+@95 KEP objective: 49.000000
+The recourse value 49.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 38.000000.
+nattacks: 4
+first attack: 10
+@98 masteriteration 4: objective value 50.000000.
+@97 Set up Benders model 4.
+Benders obj: 37.000000
+Attack pattern: 
+17 55 59 78 
+@95 KEP objective: 49.000000
+The recourse value 49.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 37.000000.
+nattacks: 4
+first attack: 17
+@98 masteriteration 5: objective value 50.000000.
+@97 Set up Benders model 5.
+Benders obj: 37.000000
+Attack pattern: 
+17 33 48 59 
+@95 KEP objective: 49.000000
+The recourse value 49.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 37.000000.
+nattacks: 4
+first attack: 17
+@98 masteriteration 6: objective value 50.000000.
+@97 Set up Benders model 6.
+Benders obj: 37.000000
+Attack pattern: 
+28 36 63 76 
+@95 KEP objective: 47.000000
+The recourse value 47.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 37.000000.
+nattacks: 4
+first attack: 28
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.670000 seconds (stage 2: 626.350000, stage 3: 1.590000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      17      31      33      63
+[scenario]    1:	      17      31      43      88
+[scenario]    2:	      10      20      59      61
+[scenario]    3:	      17      55      59      78
+[scenario]    4:	      17      33      48      59
+[scenario]    5:	      28      36      63      76
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 334856 (334855 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1971 initial, 1971 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390777
+-----------------------------
+Wed Nov  2 13:06:17 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt ===========
+-----------------------------
+Wed Nov  2 12:06:21 CET 2022
+-----------------------------
+@03 1667387181
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 33610
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2322
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 55.000000.
+@97 Set up Benders model 1.
+Benders obj: 39.000000
+Attack pattern: 
+24 35 58 79 
+@95 KEP objective: 51.000000
+The recourse value 51.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 39.000000.
+nattacks: 4
+first attack: 24
+@98 masteriteration 2: objective value 51.000000.
+@97 Set up Benders model 2.
+Benders obj: 37.000000
+Attack pattern: 
+11 19 39 44 
+@95 KEP objective: 49.000000
+The recourse value 49.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 37.000000.
+nattacks: 4
+first attack: 11
+@98 masteriteration 3: objective value 51.000000.
+@97 Set up Benders model 3.
+Benders obj: 38.000000
+Attack pattern: 
+24 35 57 60 
+@95 KEP objective: 50.000000
+The recourse value 50.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 38.000000.
+nattacks: 4
+first attack: 24
+@98 masteriteration 4: objective value 51.000000.
+@97 Set up Benders model 4.
+Benders obj: 39.000000
+Attack pattern: 
+9 12 19 39 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+12 26 50 83 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+12 19 25 26 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+12 31 38 39 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+0 1 9 76 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 39.000000.
+nattacks: 4
+first attack: 0
+@98 masteriteration 5: objective value 48.000000.
+@97 Set up Benders model 5.
+Benders obj: 38.000000
+Attack pattern: 
+24 26 29 70 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+19 26 29 50 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+50 79 80 81 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+11 19 24 81 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+5 11 50 79 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+50 62 79 80 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+9 11 26 29 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+9 11 25 42 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+11 19 25 79 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+19 38 50 81 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+29 38 44 80 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+11 50 62 83 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+11 29 50 70 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+0 24 44 77 
+@95 KEP objective: 48.000000
+Benders obj: 38.000000
+Attack pattern: 
+50 75 80 83 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+75 80 81 93 
+@95 KEP objective: 47.000000
+The recourse value 47.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 38.000000.
+nattacks: 4
+first attack: 75
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3600.840000 seconds (stage 2: 875.940000, stage 3: 17.520000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      24      35      58      79
+[scenario]    1:	      11      19      39      44
+[scenario]    2:	      24      35      57      60
+[scenario]    3:	       0       1       9      76
+[scenario]    4:	      75      80      81      93
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 216163 (216162 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1646 initial, 1646 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390782
+-----------------------------
+Wed Nov  2 13:06:22 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA001 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt ===========
+-----------------------------
+Wed Nov  2 12:06:30 CET 2022
+-----------------------------
+@03 1667387190
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 40002
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 3573
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.04
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 55.000000.
+@97 Set up Benders model 1.
+Benders obj: 39.000000
+Attack pattern: 
+15 59 70 71 
+@95 KEP objective: 50.000000
+The recourse value 50.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 39.000000.
+nattacks: 4
+first attack: 15
+@98 masteriteration 2: objective value 51.000000.
+@97 Set up Benders model 2.
+Benders obj: 37.000000
+Attack pattern: 
+8 13 18 54 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 37.000000.
+nattacks: 4
+first attack: 8
+@98 masteriteration 3: objective value 51.000000.
+@97 Set up Benders model 3.
+Benders obj: 38.000000
+Attack pattern: 
+22 54 62 71 
+@95 KEP objective: 50.000000
+The recourse value 50.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 38.000000.
+nattacks: 4
+first attack: 22
+@98 masteriteration 4: objective value 51.000000.
+@97 Set up Benders model 4.
+Benders obj: 39.000000
+Attack pattern: 
+12 13 28 59 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 39.000000.
+nattacks: 4
+first attack: 12
+@98 masteriteration 5: objective value 50.000000.
+@97 Set up Benders model 5.
+Benders obj: 39.000000
+Attack pattern: 
+15 38 54 70 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+15 59 70 71 
+@95 KEP objective: 50.000000
+Benders obj: 39.000000
+Attack pattern: 
+5 55 71 79 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+15 55 60 70 
+@95 KEP objective: 51.000000
+Benders obj: 39.000000
+Attack pattern: 
+12 38 66 69 
+@95 KEP objective: 49.000000
+The recourse value 49.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 39.000000.
+nattacks: 4
+first attack: 12
+@98 masteriteration 6: objective value 49.000000.
+@97 Set up Benders model 6.
+Benders obj: 38.000000
+Attack pattern: 
+44 54 71 88 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+54 64 71 81 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+68 71 79 81 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+22 68 88 92 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+44 54 81 92 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+26 70 81 87 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+28 44 88 92 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+38 54 70 71 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+38 53 70 93 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+28 44 53 54 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+44 64 70 92 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+70 71 81 88 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+44 54 59 70 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+38 60 88 93 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+28 38 70 88 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+22 28 60 66 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+26 69 81 87 
+@95 KEP objective: 48.000000
+The recourse value 48.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 38.000000.
+nattacks: 4
+first attack: 26
+@98 masteriteration 7: objective value 48.000000.
+@97 Set up Benders model 7.
+Benders obj: 38.000000
+Attack pattern: 
+28 43 70 71 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+1 43 54 71 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+13 15 54 70 
+@95 KEP objective: 50.000000
+Benders obj: 38.000000
+Attack pattern: 
+1 54 64 79 
+@95 KEP objective: 49.000000
+Benders obj: 38.000000
+Attack pattern: 
+2 36 49 70 
+@95 KEP objective: 47.000000
+The recourse value 47.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 38.000000.
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.780000 seconds (stage 2: 1116.050000, stage 3: 28.080000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      15      59      70      71
+[scenario]    1:	       8      13      18      54
+[scenario]    2:	      22      54      62      71
+[scenario]    3:	      12      13      28      59
+[scenario]    4:	      12      38      66      69
+[scenario]    5:	      26      69      81      87
+[scenario]    6:	       2      36      49      70
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 349359 (349358 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2224 initial, 2224 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390792
+-----------------------------
+Wed Nov  2 13:06:32 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt ===========
+-----------------------------
+Wed Nov  2 12:06:33 CET 2022
+-----------------------------
+@03 1667387193
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 48125
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 755
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 59.000000.
+@97 Set up Benders model 1.
+Benders obj: 43.000000
+Attack pattern: 
+31 54 60 76 
+@95 KEP objective: 55.000000
+The recourse value 55.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 43.000000.
+nattacks: 4
+first attack: 31
+@98 masteriteration 2: objective value 57.000000.
+@97 Set up Benders model 2.
+Benders obj: 41.000000
+Attack pattern: 
+17 25 39 53 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 41.000000.
+nattacks: 4
+first attack: 17
+@98 masteriteration 3: objective value 57.000000.
+@97 Set up Benders model 3.
+Benders obj: 42.000000
+Attack pattern: 
+19 49 55 56 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 42.000000.
+nattacks: 4
+first attack: 19
+@98 masteriteration 4: objective value 57.000000.
+@97 Set up Benders model 4.
+Benders obj: 42.000000
+Attack pattern: 
+11 13 31 42 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 42.000000.
+nattacks: 4
+first attack: 11
+@98 masteriteration 5: objective value 57.000000.
+@97 Set up Benders model 5.
+Benders obj: 42.000000
+Attack pattern: 
+6 34 41 92 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 42.000000.
+nattacks: 4
+first attack: 6
+@98 masteriteration 6: objective value 57.000000.
+@97 Set up Benders model 6.
+Benders obj: 42.000000
+Attack pattern: 
+10 14 31 33 
+@95 KEP objective: 54.000000
+The recourse value 54.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 42.000000.
+nattacks: 4
+first attack: 10
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.570000 seconds (stage 2: 513.410000, stage 3: 0.240000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      31      54      60      76
+[scenario]    1:	      17      25      39      53
+[scenario]    2:	      19      49      55      56
+[scenario]    3:	      11      13      31      42
+[scenario]    4:	       6      34      41      92
+[scenario]    5:	      10      14      31      33
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 342849 (342848 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1983 initial, 1983 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390796
+-----------------------------
+Wed Nov  2 13:06:36 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA008 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt ===========
+-----------------------------
+Wed Nov  2 12:06:38 CET 2022
+-----------------------------
+@03 1667387198
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 50373
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2507
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.04
+Create the model
+Time to create master model:	0.06
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 49.000000.
+@97 Set up Benders model 1.
+Benders obj: 33.000000
+Attack pattern: 
+23 31 54 83 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 33.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 2: objective value 46.000000.
+@97 Set up Benders model 2.
+Benders obj: 32.000000
+Attack pattern: 
+8 18 42 44 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 32.000000.
+nattacks: 4
+first attack: 8
+@98 masteriteration 3: objective value 46.000000.
+@97 Set up Benders model 3.
+Benders obj: 33.000000
+Attack pattern: 
+4 8 27 54 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 33.000000.
+nattacks: 4
+first attack: 4
+@98 masteriteration 4: objective value 46.000000.
+@97 Set up Benders model 4.
+Benders obj: 33.000000
+Attack pattern: 
+4 8 42 83 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 33.000000.
+nattacks: 4
+first attack: 4
+@98 masteriteration 5: objective value 45.000000.
+@97 Set up Benders model 5.
+Benders obj: 33.000000
+Attack pattern: 
+4 40 42 54 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+2 10 18 42 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+4 10 18 37 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+2 4 18 42 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+3 4 18 37 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+2 3 10 18 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+3 4 54 77 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+12 18 42 85 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+0 18 35 42 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+0 1 37 85 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+2 40 42 85 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+10 42 77 85 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+32 37 40 54 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+10 33 37 54 
+@95 KEP objective: 45.000000
+Benders obj: 33.000000
+Attack pattern: 
+67 68 77 81 
+@95 KEP objective: 43.000000
+The recourse value 43.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 33.000000.
+nattacks: 4
+first attack: 67
+@98 masteriteration 6: objective value 45.000000.
+@97 Set up Benders model 6.
+Benders obj: 33.000000
+Attack pattern: 
+2 6 33 41 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 33.000000.
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.470000 seconds (stage 2: 1886.710000, stage 3: 24.340000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      23      31      54      83
+[scenario]    1:	       8      18      42      44
+[scenario]    2:	       4       8      27      54
+[scenario]    3:	       4       8      42      83
+[scenario]    4:	      67      68      77      81
+[scenario]    5:	       2       6      33      41
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 370831 (370830 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1947 initial, 1947 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390801
+-----------------------------
+Wed Nov  2 13:06:41 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt ===========
+-----------------------------
+Wed Nov  2 12:06:44 CET 2022
+-----------------------------
+@03 1667387204
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 49425
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 1930
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.04
+Create the model
+Time to create master model:	0.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 48.000000.
+@97 Set up Benders model 1.
+Benders obj: 32.000000
+Attack pattern: 
+26 29 34 91 
+@95 KEP objective: 43.000000
+The recourse value 43.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 32.000000.
+nattacks: 4
+first attack: 26
+@98 masteriteration 2: objective value 45.000000.
+@97 Set up Benders model 2.
+Benders obj: 29.000000
+Attack pattern: 
+23 43 51 90 
+@95 KEP objective: 41.000000
+The recourse value 41.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 29.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 3: objective value 43.000000.
+@97 Set up Benders model 3.
+Benders obj: 31.000000
+Attack pattern: 
+34 43 51 57 
+@95 KEP objective: 43.000000
+Benders obj: 31.000000
+Attack pattern: 
+28 43 57 66 
+@95 KEP objective: 43.000000
+Benders obj: 31.000000
+Attack pattern: 
+11 26 28 57 
+@95 KEP objective: 43.000000
+Benders obj: 31.000000
+Attack pattern: 
+2 51 57 66 
+@95 KEP objective: 43.000000
+Benders obj: 31.000000
+Attack pattern: 
+26 28 33 47 
+@95 KEP objective: 43.000000
+Benders obj: 31.000000
+Attack pattern: 
+43 47 51 57 
+@95 KEP objective: 42.000000
+The recourse value 42.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 31.000000.
+nattacks: 4
+first attack: 43
+@98 masteriteration 4: objective value 43.000000.
+@97 Set up Benders model 4.
+Benders obj: 31.000000
+Attack pattern: 
+9 23 26 90 
+@95 KEP objective: 41.000000
+The recourse value 41.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 31.000000.
+nattacks: 4
+first attack: 9
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.820000 seconds (stage 2: 1140.280000, stage 3: 9.560000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      26      29      34      91
+[scenario]    1:	      23      43      51      90
+[scenario]    2:	      43      47      51      57
+[scenario]    3:	       9      23      26      90
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 257268 (257267 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1389 initial, 1389 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390808
+-----------------------------
+Wed Nov  2 13:06:48 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA002 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt ===========
+-----------------------------
+Wed Nov  2 12:06:46 CET 2022
+-----------------------------
+@03 1667387206
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 51796
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 4377
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.05
+Create the model
+Time to create master model:	0.05
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 62.000000.
+@97 Set up Benders model 1.
+Benders obj: 46.000000
+Attack pattern: 
+20 33 70 80 
+@95 KEP objective: 58.000000
+The recourse value 58.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 46.000000.
+nattacks: 4
+first attack: 20
+@98 masteriteration 2: objective value 60.000000.
+@97 Set up Benders model 2.
+Benders obj: 44.000000
+Attack pattern: 
+19 26 50 85 
+@95 KEP objective: 56.000000
+The recourse value 56.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 44.000000.
+nattacks: 4
+first attack: 19
+@98 masteriteration 3: objective value 59.000000.
+@97 Set up Benders model 3.
+Benders obj: 45.000000
+Attack pattern: 
+9 20 26 77 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 45.000000.
+nattacks: 4
+first attack: 9
+@98 masteriteration 4: objective value 59.000000.
+@97 Set up Benders model 4.
+Benders obj: 46.000000
+Attack pattern: 
+9 26 33 69 
+@95 KEP objective: 57.000000
+The recourse value 57.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 46.000000.
+nattacks: 4
+first attack: 9
+@98 masteriteration 5: objective value 58.000000.
+@97 Set up Benders model 5.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.610000 seconds (stage 2: 400.290000, stage 3: 0.200000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      20      33      70      80
+[scenario]    1:	      19      26      50      85
+[scenario]    2:	       9      20      26      77
+[scenario]    3:	       9      26      33      69
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 281350 (281349 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1373 initial, 1373 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390809
+-----------------------------
+Wed Nov  2 13:06:49 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA010 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt ===========
+-----------------------------
+Wed Nov  2 12:06:47 CET 2022
+-----------------------------
+@03 1667387207
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 29170
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 3246
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.02
+Create the model
+Time to create master model:	0.03
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 49.000000.
+@97 Set up Benders model 1.
+Benders obj: 33.000000
+Attack pattern: 
+23 29 62 66 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 33.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 2: objective value 48.000000.
+@97 Set up Benders model 2.
+Benders obj: 32.000000
+Attack pattern: 
+12 17 33 38 
+@95 KEP objective: 44.000000
+The recourse value 44.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 32.000000.
+nattacks: 4
+first attack: 12
+@98 masteriteration 3: objective value 48.000000.
+@97 Set up Benders model 3.
+Benders obj: 33.000000
+Attack pattern: 
+1 3 11 69 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 33.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 4: objective value 48.000000.
+@97 Set up Benders model 4.
+Benders obj: 33.000000
+Attack pattern: 
+9 19 23 65 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 33.000000.
+nattacks: 4
+first attack: 9
+@98 masteriteration 5: objective value 47.000000.
+@97 Set up Benders model 5.
+Benders obj: 33.000000
+Attack pattern: 
+44 49 50 60 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 33.000000.
+nattacks: 4
+first attack: 44
+@98 masteriteration 6: objective value 47.000000.
+@97 Set up Benders model 6.
+Benders obj: 33.000000
+Attack pattern: 
+2 38 54 89 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 6: objective value 33.000000.
+nattacks: 4
+first attack: 2
+@98 masteriteration 7: objective value 47.000000.
+@97 Set up Benders model 7.
+Benders obj: 33.000000
+Attack pattern: 
+23 52 65 69 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 7: objective value 33.000000.
+nattacks: 4
+first attack: 23
+@98 masteriteration 8: objective value 47.000000.
+@97 Set up Benders model 8.
+Benders obj: 33.000000
+Attack pattern: 
+23 44 54 65 
+@95 KEP objective: 45.000000
+The recourse value 45.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 8: objective value 33.000000.
+nattacks: 4
+first attack: 23
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3601.930000 seconds (stage 2: 229.860000, stage 3: 0.180000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      23      29      62      66
+[scenario]    1:	      12      17      33      38
+[scenario]    2:	       1       3      11      69
+[scenario]    3:	       9      19      23      65
+[scenario]    4:	      44      49      50      60
+[scenario]    5:	       2      38      54      89
+[scenario]    6:	      23      52      65      69
+[scenario]    7:	      23      44      54      65
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 292613 (292612 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 2545 initial, 2545 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390810
+-----------------------------
+Wed Nov  2 13:06:50 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA011 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt ===========
+-----------------------------
+Thu Nov 24 15:07:26 CET 2022
+-----------------------------
+@03 1669298846
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 62554
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2810
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.06
+Create the model
+Time to create master model:	0.11
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 66.000000.
+@97 Set up Benders model 1.
+Benders obj: 50.000000
+Attack pattern: 
+6 15 28 62 
+@95 KEP objective: 62.000000
+The recourse value 62.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 50.000000.
+nattacks: 4
+first attack: 6
+@98 masteriteration 2: objective value 63.000000.
+@97 Set up Benders model 2.
+Benders obj: 48.000000
+Attack pattern: 
+6 17 76 92 
+@95 KEP objective: 60.000000
+The recourse value 60.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 48.000000.
+nattacks: 4
+first attack: 6
+@98 masteriteration 3: objective value 62.000000.
+@97 Set up Benders model 3.
+Benders obj: 49.000000
+Attack pattern: 
+62 76 80 91 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 49.000000.
+nattacks: 4
+first attack: 62
+@98 masteriteration 4: objective value 62.000000.
+@97 Set up Benders model 4.
+Benders obj: 49.000000
+Attack pattern: 
+34 88 91 92 
+@95 KEP objective: 59.000000
+The recourse value 59.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 49.000000.
+nattacks: 4
+first attack: 34
+@98 masteriteration 5: objective value 62.000000.
+@97 Set up Benders model 5.
+Benders obj: 50.000000
+Attack pattern: 
+6 15 51 62 
+@95 KEP objective: 61.000000
+The recourse value 61.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 5: objective value 50.000000.
+nattacks: 4
+first attack: 6
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3603.090000 seconds (stage 2: 514.160000, stage 3: 0.430000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       6      15      28      62
+[scenario]    1:	       6      17      76      92
+[scenario]    2:	      62      76      80      91
+[scenario]    3:	      34      88      91      92
+[scenario]    4:	       6      15      51      62
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 392765 (392764 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1666 initial, 1666 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669302451
+-----------------------------
+Thu Nov 24 16:07:31 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt ===========
+-----------------------------
+Wed Nov  2 12:07:17 CET 2022
+-----------------------------
+@03 1667387237
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method1-complexFALSE-cyc4-chain2-liftFALSE-policy2.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/liftbenderscuts = FALSE
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 50745
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 2
+Number of chains: 2372
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.04
+Create the model
+Time to create master model:	0.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 58.000000.
+@97 Set up Benders model 1.
+Benders obj: 42.000000
+Attack pattern: 
+16 30 43 78 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 1: objective value 42.000000.
+nattacks: 4
+first attack: 16
+@98 masteriteration 2: objective value 54.000000.
+@97 Set up Benders model 2.
+Benders obj: 41.000000
+Attack pattern: 
+1 4 44 96 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 2: objective value 41.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 3: objective value 54.000000.
+@97 Set up Benders model 3.
+Benders obj: 41.000000
+Attack pattern: 
+1 15 40 91 
+@95 KEP objective: 53.000000
+The recourse value 53.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 3: objective value 41.000000.
+nattacks: 4
+first attack: 1
+@98 masteriteration 4: objective value 54.000000.
+@97 Set up Benders model 4.
+Benders obj: 41.000000
+Attack pattern: 
+43 49 91 96 
+@95 KEP objective: 52.000000
+The recourse value 52.000000 of the currently considered attack pattern violates the master solution.
+@96 Benders problem iteration 4: objective value 41.000000.
+nattacks: 4
+first attack: 43
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3605.730000 seconds (stage 2: 341.270000, stage 3: 0.220000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      16      30      43      78
+[scenario]    1:	       1       4      44      96
+[scenario]    2:	       1      15      40      91
+[scenario]    3:	      43      49      91      96
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 266074 (266073 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1381 initial, 1381 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667390844
+-----------------------------
+Wed Nov  2 13:07:24 CET 2022
+-----------------------------
+
+=ready=

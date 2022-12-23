@@ -17,7 +17,6 @@ timeshift = 10
 
 for i in range(1, maxnattacks + 1):
     logfile = filebegin + str(i) + fileend
-
     # get results from test run
     os.system('grep "objective value:\\|@01\\|terminated after\\|\[scenario\]\|@06\|@95" ' + logfile + ' >> tmp_resfile.txt')
 
@@ -87,7 +86,7 @@ for i in range(1, maxnattacks + 1):
     else:
         avgscenario = 0
         avgthirditer = 0
-        
+    
     if avg == "g":
         avgtime += geom
     elif avg == "s":

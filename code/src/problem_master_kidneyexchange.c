@@ -123,6 +123,7 @@ SCIP_RETCODE SCIPfreeMasterModel(
    SCIPfreeBlockMemoryArrayNull(scip, &chains->nodelists, chains->nnodesinchains);
    SCIPfreeBlockMemoryArrayNull(scip, &chains->nodelistsbegin, chains->nchains + 1);
    SCIPfreeBlockMemoryArrayNull(scip, &chains->chainweights, chains->nchains);
+   SCIPfreeBlockMemoryArrayNull(scip, &chains->subchains, chains->nchains);
 
    SCIPfreeBlockMemoryArrayNull(scip, &triplets->nodelists, 3*triplets->ntriplets);
    SCIPfreeBlockMemoryArrayNull(scip, &triplets->cycle2triplets, triplets->nindicescycle2triplet);

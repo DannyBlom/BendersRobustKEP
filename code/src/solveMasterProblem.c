@@ -99,7 +99,9 @@ SCIP_RETCODE SCIPsetLimitsAndVerbose(
    SCIP_CALL( SCIPsetRealParam(scip, "limits/time", MAX(0, timelimit - totaltime)) );
    SCIP_CALL( SCIPsetRealParam(scip, "limits/memory", MAX(0, memlimit)) );
    if ( ! verbose )
+   {
       SCIP_CALL( SCIPsetIntParam(scip, "display/verblevel", 0) );
+   }
 
    return SCIP_OKAY;
 }
@@ -124,8 +126,9 @@ SCIP_RETCODE SCIPcreateBasicInstance(
    SCIP_CALL( addKidneyParameters(*scip) );
    SCIP_CALL( SCIPcopyParamSettings(parentscip, *scip) );
    if ( ! verbose )
+   {
       SCIP_CALL( SCIPsetIntParam(*scip, "display/verblevel", 0) );
-
+   }
    SCIP_CALL( SCIPsetBoolParam(*scip, "misc/catchctrlc", FALSE) );
 
    return SCIP_OKAY;
@@ -254,12 +257,10 @@ SCIP_RETCODE SCIPenforceUnaffectedCyclesChains(
    SCIP_VAR** initxvars;
    SCIP_VAR** kepcyclevars;
    SCIP_VAR** kepchainvars;
-   // SCIP_Bool attacked;
    int ncycles;
    int nchains;
    int c;
-   // int i;
-   // int v;
+   int current_c;
 
    assert( kepscip != NULL );
    assert( masterscip != NULL );
@@ -277,16 +278,30 @@ SCIP_RETCODE SCIPenforceUnaffectedCyclesChains(
    {
       SCIP_CALL( SCIPchgVarLb(kepscip, kepcyclevars[c], 0.0) );
 
-      if( SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5 && !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, c) )
+      if (SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5 && !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, c))
+      {
          SCIP_CALL( SCIPchgVarLb(kepscip, kepcyclevars[c], 1.0) );
-
+      }
    }
 
    for (c = 0; c < nchains; ++c)
    {
       SCIP_CALL( SCIPchgVarLb(kepscip, kepchainvars[c], 0.0) );
-      if( SCIPgetSolVal(masterscip, sol, initxvars[ncycles + c]) > 0.5 && !SCIPchainIsAttacked(attackpattern, nattacks, chains, c) )
-         SCIP_CALL( SCIPchgVarLb(kepscip, kepchainvars[c], 1.0) );
+      if (SCIPgetSolVal(masterscip, sol, initxvars[ncycles + c]) > 0.5)
+      {
+         /* compute the longest subchain of c without interdicted vertices */
+         current_c = c;
+         while( SCIPchainIsAttacked(attackpattern, nattacks, chains, current_c, -1) )
+         {
+            current_c = chains->subchains[current_c];
+            if (current_c == -1)
+               break;
+         }
+         if (current_c != -1)
+         {
+            SCIP_CALL( SCIPchgVarLb(kepscip, kepchainvars[current_c], 1.0) );
+         }
+      }
    }
 
    return SCIP_OKAY;
@@ -338,7 +353,7 @@ SCIP_RETCODE SCIPupdateObjCoefsKEPProblem(
 
    for (c = 0; c < nchains; ++c)
    {
-      attacked = SCIPchainIsAttacked(attackpattern, nattacks, chains, c);
+      attacked = SCIPchainIsAttacked(attackpattern, nattacks, chains, c, -1);
 
       if ( attacked )
       {
@@ -378,20 +393,24 @@ SCIP_RETCODE SCIPsolveBendersModel(
    int nattacks;
    int nnodes;
    int adversarybound;
+   int itercnt = 0;
+   int min_iter = 10;
    SCIP_VAR** vars;
    SCIP_Real* vals;
    SCIP_Bool liftsols;
+   SCIP_Bool complexcccuts;
+   SCIP_Bool sameAttackPattern;
    int maxnvarsinsolcons;
    int ncycles;
    int nchains;
    SCIP_Real bendersobj;
-   // SCIP_Real kepobj;
    SCIP_SOL* sol;
    SCIP_SOL* kepsol;
    SCIP_VAR** cyclevars;
    SCIP_VAR** chainvars;
    SCIP_VAR** benderscyclevars;
    SCIP_VAR** benderschainvars;
+   SCIP_VAR** bendersuvars;
    SCIP_PROBDATA* bendersdata;
    SCIP_PROBDATA* kepdata;
    SCIP_Real memlimit;
@@ -400,6 +419,8 @@ SCIP_RETCODE SCIPsolveBendersModel(
    SCIP_Real smallestub;
    int cnt = 0;
    int policy;
+   int attackselection;
+
 
    assert( bendersscip != NULL );
    assert( kepscip != NULL );
@@ -431,6 +452,9 @@ SCIP_RETCODE SCIPsolveBendersModel(
 
    SCIP_CALL( SCIPgetRealParam(masterscip, "limits/memory", &memlimit) );
    SCIP_CALL( SCIPgetIntParam(masterscip, "kidney/recoursepolicy", &policy) );
+   SCIP_CALL( SCIPgetBoolParam(masterscip, "kidney/complexcccuts", &complexcccuts) );
+   SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/attackselection", &attackselection) );
+
 
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &attackpattern, adversarybound) );
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &vars, maxnvarsinsolcons) );
@@ -448,9 +472,11 @@ SCIP_RETCODE SCIPsolveBendersModel(
       SCIP_Real begintimestage3;
       SCIP_Real endtimestage3;
 
+      itercnt++;
+
       /* solve Benders model */
       SCIP_CALL( SCIPsetLimitsAndVerbose(bendersscip, begintime, timelimit,
-            MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576), TRUE) );
+            MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576 - SCIPgetMemUsed(kepscip) / 1048576), TRUE) );
       SCIP_CALL( SCIPsolve(bendersscip) );
 
       if ( solvingloopShallTerminate(bendersscip, begintime, timelimit) )
@@ -463,9 +489,28 @@ SCIP_RETCODE SCIPsolveBendersModel(
 
       sol = SCIPgetBestSol(bendersscip);
       bendersobj = SCIPgetSolOrigObj(bendersscip, sol);
+
       SCIPinfoMessage(bendersscip, NULL, "Benders obj: %f\n", bendersobj);
 
-      if ( SCIPisGE(bendersscip, bendersobj, masterobj - 0.5) )
+      
+
+      if( attackselection == ATTACK_SELECTION_MOSTVIOLATED && itercnt >= 2 )
+      {
+         /* check if we get same attack pattern as previous iteration */
+         bendersuvars = SCIPbendersdataGetUVars(bendersdata);
+         
+         sameAttackPattern = TRUE;
+         for( loop = 0; loop < nattacks; ++loop )
+         {
+            if( SCIPgetSolVal(bendersscip, sol, bendersuvars[ attackpattern[loop] ]) > 0.5 )
+            {
+               sameAttackPattern = FALSE;
+               break;
+            }
+         }
+      }
+
+      if( SCIPisGE(bendersscip, bendersobj, masterobj - 0.5) )
       {
          SCIPinfoMessage(bendersscip, NULL, "@95 No attack pattern violates the master solution.\n");
          *optimal = TRUE;
@@ -478,7 +523,7 @@ SCIP_RETCODE SCIPsolveBendersModel(
             SCIPbendersdataGetNumNodes(bendersdata), METHOD_BENDERS) );
       SCIPinfoMessage(bendersscip, NULL, "Attack pattern: \n");
 
-      for (loop = 0; loop < nattacks; ++loop)
+      for( loop = 0; loop < nattacks; ++loop )
       {
          SCIPinfoMessage(bendersscip, NULL, "%d ", attackpattern[loop]);
       }
@@ -488,15 +533,20 @@ SCIP_RETCODE SCIPsolveBendersModel(
       SCIP_CALL( SCIPfreeTransform(kepscip) );
 
       if( policy == POLICY_KEEPUNAFFECTEDCC )
+      {
          SCIP_CALL( SCIPenforceUnaffectedCyclesChains(kepscip, masterscip, mastersol, kepdata, cycles, chains, attackpattern, nattacks) );
+      }
 
-      if ( ! liftsols )
-         SCIP_CALL( SCIPupdateRhsKEPProblem(kepscip, kepdata, attackpattern, nattacks) );
+      if ( !liftsols )
+      {
+         SCIP_CALL( SCIPupdateRhsKEPProblem(kepscip, kepdata, attackpattern, nattacks) ); 
+      }
       else
+      {
          SCIP_CALL( SCIPupdateObjCoefsKEPProblem(kepscip, kepdata, cycles, chains, attackpattern, nattacks) );
-
+      }
       SCIP_CALL( SCIPsetLimitsAndVerbose(kepscip, begintime, timelimit,
-            MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576 - SCIPgetMemUsed(bendersscip) / 1048576), TRUE) );
+            MAX(1, memlimit - SCIPgetMemUsed(masterscip) / 1048576), TRUE) );
       SCIP_CALL( SCIPsolve(kepscip) );
 
       if ( solvingloopShallTerminate(kepscip, begintime, timelimit) )
@@ -508,7 +558,6 @@ SCIP_RETCODE SCIPsolveBendersModel(
       }
 
       kepsol = SCIPgetBestSol(kepscip);
-
       /* Notice that KEPscip picks the solution among the highest weight ones with highest number of cycles / chains.
        * The actual objective value of the maximum weight is therefore different
        */
@@ -523,53 +572,81 @@ SCIP_RETCODE SCIPsolveBendersModel(
       *kepobj = 0;
       cnt = 0;
 
-      for (c = 0; c < ncycles; ++c)
+      /* Compute the objective value of kepscip in terms of the real cycle weights */
+      for( c = 0; c < ncycles; ++c )
       {
-         /* Only take into account cycles in kepsol that are not attacked by the current attack pattern */
-         if ( SCIPgetSolVal(kepscip, kepsol, cyclevars[c]) > 0.5 )
+         if( SCIPgetSolVal(kepscip, kepsol, cyclevars[c]) > 0.5 )
          {
-            if ( SCIPvarGetObj(cyclevars[c]) > nnodes )
-               *kepobj += cycles->cycleweights[c];
-
             vars[cnt] = benderscyclevars[c];
             vals[cnt++] = cycles->cycleweights[c];
+
+            /* Only consider the weight of a cycle for kepobj if it has no interdicted vertices */
+            if( !liftsols || SCIPvarGetObj(cyclevars[c]) > nnodes )
+               *kepobj += cycles->cycleweights[c];
          }
       }
 
-      for (c = 0; c < nchains; ++c)
+      /* Compute the objective value of kepscip in terms of the real chain weights */
+      if( complexcccuts )
       {
-         /* Only take into account chains in kepsol that are not attacked by the current attack pattern */
-         if ( SCIPgetSolVal(kepscip, kepsol, chainvars[c]) > 0.5 )
+         /* Method for getting stronger interdiction cuts based on subdividing a term for chains into one term for each of its induced subchains */
+         for (c = 0; c < nchains; ++c)
          {
-            if ( SCIPvarGetObj(chainvars[c]) > nnodes )
-               *kepobj += chains->chainweights[c];
-
-            current_c = c;
-            subchainidx = chains->subchains[current_c];
-            while( TRUE )
+            if( SCIPgetSolVal(kepscip, kepsol, chainvars[c]) > 0.5 )
             {
-               vars[cnt] = benderschainvars[current_c];
-               if( subchainidx == -1 )
-               {
-                  vals[cnt++] = chains->chainweights[current_c];
-                  break;
-               }
-               else
-                  vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
-               current_c = subchainidx;
+               current_c = c;
                subchainidx = chains->subchains[current_c];
+
+               /* Determine the terms for each induced subchain */
+               while( TRUE )
+               {
+                  vars[cnt] = benderschainvars[current_c];
+                  if( subchainidx == -1 )
+                  {
+                     vals[cnt++] = chains->chainweights[current_c];
+                     break;
+                  }
+                  else
+                  {
+                     vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
+                     current_c = subchainidx;
+                     subchainidx = chains->subchains[current_c];
+                  }
+               }
+
+               /* Add terms for subchains to Benders' cut, but only consider weight of chain with no interdicted vertices for kepobj */
+               if( !liftsols || SCIPvarGetObj(chainvars[c]) > nnodes )
+                  *kepobj += chains->chainweights[c];
             }
          }
       }
+      else
+      {
+         /* Method for creating standard terms for chains in the interdiction cuts (default) */
+         for (c = 0; c < nchains; ++c)
+         {
+            if (SCIPgetSolVal(kepscip, kepsol, chainvars[c]) > 0.5)
+            {
+               vars[cnt] = benderschainvars[c];
+               vals[cnt++] = chains->chainweights[c];
+
+               /* Add chain to Benders' cut, but only consider weight of chain with no interdicted vertices for kepobj */
+               if (!liftsols || SCIPvarGetObj(chainvars[c]) > nnodes)
+                  *kepobj += chains->chainweights[c];
+            }
+         }
+      }
+      
       SCIPinfoMessage(bendersscip, NULL, "@95 KEP objective: %f\n", *kepobj);
 
-      if ( SCIPisLT(kepscip, *kepobj, masterobj - 0.5) )
+      if( SCIPisLT(kepscip, *kepobj, masterobj - 0.5) )
       {
-         SCIPinfoMessage(kepscip, NULL, "The recourse value %f of the currently considered attack pattern violates the master solution.\n", *kepobj);
-         *optimal = TRUE;
-         endtimestage3 = clock();
-         *timestage3 += (SCIP_Real) (endtimestage3 - begintimestage3) / CLOCKS_PER_SEC;
-         break;
+         if( attackselection != ATTACK_SELECTION_MOSTVIOLATED || (SCIPisGE(kepscip, itercnt, min_iter) || sameAttackPattern) )
+         {
+            SCIPinfoMessage(kepscip, NULL, "The recourse value %f of the currently considered attack pattern violates the master solution.\n", *kepobj);
+            *optimal = TRUE;
+            break;
+         }
       }
 
       /* Free the Benders model before we can add new cuts */
@@ -585,8 +662,6 @@ SCIP_RETCODE SCIPsolveBendersModel(
       vars[cnt++] = SCIPbendersdataGetObjvar(bendersdata);
 
       SCIP_CALL( SCIPbendersdataAddSolCons(bendersscip, vals, vars, cnt) );
-
-      // SCIP_CALL( SCIPwriteOrigProblem(bendersscip, "bendersscip.lp", NULL, FALSE) );
 
       /* Stronger bound on objective variable, as it is monotone increasing with respect to future iterations */
       SCIP_CALL( SCIPchgVarLb(bendersscip, SCIPbendersdataGetObjvar(bendersdata), bendersobj) );
@@ -947,6 +1022,7 @@ SCIP_RETCODE SCIPaddInitialBendersCut(
    SCIP_VAR** initcycleschains;
    SCIP_VAR** vars;
    SCIP_Real* vals;
+   SCIP_Bool complexcccuts;
    Cycles* cycles;
    Chains* chains;
    int nnodes;
@@ -969,6 +1045,7 @@ SCIP_RETCODE SCIPaddInitialBendersCut(
    benderscyclevars = SCIPbendersdataGetCyclevars(bendersdata);
    benderschainvars = SCIPbendersdataGetChainvars(bendersdata);
    initcycleschains = masterProblemGetXvarinit(probdata);
+   SCIP_CALL( SCIPgetBoolParam(masterscip, "kidney/complexcccuts", &complexcccuts) );
 
    cycles = masterProblemGetCycles(probdata);
    chains = masterProblemGetChains(probdata);
@@ -990,26 +1067,41 @@ SCIP_RETCODE SCIPaddInitialBendersCut(
          vals[cnt++] = cycles->cycleweights[c];
       }
    }
-
-   for (c = 0; c < nchains; ++c)
+   if( complexcccuts )
    {
-      /* Only take into account cycles in kepsol that are not attacked by the current attack pattern */
-      if ( SCIPgetSolVal(masterscip, sol, initcycleschains[cycles->ncycles + c]) > 0.5 )
+      /* Method for getting stronger interdiction cuts based on subdividing a term for chains into one term for each of its induced subchains */
+      for (c = 0; c < nchains; ++c)
       {
-         current_c = c;
-         subchainidx = chains->subchains[current_c];
-         while( TRUE )
+         /* Only take into account cycles in kepsol that are not attacked by the current attack pattern */
+         if ( SCIPgetSolVal(masterscip, sol, initcycleschains[cycles->ncycles + c]) > 0.5 )
          {
-            vars[cnt] = benderschainvars[current_c];
-            if( subchainidx == -1 )
-            {
-               vals[cnt++] = chains->chainweights[current_c];
-               break;
-            }
-            else
-               vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
-            current_c = subchainidx;
+            current_c = c;
             subchainidx = chains->subchains[current_c];
+            while( TRUE )
+            {
+               vars[cnt] = benderschainvars[current_c];
+               if( subchainidx == -1 )
+               {
+                  vals[cnt++] = chains->chainweights[current_c];
+                  break;
+               }
+               else
+                  vals[cnt++] = chains->chainweights[current_c] - chains->chainweights[subchainidx];
+               current_c = subchainidx;
+               subchainidx = chains->subchains[current_c];
+            }
+         }
+      }
+   }
+   else
+   {
+      /* Method for creating standard terms for chains in the interdiction cuts (default) */
+      for( c = 0; c < nchains; ++c )
+      {
+         if( SCIPgetSolVal(masterscip, sol, initcycleschains[cycles->ncycles+c]) > 0.5 )
+         {
+            vars[cnt] = benderschainvars[c];
+            vals[cnt++] = chains->chainweights[c];
          }
       }
    }
@@ -1097,14 +1189,19 @@ SCIP_RETCODE solveMasterProblem(
    {
       SCIP* scip;
       SCIP* subscip;
+      SCIP_Real begin;
+      SCIP_Real end;
       SCIP_Bool optimal;
 
       if ( solvingloopShallTerminate(NULL, begintime, modtimelimit) )
          goto FREEMASTERPROBLEM;
 
       SCIP_CALL( SCIPsetLimitsAndVerbose(masterscip, begintime, modtimelimit, memlimit, verbose) );
-      SCIP_CALL( SCIPsetIntParam(masterscip, "display/verblevel", 3) );
+      begin = clock();
       SCIP_CALL( SCIPsolve(masterscip) );
+      end = clock();
+      
+      SCIPinfoMessage(masterscip, NULL, "Solving took us %f seconds.\n", (SCIP_Real) (end - begin) / CLOCKS_PER_SEC);
 
       if ( solvingloopShallTerminate(masterscip, begintime, modtimelimit) )
          goto FREEMASTERPROBLEM;
@@ -1129,22 +1226,33 @@ SCIP_RETCODE solveMasterProblem(
 
          beginsubtime = clock();
 
-         SCIP_CALL( SCIPcreateBasicInstance(masterscip, &scip, verbose) );
-         SCIP_CALL( SCIPcreateBendersModel(scip, masterscip, sol, graph, cycles, chains, adversarybound) );
-         SCIP_CALL( SCIPsetObjIntegral(scip) );
+         SCIP_CALL( SCIPcreateBasicInstance(masterscip, &subscip, verbose) );
 
          endsubtime = clock();
-         timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
 
-         beginsubtime = clock();
+         SCIP_CALL( SCIPsetRealParam(subscip, "limits/time", MAX(0, timelimit - endsubtime)) );
+         SCIP_CALL( SCIPsetRealParam(subscip, "limits/memory", MAX(0, memlimit - SCIPgetMemUsed(masterscip) / 1048576)) );
 
-         SCIP_CALL( SCIPcreateBasicInstance(masterscip, &subscip, verbose) );
          SCIP_CALL( SCIPcreateBendersSubModel(subscip, graph, cycles, chains) );
          SCIP_CALL( SCIPsetObjIntegral(subscip) );
          SCIPinfoMessage(masterscip, NULL, "@97 Set up Benders model %d.\n", cnt);
 
          endsubtime = clock();
          timethirdstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
+
+         beginsubtime = clock();
+
+         SCIP_CALL( SCIPcreateBasicInstance(masterscip, &scip, verbose) );
+         endsubtime = clock();
+
+         SCIP_CALL( SCIPsetRealParam(scip, "limits/time", MAX(0, timelimit - endsubtime)) );
+         SCIP_CALL( SCIPsetRealParam(scip, "limits/memory", MAX(0, memlimit - SCIPgetMemUsed(masterscip) / 1048576) - SCIPgetMemUsed(subscip)) );
+
+         SCIP_CALL( SCIPcreateBendersModel(scip, masterscip, sol, graph, cycles, chains, adversarybound) );
+         SCIP_CALL( SCIPsetObjIntegral(scip) );
+
+         endsubtime = clock();
+         timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
 
          /* add cut based on initial master solution to bendersscip */
          SCIP_CALL( SCIPaddInitialBendersCut(masterscip, scip, sol) );
@@ -1159,6 +1267,12 @@ SCIP_RETCODE solveMasterProblem(
          beginsubtime = clock();
 
          SCIP_CALL( SCIPcreateBasicInstance(masterscip, &scip, verbose) );
+
+         endsubtime = clock();
+
+         SCIP_CALL( SCIPsetRealParam(scip, "limits/time", MAX(0, timelimit - endsubtime)) );
+         SCIP_CALL( SCIPsetRealParam(scip, "limits/memory", MAX(0, memlimit - SCIPgetMemUsed(masterscip) / 1048576)) );
+
          SCIP_CALL( SCIPcreateGlorieEtAlModel(scip, graph, cycles, chains) );
          SCIP_CALL( SCIPsetObjIntegral(scip) );
          SCIPinfoMessage(masterscip, NULL, "@97 Set up Glorie model %d.\n", cnt);
@@ -1259,7 +1373,9 @@ SCIP_RETCODE solveMasterProblem(
          SCIP_CALL( SCIPgetAttackPattern(scip, SCIPgetBestSol(scip), attackpattern, &nattacks, graph->nnodes, method) );
 
          if( SCIPisLT(masterscip, kepobj, masterobj) )
+         {
             SCIP_CALL( SCIPchgVarLb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), kepobj) );
+         }
 
          endsubtime = clock();
          timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
@@ -1268,10 +1384,12 @@ SCIP_RETCODE solveMasterProblem(
       {
          SCIP_Real beginsubtime;
          SCIP_Real endsubtime;
-         
+
          beginsubtime = clock();
          if( SCIPisLT(masterscip, subobj, masterobj) )
+         {
             SCIP_CALL( SCIPchgVarLb(masterscip, masterProblemGetObjvar(SCIPgetProbData(masterscip)), subobj) );
+         }
          endsubtime = clock();
 
          timesecondstage += (SCIP_Real) (endsubtime - beginsubtime) / CLOCKS_PER_SEC;
@@ -1302,7 +1420,9 @@ SCIP_RETCODE solveMasterProblem(
          SCIP_CALL( SCIPfree(&scip) );
 
       FREEMASTERPROBLEM:
+         printf("Begin freeing the masterproblem");
          SCIP_CALL( SCIPfreeTransform(masterscip) );
+	 printf("Finished freeing the masterproblem");
          didnotfinish = TRUE;
          break;
       }
@@ -1327,7 +1447,7 @@ SCIP_RETCODE solveMasterProblem(
       totaltime, timesecondstage, timethirdstage);
    }
 
-   SCIPinfoMessage(masterscip, NULL, "\n[patterns]\n", totaltime);
+   SCIPinfoMessage(masterscip, NULL, "\n[patterns]\n");
 
    /* print attack patterns */
    probdata = SCIPgetProbData(masterscip);

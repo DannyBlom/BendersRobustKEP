@@ -98,13 +98,16 @@ SCIP_RETCODE bendersdataCreate(
    SCIP_CONS**           solconss,           /**< array of linear inequalities, each corresponding to a kidney exchange solution */
    SCIP_CONS*            attackboundcons,    /**< constraint bounding adversary attacks */
    SCIP_CONS**           cyclelbconss,       /**< cycle constraints (cyclevars[c] = 1 if all uvars[v] = 1 for v in cycle c) */
-   SCIP_CONS**           cycleubconss,       /**< cycle constraints (cyclevars[c] = 0 if any uvars[v] = 0 for v in cycle c) */
    SCIP_CONS**           chainlbconss,       /**< chain constraints (chainvars[c] = 1 if all uvars[v] = 1 for v in chain c)*/
+
+   /* Only necessary for FSE setting */
+   SCIP_CONS**           cycleubconss,       /**< cycle constraints (cyclevars[c] = 0 if any uvars[v] = 0 for v in cycle c) */
    SCIP_CONS**           chainubconss        /**< chain constraints (chainvars[c] = 0 if any uvars[v] = 0 for v in chain c) */
    )
 {
    int ncycles;
    int nchains;
+   int policy;
 
    assert( bendersscip != NULL );
    assert( bendersdata != NULL );
@@ -117,6 +120,7 @@ SCIP_RETCODE bendersdataCreate(
    assert( nnodes > 0 );
 
    /* allocate memory */
+   SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/recoursepolicy", &policy) );
    SCIP_CALL( SCIPallocBlockMemory(bendersscip, bendersdata) );
 
    (*bendersdata)->graph = graph;
@@ -177,26 +181,34 @@ SCIP_RETCODE bendersdataCreate(
    else
       (*bendersdata)->cyclelbconss = NULL;
 
-   if( cycleubconss != NULL )
-   {
-      SCIP_CALL( SCIPduplicateBlockMemoryArray(bendersscip, &(*bendersdata)->cycleubconss, cycleubconss, cycles->nnodesincycles) );
-   }
-   else
-      (*bendersdata)->cycleubconss = NULL;
-
    if( chainlbconss != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(bendersscip, &(*bendersdata)->chainlbconss, chainlbconss, nchains) );
    }
    else
       (*bendersdata)->chainlbconss = NULL;
-
-   if( chainubconss != NULL )
+   
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
-      SCIP_CALL( SCIPduplicateBlockMemoryArray(bendersscip, &(*bendersdata)->chainubconss, chainubconss, chains->nnodesinchains) );
+      if( cycleubconss != NULL )
+      {
+         SCIP_CALL( SCIPduplicateBlockMemoryArray(bendersscip, &(*bendersdata)->cycleubconss, cycleubconss, cycles->nnodesincycles) );
+      }
+      else
+         (*bendersdata)->cycleubconss = NULL;
+
+      if( chainubconss != NULL )
+      {
+         SCIP_CALL( SCIPduplicateBlockMemoryArray(bendersscip, &(*bendersdata)->chainubconss, chainubconss, chains->nnodesinchains) );
+      }
+      else
+         (*bendersdata)->chainubconss = NULL;
    }
    else
+   {
+      (*bendersdata)->cycleubconss = NULL;
       (*bendersdata)->chainubconss = NULL;
+   }
 
    return SCIP_OKAY;
 }
@@ -223,14 +235,14 @@ SCIP_RETCODE bendersdataFree(
    assert( (*bendersdata)->graph != NULL );
    assert( (*bendersdata)->cycles != NULL );
 
+   SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/recoursepolicy", &policy) );
+
    nnodes = (*bendersdata)->nnodes;
    ncycles = (*bendersdata)->cycles->ncycles;
    nnodesincycles = (*bendersdata)->cycles->nnodesincycles;
    nchains = (*bendersdata)->chains->nchains;
    nnodesinchains = (*bendersdata)->chains->nnodesinchains;
    nsolconss = (*bendersdata)->nsolconss;
-
-   SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/recoursepolicy", &policy) );
 
    assert( nnodes > 0 );
    assert( ncycles >= 0 );
@@ -272,18 +284,21 @@ SCIP_RETCODE bendersdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(bendersscip, &(*bendersdata)->chainlbconss, nchains);
 
-   for( i = 0; i < nnodesincycles; ++i )
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
-      SCIP_CALL( SCIPreleaseCons(bendersscip, &(*bendersdata)->cycleubconss[i]) );
-   }
-   SCIPfreeBlockMemoryArrayNull(bendersscip, &(*bendersdata)->cycleubconss, nnodesincycles);
+      for( i = 0; i < nnodesincycles; ++i )
+      {
+         SCIP_CALL( SCIPreleaseCons(bendersscip, &(*bendersdata)->cycleubconss[i]) );
+      }
+      SCIPfreeBlockMemoryArrayNull(bendersscip, &(*bendersdata)->cycleubconss, nnodesincycles);
 
-   for( i = 0; i < nnodesinchains; ++i )
-   {
-      SCIP_CALL( SCIPreleaseCons(bendersscip, &(*bendersdata)->chainubconss[i]) );
+      for( i = 0; i < nnodesinchains; ++i )
+      {
+         SCIP_CALL( SCIPreleaseCons(bendersscip, &(*bendersdata)->chainubconss[i]) );
+      }
+      SCIPfreeBlockMemoryArrayNull(bendersscip, &(*bendersdata)->chainubconss, nnodesinchains);
    }
-   SCIPfreeBlockMemoryArrayNull(bendersscip, &(*bendersdata)->chainubconss, nnodesinchains);
-
+   
    SCIP_CALL( SCIPreleaseCons(bendersscip, &(*bendersdata)->attackboundcons) );
 
    /* free memory of arrays */
@@ -315,6 +330,7 @@ SCIP_Bool SCIPcycleIntersectsTarget(
    {
       if( target_idx < cycles->ncycles )
       {
+         /* Does our cycle intersect the given target initial cycle? */
          for( j = cycles->nodelistsbegin[target_idx]; j < cycles->nodelistsbegin[target_idx + 1]; ++j )
          {
             if( cycles->nodelists[i] == cycles->nodelists[j] )
@@ -323,42 +339,13 @@ SCIP_Bool SCIPcycleIntersectsTarget(
       }
       else
       {
+         /* Does our cycle intersect the given target initial chain? */
          for( j = chains->nodelistsbegin[target_idx - cycles->ncycles]; j < chains->nodelistsbegin[target_idx - cycles->ncycles + 1]; ++j )
          {
             if( cycles->nodelists[i] == chains->nodelists[j] )
                return TRUE;
          }
       }
-   }
-   return FALSE;
-}
-
-/**< returns whether chain2 is a superchain of chain1 */
-SCIP_Bool SCIPchainIsSuperchain(
-   Chains*              chains,              /**< chains data structure */
-   int                  chain1,              /**< index of chain */
-   int                  chain2               /**< index of possible superchain */
-)
-{
-   int current_c;
-   int subchainidx;
-   int chainlen1;
-   int chainlen2;
-
-   chainlen1 = chains->nodelistsbegin[chain1 + 1] - chains->nodelistsbegin[chain1];
-   chainlen2 = chains->nodelistsbegin[chain2 + 1] - chains->nodelistsbegin[chain2];
-
-   if( chainlen1 >= chainlen2 )
-      return FALSE;
-
-   current_c = chain2;
-   subchainidx = chains->subchains[current_c];
-   while( subchainidx != -1 )
-   {
-      if( subchainidx == chain1 )
-         return TRUE;
-      current_c = subchainidx;
-      subchainidx = chains->subchains[current_c];
    }
    return FALSE;
 }
@@ -388,17 +375,11 @@ SCIP_Bool SCIPchainIntersectsTarget(
          }
       }
       else
-      // both chain and target are chain. Only return true if target is NOT a superchain of chain
       {
-         if( SCIPchainIsSuperchain(chains, chain_idx, target_idx - cycles->ncycles) )
-            return FALSE;
-         else
+         for( j = chains->nodelistsbegin[target_idx - cycles->ncycles]; j < chains->nodelistsbegin[target_idx - cycles->ncycles + 1]; ++j )
          {
-            for( j = chains->nodelistsbegin[target_idx - cycles->ncycles]; j < chains->nodelistsbegin[target_idx - cycles->ncycles + 1]; ++j )
-            {
-               if( chains->nodelists[i] == chains->nodelists[j] )
-                  return TRUE;
-            }
+            if( chains->nodelists[i] == chains->nodelists[j] )
+               return TRUE;
          }
       }
    }
@@ -481,9 +462,7 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsFR(
    char name[SCIP_MAXSTRLEN];
    int nnodes;
    int ncycles;
-   int nnodesincycles;
    int nchains;
-   int nnodesinchains;
    Cycles* cycles;
    Chains* chains;
    SCIP_VAR** vars;
@@ -505,12 +484,10 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsFR(
 
    cycles = bendersdata->cycles;
    ncycles = cycles->ncycles;
-   nnodesincycles = cycles->nnodesincycles;
    assert( bendersdata->cycles->ncycles == cycles->ncycles );
 
    chains = bendersdata->chains;
    nchains = chains->nchains;
-   nnodesinchains = chains->nnodesinchains;
    assert( bendersdata->chains->nchains == chains->nchains );
 
    SCIP_CALL( SCIPgetBoolParam(bendersscip, "kidney/cyclechainconssinitial", &initial) );
@@ -527,16 +504,14 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsFR(
       vals[i] = 1.0;
 
    SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->attackboundcons, "boundattack", nnodes,
-         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes,
+         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes - bendersdata->adversarybound,
          TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
    SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->attackboundcons) );
    /* do not release constraint here, will be done later */
 
    /* create constraints linking x_c and its corresponding u_v's */
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &(bendersdata->cyclelbconss), ncycles) );
-   SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &(bendersdata->cycleubconss), nnodesincycles) );
    SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &(bendersdata->chainlbconss), nchains) );
-   SCIP_CALL( SCIPallocBlockMemoryArray(bendersscip, &(bendersdata->chainubconss), nnodesinchains) );
 
    for( c = 0; c < ncycles; ++c )
    {
@@ -558,25 +533,6 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsFR(
 
       /* Reset value of vals[cnt] for next cons */
       vals[cnt] = 1.0;
-
-      /* Secondly, add upper bound constraints x_c <= u_v (observe it is initially inactive) */
-      vars[0] = bendersdata->cyclevars[c];
-      vals[1] = -1.0;
-      for( i = cycles->nodelistsbegin[c]; i < cycles->nodelistsbegin[c+1]; ++i )
-      {
-         vars[1] = bendersdata->uvars[cycles->nodelists[i]];
-
-         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "cycleubcons_%d", i);
-
-         SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->cycleubconss[i], name, 2, vars, vals,
-            -SCIPinfinity(bendersscip), 0,
-            initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
-
-         SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->cycleubconss[i]) );
-
-      }
-      /* Reset negative value */
-      vals[1] = 1.0;
    }
 
    for( c = 0; c < nchains; ++c )
@@ -599,25 +555,6 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsFR(
 
       /* Reset value of vals[cnt] for next cons */
       vals[cnt] = 1.0;
-
-      /* Secondly, add upper bound constraints x_c <= u_v (observe it is initially inactive) */
-      vars[0] = bendersdata->chainvars[c];
-      vals[1] = -1.0;
-      for( i = chains->nodelistsbegin[c]; i < chains->nodelistsbegin[c+1]; ++i )
-      {
-         vars[1] = bendersdata->uvars[chains->nodelists[i]];
-
-         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "chainubcons_%d", i);
-
-         SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->chainubconss[i], name, 2, vars, vals,
-            -SCIPinfinity(bendersscip), 0,
-            initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
-
-         SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->chainubconss[i]) );
-
-      }
-      /* Reset negative value */
-      vals[1] = 1.0;
    }
 
    SCIPfreeBufferArray(bendersscip, &vars);
@@ -646,18 +583,19 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
    SCIP_VAR** vars;
    SCIP_VAR** initxvars;
    SCIP_Real* vals;
-   int* initcc;
+   int* enforceableexchanges;
    SCIP_Bool initial;
+   SCIP_Bool enfchain;
    int policy;
 
    int maxnvarsincons;
    int i;
    int c;
-   int ninitcc;
+   int current_c;
+   int nenforc;
    int cnt;
    int cc;
-   int start;
-   int cc_idx;
+   int ccidx;
 
    assert( bendersscip != NULL );
    assert( bendersdata != NULL );
@@ -683,14 +621,14 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
    /* Allocate buffer memory arrays to add conss to the Benders type model */
    SCIP_CALL( SCIPallocBufferArray(bendersscip, &vals, maxnvarsincons) );
    SCIP_CALL( SCIPallocBufferArray(bendersscip, &vars, maxnvarsincons) );
-   SCIP_CALL( SCIPallocBufferArray(bendersscip, &initcc, nnodes / 2) );
+   SCIP_CALL( SCIPallocBufferArray(bendersscip, &enforceableexchanges, nnodes) );
 
    /* create bound on adversary attack */
    for( i = 0; i < maxnvarsincons; ++i )
       vals[i] = 1.0;
 
    SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->attackboundcons, "boundattack", nnodes,
-         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes,
+         bendersdata->uvars, vals, nnodes - bendersdata->adversarybound, nnodes - bendersdata->adversarybound,
          TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
    SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->attackboundcons) );
 
@@ -702,12 +640,27 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
 
    /* First identify indices of cycles and chains in initial solution and add their corresponding cycle / chain constraints */
    initxvars = masterProblemGetXvarinit(SCIPgetProbData(masterscip));
-   ninitcc = 0;
+   nenforc = 0;
 
-   for( c = 0; c < ncycles + nchains; ++c )
+   /* Identify initial cycles, and initial chains together with their subchains that will be used to enforce solutions and prohibit alternative exchanges */
+   for (c = 0; c < ncycles + nchains; ++c)
    {
-      if( SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5 )
-         initcc[ninitcc++] = c;
+      if (SCIPgetSolVal(masterscip, sol, initxvars[c]) > 0.5)
+      {
+         if( c < ncycles )
+            /* Just enforce this one cycle */
+            enforceableexchanges[nenforc++] = c;
+         else
+         {
+            /* For chains, we also need to consider its subchains to be enforced */
+            current_c = c - ncycles;
+            while (current_c != -1)
+            {
+               enforceableexchanges[nenforc++] = current_c + ncycles;
+               current_c = chains->subchains[current_c];
+            }
+         }
+      }
    }
 
    for( c = 0; c < ncycles; ++c )
@@ -715,45 +668,45 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       /* Start by adding lower bound constraints x_c >= 1 - sum_{v in V(c)}  u_v */
       cnt = 0;
       for( i = cycles->nodelistsbegin[c]; i < cycles->nodelistsbegin[c + 1]; ++i )
+      {
+         vals[cnt] = 1.0;
          vars[cnt++] = bendersdata->uvars[cycles->nodelists[i]];
+      }
 
       vals[cnt] = -1.0;
-      vars[cnt] = bendersdata->cyclevars[c];
-      start = cnt;
+      vars[cnt++] = bendersdata->cyclevars[c];
+      
 
-      if( SCIPgetSolVal(masterscip, sol, initxvars[c]) <= 0.5 )
+      if (SCIPgetSolVal(masterscip, sol, initxvars[c]) <= 0.5)
       {
-         // Also take into account initial cycles chains that intersect this cycle, since these have priority in the Keep Unaffected Cycle Chain policy
-         for( cc = 0; cc < ninitcc; ++cc )
+         /* Not in the list of enforceable exchanges, so we need to consider these as well */
+         for( cc = 0; cc < nenforc; ++cc)
          {
-            cc_idx = initcc[cc];
-            if( SCIPcycleIntersectsTarget(cycles, chains, c, cc_idx) )
+            ccidx = enforceableexchanges[cc];
+            if( SCIPcycleIntersectsTarget(cycles, chains, c, ccidx) )
             {
-               cnt++;
                vals[cnt] = -1.0;
-               if( cc_idx < cycles->ncycles )
-                  vars[cnt] = bendersdata->cyclevars[cc_idx];
+               if( ccidx < cycles->ncycles )
+                  vars[cnt++] = bendersdata->cyclevars[ccidx];
                else
-                  vars[cnt] = bendersdata->chainvars[cc_idx - cycles->ncycles];
+                  vars[cnt++] = bendersdata->chainvars[ccidx - cycles->ncycles];
             }
          }
+         
       }
 
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "cyclelbcons_%d", c);
 
-      SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->cyclelbconss[c], name, cnt + 1, vars, vals,
+      SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->cyclelbconss[c], name, cnt, vars, vals,
          -SCIPinfinity(bendersscip), cycles->nodelistsbegin[c + 1] - cycles->nodelistsbegin[c] - 1,
          initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
 
       SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->cyclelbconss[c]) );
 
-      /* Reset negative values of vals[i] to one for next cons */
-      for( i = start; i <= cnt; ++i )
-         vals[i] = 1.0;
-
-
       /* Secondly, add upper bound constraints x_c <= u_v */
+      vals[0] = 1.0;
       vars[0] = bendersdata->cyclevars[c];
+
       vals[1] = -1.0;
       for( i = cycles->nodelistsbegin[c]; i < cycles->nodelistsbegin[c+1]; ++i )
       {
@@ -766,11 +719,7 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
             initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
 
          SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->cycleubconss[i]) );
-
       }
-      /* Reset negative value */
-      vals[1] = 1.0;
-
    }
 
    for( c = 0; c < nchains; ++c )
@@ -778,26 +727,37 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       /* Start by adding lower bound constraints x_c >= 1 - sum_{v in V(c)} (1 - u_v) */
       cnt = 0;
       for( i = chains->nodelistsbegin[c]; i < chains->nodelistsbegin[c + 1]; ++i )
+      {
+         vals[cnt] = 1.0;
          vars[cnt++] = bendersdata->uvars[chains->nodelists[i]];
+      }
 
       vals[cnt] = -1.0;
-      vars[cnt] = bendersdata->chainvars[c];
-      start = cnt;
+      vars[cnt++] = bendersdata->chainvars[c];
 
-      if( SCIPgetSolVal(masterscip, sol, initxvars[ncycles + c]) <= 0.5 )
+      enfchain = FALSE;
+      for (cc = 0; cc < nenforc; ++cc)
+      {
+         if (enforceableexchanges[cc] == ncycles + c)
+         {
+            enfchain = TRUE;
+            break;
+         }
+      }
+      
+      if( SCIPgetSolVal(masterscip, sol, initxvars[ncycles + c]) <= 0.5 && !enfchain)
       {
          // Also take into account initial cycles chains that intersect this cycle, since these have priority in the Keep Unaffected Cycle Chain policy
-         for( cc = 0; cc < ninitcc; ++cc )
+         for( cc = 0; cc < nenforc; ++cc )
          {
-            cc_idx = initcc[cc];
-            if( SCIPchainIntersectsTarget(cycles, chains, c, cc_idx) )
+            ccidx = enforceableexchanges[cc];
+            if( SCIPchainIntersectsTarget(cycles, chains, c, ccidx) )
             {
-               cnt++;
                vals[cnt] = -1.0;
-               if( cc_idx < cycles->ncycles )
-                  vars[cnt] = bendersdata->cyclevars[cc_idx];
+               if( ccidx < cycles->ncycles )
+                  vars[cnt++] = bendersdata->cyclevars[ccidx];
                else
-                  vars[cnt] = bendersdata->chainvars[cc_idx - cycles->ncycles];
+                  vars[cnt++] = bendersdata->chainvars[ccidx - cycles->ncycles];
             }
          }
       }
@@ -805,18 +765,16 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "chainlbcons_%d", c);
 
       /* x_c >= 1 - sum u_v */
-      SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->chainlbconss[c], name, cnt + 1, vars, vals,
+      SCIP_CALL( SCIPcreateConsLinear(bendersscip, &bendersdata->chainlbconss[c], name, cnt, vars, vals,
          -SCIPinfinity(bendersscip), chains->nodelistsbegin[c + 1] - chains->nodelistsbegin[c] - 1,
          initial, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
 
       SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->chainlbconss[c]) );
 
-      /* Reset negative values of vals[i] to one for next cons */
-      for( i = start; i <= cnt; ++i )
-         vals[i] = 1.0;
-
       /* Secondly, add upper bound constraints x_c <= u_v */
+      vals[0] = 1.0;
       vars[0] = bendersdata->chainvars[c];
+
       vals[1] = -1.0;
       for( i = chains->nodelistsbegin[c]; i < chains->nodelistsbegin[c+1]; ++i )
       {
@@ -831,13 +789,11 @@ SCIP_RETCODE SCIPcreateInitialBendersConstraintsKUCC(
          SCIP_CALL( SCIPaddCons(bendersscip, bendersdata->chainubconss[i]) );
 
       }
-      /* Reset negative value */
-      vals[1] = 1.0;
    }
 
    SCIPfreeBufferArray(bendersscip, &vars);
    SCIPfreeBufferArray(bendersscip, &vals);
-   SCIPfreeBufferArray(bendersscip, &initcc);
+   SCIPfreeBufferArray(bendersscip, &enforceableexchanges);
 
    return SCIP_OKAY;
 }
@@ -877,16 +833,16 @@ SCIP_DECL_PROBTRANS(probtransBenders)
    /* create transform bendersdata */
    SCIP_CALL( bendersdataCreate(scip, targetdata, sourcedata->graph, sourcedata->nnodes, sourcedata->cycles, sourcedata->chains,
          sourcedata->cyclevars, sourcedata->chainvars, sourcedata->uvars, sourcedata->objvar, sourcedata->nsolconss, sourcedata->maxnsolconss,
-         sourcedata->adversarybound, sourcedata->solconss, sourcedata->attackboundcons, sourcedata->cyclelbconss, sourcedata->cycleubconss,
-         sourcedata->chainlbconss, sourcedata->chainubconss) );
+         sourcedata->adversarybound, sourcedata->solconss, sourcedata->attackboundcons, sourcedata->cyclelbconss, sourcedata->chainlbconss,
+         sourcedata->cycleubconss, sourcedata->chainubconss) );
+
+   SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    nnodes = sourcedata->graph->nnodes;
    ncycles = sourcedata->cycles->ncycles;
    nnodesincycles = sourcedata->cycles->nnodesincycles;
    nchains = sourcedata->chains->nchains;
    nnodesinchains = sourcedata->chains->nnodesinchains;
-
-   SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    assert( nnodes > 0 );
 
@@ -895,8 +851,11 @@ SCIP_DECL_PROBTRANS(probtransBenders)
    SCIP_CALL( SCIPtransformCons(scip, (*targetdata)->attackboundcons, &(*targetdata)->attackboundcons) );
    SCIP_CALL( SCIPtransformConss(scip, ncycles, (*targetdata)->cyclelbconss, (*targetdata)->cyclelbconss) );
    SCIP_CALL( SCIPtransformConss(scip, nchains, (*targetdata)->chainlbconss, (*targetdata)->chainlbconss) );
-   SCIP_CALL( SCIPtransformConss(scip, nnodesincycles, (*targetdata)->cycleubconss, (*targetdata)->cycleubconss) );
-   SCIP_CALL( SCIPtransformConss(scip, nnodesinchains, (*targetdata)->chainubconss, (*targetdata)->chainubconss) );
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
+   {
+      SCIP_CALL( SCIPtransformConss(scip, nnodesincycles, (*targetdata)->cycleubconss, (*targetdata)->cycleubconss) );
+      SCIP_CALL( SCIPtransformConss(scip, nnodesinchains, (*targetdata)->chainubconss, (*targetdata)->chainubconss) );
+   }
 
    /* transform all variables */
    SCIP_CALL( SCIPtransformVars(scip, ncycles, (*targetdata)->cyclevars, (*targetdata)->cyclevars) );
@@ -1015,7 +974,7 @@ SCIP_RETCODE SCIPbendersdataAddSolCons(
    bendersdata->nsolconss++;
 
    SCIPdebugMsg(bendersscip, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
-   SCIPinfoMessage(bendersscip, NULL, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
+   // SCIPinfoMessage(bendersscip, NULL, "added solution constraint to bendersdata; nsolconss = %d\n", bendersdata->nsolconss);
 
    return SCIP_OKAY;
 }

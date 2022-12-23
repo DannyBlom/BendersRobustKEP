@@ -188,6 +188,7 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
    int nchains;
    int nnodes;
    int i;
+   SCIP_Bool liftsols;
 
    assert( kepscip != NULL );
    assert( kepdata != NULL );
@@ -198,17 +199,29 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
    nchains = kepdata->chains->nchains;
    nnodes = SCIPKEPdataGetNumNodes(kepdata);
 
+   SCIP_CALL( SCIPgetBoolParam(kepscip, "kidney/liftbenderscuts", &liftsols) );
+
    /* create x_c-variables */
    SCIP_CALL( SCIPallocBlockMemoryArray(kepscip, &kepdata->cyclevars, ncycles) );
    SCIP_CALL( SCIPallocBlockMemoryArray(kepscip, &kepdata->chainvars, nchains) );
 
-   for (i = 0; i < ncycles; ++i)
+   for( i = 0; i < ncycles; ++i )
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "cyclevar_%d", i);
 
-      SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->cyclevars[i], name, 0.0, 1.0,
+      if( liftsols )
+      {
+         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->cyclevars[i], name, 0.0, 1.0,
             kepdata->cycles->cycleweights[i] * nnodes + 1,
             SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+      }
+      else
+      {
+         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->cyclevars[i], name, 0.0, 1.0,
+            kepdata->cycles->cycleweights[i],
+            SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+      }
+
       SCIP_CALL( SCIPaddVar(kepscip, kepdata->cyclevars[i]) );
    }
 
@@ -216,9 +229,19 @@ SCIP_RETCODE SCIPcreateInitialKEPVars(
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "chainvar_%d", i);
 
-      SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->chainvars[i], name, 0.0, 1.0,
+      if( liftsols )
+      {
+         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->chainvars[i], name, 0.0, 1.0,
             kepdata->chains->chainweights[i] * nnodes + 1,
             SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+      }
+      else
+      {
+         SCIP_CALL( SCIPcreateVar(kepscip, &kepdata->chainvars[i], name, 0.0, 1.0,
+            kepdata->chains->chainweights[i],
+            SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+      }
+
       SCIP_CALL( SCIPaddVar(kepscip, kepdata->chainvars[i]) );
    }
 

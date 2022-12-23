@@ -92,13 +92,14 @@ SCIP_RETCODE SCIPsetLimitsAndVerbose(
    curtime = clock();
    totaltime = (SCIP_Real) (curtime - starttime) / CLOCKS_PER_SEC;
 
-   assert( timelimit >= totaltime );
    assert( timelimit - totaltime <= 1e20 );
 
    SCIP_CALL( SCIPsetRealParam(scip, "limits/time", MAX(0, timelimit - totaltime)) );
    SCIP_CALL( SCIPsetRealParam(scip, "limits/memory", MAX(0, memlimit)) );
    if ( ! verbose )
+   {
       SCIP_CALL( SCIPsetIntParam(scip, "display/verblevel", 0) );
+   }
 
    return SCIP_OKAY;
 }
@@ -123,7 +124,9 @@ SCIP_RETCODE SCIPcreateBasicInstance(
    SCIP_CALL( addKidneyParameters(*scip) );
    SCIP_CALL( SCIPcopyParamSettings(parentscip, *scip) );
    if ( ! verbose )
+   {
       SCIP_CALL( SCIPsetIntParam(*scip, "display/verblevel", 0) );
+   }
 
    SCIP_CALL( SCIPsetBoolParam(*scip, "misc/catchctrlc", FALSE) );
 
@@ -258,6 +261,9 @@ SCIP_RETCODE SCIPenforceUnaffectedCyclesPosarcs(
    int npairs;
    int c;
    int i;
+   int p;
+   int src;
+   int dst;
 
    assert( kepscip != NULL );
    assert( masterscip != NULL );
@@ -274,6 +280,7 @@ SCIP_RETCODE SCIPenforceUnaffectedCyclesPosarcs(
    nnodes = SCIPKEPdataPICEFGetNumNodes(kepdata);
    npairs = SCIPKEPdataPICEFGetNumPairs(kepdata);
 
+   /* Enforce the cycle variable corresponding to initially selected cycles if the cycle has no interdicted vertices */
    for (c = 0; c < ncycles; ++c)
    {
       SCIP_CALL( SCIPchgVarLb(kepscip, kepcyclevars[c], 0.0) );
@@ -286,20 +293,69 @@ SCIP_RETCODE SCIPenforceUnaffectedCyclesPosarcs(
 
    SCIP_CALL( SCIPallocBufferArray(masterscip, &reachNodes, nnodes) );
 
-   for( i = 0; i < npairs; ++i )
-      reachNodes[i] = FALSE;
-   for( i = npairs; i < nnodes; ++i )
-      reachNodes[i] = TRUE;
+   /* Initially, only non-interdicted NDDs are reachable */
+   for( i = 0; i < nnodes; ++i )
+      reachNodes[i] = (i >= npairs) ? TRUE : FALSE;
 
+   for( i = 0; i < nattacks; ++i )
+      reachNodes[attackpattern[i]] = FALSE;
 
-   for (c = 0; c < nposarcs; ++c)
+   /* Reset the variable bounds to 0 and 1 */
+   for( c = 0; c < nposarcs; ++c )
    {
       SCIP_CALL( SCIPchgVarLb(kepscip, keparcvars[c], 0.0) );
-      if( SCIPgetSolVal(masterscip, sol, initxarcvars[c]) > 0.5 && reachNodes[i] && !SCIParcIsAttacked(attackpattern, nattacks, posarcs, c) )
+      SCIP_CALL( SCIPchgVarUb(kepscip, keparcvars[c], 1.0) );
+   }
+
+   /* Enforce arc variable if used in initially selected chain and subchain up to and including arc does not have interdicted vertices */
+   for( c = 0; c < nposarcs; ++c)
+   {
+      if( SCIPgetSolVal(masterscip, sol, initxarcvars[c]) > 0.5 )
       {
-         SCIP_CALL( SCIPchgVarLb(kepscip, keparcvars[c], 1.0) );
-         reachNodes[posarcs->nodelists[2*c + 1]] = TRUE;
-      }
+         SCIP_CALL( SCIPchgVarUb(kepscip, keparcvars[c], 1.0) );
+
+         src = posarcs->nodelists[2*c];
+         dst = posarcs->nodelists[2*c+1];
+
+         /* Only enforce the position-indexed arc if the subchain up to and including src is enforced, and its destination is not interdicted */
+         if( reachNodes[src] )
+         {
+            if( !SCIParcIsAttacked(attackpattern, nattacks, posarcs, c) )
+            {
+               SCIP_CALL( SCIPchgVarLb(kepscip, keparcvars[c], 1.0) );
+               reachNodes[dst] = TRUE;
+
+               /* Interdict all arc variables going out of dst (notice that in a later iteration, we reset the upper bound for a potential initial arc to 1 again) */
+               for( p = c + 1; p < nposarcs; ++p )
+               {
+                  if( posarcs->nodelists[2*p] == dst )
+                  {
+                     SCIP_CALL( SCIPchgVarUb(kepscip, keparcvars[p], 0.0) );
+                  }
+               }
+            }
+            else 
+            {
+               if( src < npairs )
+               {
+                  /* Make sure not to allow alternative extensions of already (partially) enforced chains */
+                  for( p = 0; p < nposarcs; ++p )
+                  {
+                     if( posarcs->nodelists[2*p] == src )
+                     {
+                        /* Prohibit the use of this position-indexed arc variable to extend the chain */
+                        SCIP_CALL( SCIPchgVarUb(kepscip, keparcvars[p], 0.0) );
+                     }
+                  }
+               }
+               else
+               {
+                  /* Prohibit the use of this position-indexed arc variable */
+                  SCIP_CALL( SCIPchgVarUb(kepscip, keparcvars[c], 0.0) );
+               }
+            }
+         }
+      } 
    }
 
    SCIPfreeBufferArray(masterscip, &reachNodes);
@@ -335,11 +391,15 @@ SCIP_RETCODE SCIPupdateUbDummyVars(
    {
       for (j = graph->adjacencylistbegins[i]; j < graph->adjacencylistbegins[i+1]; ++j)
       {
-         attacked = SCIPdummyarcIsAttacked(attackpattern, nattacks, graph, i, j);
+         attacked = SCIPdummyarcIsAttacked(attackpattern, nattacks, graph, i, graph->adjacencylists[j]);
          if ( attacked )
+         {
             SCIP_CALL( SCIPchgVarUb(kepscip, dummyarcvars[j], 0.0) );
+         }
          else
+         {
             SCIP_CALL( SCIPchgVarUb(kepscip, dummyarcvars[j], 1.0) );
+         }
       }
    }
    return SCIP_OKAY;
@@ -359,10 +419,9 @@ SCIP_Bool SCIParcIsAttacked(
    for (i = 0; i < nattacks; ++i)
    {
       vtx = attackpattern[i];
-      if ( vtx == posarcs->nodelists[2 * arcidx] || vtx == posarcs->nodelists[ 2 *arcidx + 1] )
+      if ( vtx == posarcs->nodelists[2*arcidx] || vtx == posarcs->nodelists[2*arcidx + 1] )
          return TRUE;
    }
-
    return FALSE;
 }
 
@@ -371,19 +430,17 @@ SCIP_Bool SCIPdummyarcIsAttacked(
    int*                  attackpattern,      /**< Array of attacked vertices */
    int                   nattacks,           /**< Number of attacked vertices */
    Graph*                graph,              /**< Data structure for the position indexed arcs in the graph */
-   int                   source,             /**< vertex that the arc is pointing out from */
-   int                   j                   /**< Index of arc in graph data structure */
+   int                   src,                /**< Source of the arc */
+   int                   dst                 /**< Destination of the arc */
    )
 {
    int i;
    int vtx;
-   int head;
 
-   head = graph->adjacencylists[j];
    for (i = 0; i < nattacks; ++i)
    {
       vtx = attackpattern[i];
-      if ( vtx == head || vtx == source )
+      if ( vtx == src || vtx == dst )
          return TRUE;
    }
    return FALSE;
@@ -496,6 +553,8 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    int* attackpattern;
    int c;
    int cnt = 0;
+   int itercnt = 0;
+   int min_iter = 10;
    int nattacks;
    int nnodes;
    int adversarybound;
@@ -504,6 +563,7 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    SCIP_Real* vals;
    SCIP_Real* varboundvals;
    SCIP_Bool liftsols;
+   SCIP_Bool sameAttackPattern;
    int maxnvarsinsolcons;
    int ncycles;
    int nposarcs;
@@ -511,9 +571,9 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    int old_narcvars;
    int new_narcvars;
    int policy;
+   int attackselection;
    int* arcindices;
    SCIP_Real bendersobj;
-   // SCIP_Real kepobj;
    SCIP_SOL* sol;
    SCIP_SOL* kepsol;
    SCIP_VAR** cyclevars;
@@ -521,6 +581,7 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    SCIP_VAR** arcvars;
    SCIP_VAR** benderscyclevars;
    SCIP_VAR** bendersarcvars;
+   SCIP_VAR** bendersuvars;
    SCIP_PROBDATA* bendersdata;
    SCIP_PROBDATA* kepdata;
    SCIP_Real memlimit;
@@ -546,6 +607,7 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
 
    SCIP_CALL( SCIPgetBoolParam(bendersscip, "kidney/liftbenderscuts", &liftsols) );
    SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/recoursepolicy", &policy) );
+   SCIP_CALL( SCIPgetIntParam(bendersscip, "kidney/attackselection", &attackselection) );
    bendersdata = SCIPgetProbData(bendersscip);
    kepdata = SCIPgetProbData(kepscip);
 
@@ -575,11 +637,14 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
    /* In this loop we have to make sure that the transformed bendersscip and kepscip are not freed.
     * Otherwise, we cannot access the termination status in solveMasterPICEFProblem
     */
+   
    while ( TRUE )
    {
       int loop;
       SCIP_Real begintimestage3;
       SCIP_Real endtimestage3;
+
+      itercnt++;
 
       /* Solve Benders model */
       SCIP_CALL( SCIPsetLimitsAndVerbose(bendersscip, begintime, timelimit,
@@ -598,6 +663,27 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
       sol = SCIPgetBestSol(bendersscip);
       bendersobj = SCIPgetSolOrigObj(bendersscip, sol);
       SCIPinfoMessage(bendersscip, NULL, "Benders obj: %f\n", bendersobj);
+
+      
+
+      if( attackselection == ATTACK_SELECTION_MOSTVIOLATED )
+      {
+         /* check if we get same attack pattern as previous iteration */
+         bendersuvars = SCIPbendersdataPICEFGetUVars(bendersdata);
+         
+         if( itercnt >= 2 )
+         {
+            sameAttackPattern = TRUE;
+            for( loop = 0; loop < nattacks; ++loop )
+            {
+               if( SCIPgetSolVal(bendersscip, sol, bendersuvars[ attackpattern[loop] ]) > 0.5 )
+               {
+                  sameAttackPattern = FALSE;
+                  break;
+               }
+            }
+         }
+      }
 
       if ( SCIPisGE(bendersscip, bendersobj, masterobj - 0.5) )
       {
@@ -630,16 +716,17 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
          SCIP_CALL( SCIPupdateUbDummyVars(kepscip, kepdata, attackpattern, nattacks) );
       }
 
+
       if( policy == POLICY_KEEPUNAFFECTEDCC )
+      {
          SCIP_CALL( SCIPenforceUnaffectedCyclesPosarcs(kepscip, masterscip, mastersol, kepdata, cycles, posarcs, attackpattern, nattacks) );
+      }
 
       SCIP_CALL( SCIPsetLimitsAndVerbose(kepscip, begintime, timelimit, MAX(1, memlimit -
             SCIPgetMemUsed(masterscip) / 1048576 - SCIPgetMemUsed(bendersscip) / 1048576), TRUE) );
       SCIP_CALL( SCIPsolve(kepscip) );
 
-      // SCIP_CALL( SCIPwriteOrigProblem(kepscip, "kepscip.lp", NULL, FALSE) );
-
-      if ( solvingloopShallTerminate(kepscip, begintime, timelimit) )
+      if( solvingloopShallTerminate(kepscip, begintime, timelimit) )
       {
          *didnotfinish = TRUE;
          endtimestage3 = clock();
@@ -726,12 +813,14 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
 
       SCIPinfoMessage(bendersscip, NULL, "@95 KEP objective: %f\n", *kepobj);
 
-      if ( SCIPisLT(kepscip, *kepobj, masterobj - 0.5) )
+      if( SCIPisLT(kepscip, *kepobj, masterobj - 0.5) )
       {
-         SCIPinfoMessage(kepscip, NULL, "The recourse value %f of the currently considered attack pattern violates the master solution.\n", *kepobj);
-
-         *optimal = TRUE;
-         break;
+         if( attackselection != ATTACK_SELECTION_MOSTVIOLATED || (SCIPisGE(kepscip, itercnt, min_iter) || sameAttackPattern) )
+         {
+            SCIPinfoMessage(kepscip, NULL, "The recourse value %f of the currently considered attack pattern violates the master solution.\n", *kepobj);
+            *optimal = TRUE;
+            break;
+         }
       }
 
       /* the vars are being enabled through resetting the lower bound */
@@ -745,8 +834,6 @@ SCIP_RETCODE SCIPsolveBendersPICEFModel(
       vars[cnt++] = SCIPbendersdataPICEFGetObjvar(bendersdata);
 
       SCIP_CALL( SCIPbendersdataPICEFAddSolCons(bendersscip, vals, vars, cnt) );
-
-      SCIP_CALL( SCIPwriteOrigProblem(bendersscip, "bendersscip.lp", NULL, FALSE) );
 
       /* Stronger bound on objective variable, as it is monotone increasing with respect to future iterations */
       SCIP_CALL( SCIPchgVarLb(bendersscip, SCIPbendersdataPICEFGetObjvar(bendersdata), bendersobj) );
@@ -943,7 +1030,6 @@ SCIP_RETCODE solveMasterPICEFProblem(
          goto FREEMASTERPROBLEM;
 
       SCIP_CALL( SCIPsetLimitsAndVerbose(masterscip, begintime, modtimelimit, memlimit, verbose) );
-      SCIP_CALL( SCIPsetIntParam(masterscip, "display/verblevel", 3) );
       SCIP_CALL( SCIPsolve(masterscip) );
 
       if ( solvingloopShallTerminate(masterscip, begintime, modtimelimit) )
@@ -952,6 +1038,7 @@ SCIP_RETCODE solveMasterPICEFProblem(
       /* Obtain best solution and best objective */
       mastersol = SCIPgetBestSol(masterscip);
       masterobj = SCIPgetSolOrigObj(masterscip, mastersol);
+
 
       SCIPinfoMessage(masterscip, NULL, "@98 masteriteration %d: objective value %f.\n", ++itercnt, masterobj);
 
@@ -1008,6 +1095,8 @@ SCIP_RETCODE solveMasterPICEFProblem(
       /* if we have found an optimal solution */
       if ( optimal && SCIPisLE(masterscip, masterobj, subobj) )
       {
+         SCIP_CALL( SCIPprintSol(masterscip, SCIPgetBestSol(masterscip), NULL, FALSE) );
+         
          SCIP_CALL( SCIPfreeTransform(scip) );
          SCIP_CALL( SCIPfree(&scip) );
          SCIP_CALL( SCIPfreeTransform(subscip) );
@@ -1031,7 +1120,9 @@ SCIP_RETCODE solveMasterPICEFProblem(
       SCIP_CALL( SCIPchgVarUb(masterscip, masterPICEFproblemGetObjvar(SCIPgetProbData(masterscip)), masterobj) );
 
       if( SCIPisLT(masterscip, kepobj, masterobj) )
+      {
          SCIP_CALL( SCIPchgVarLb(masterscip, masterPICEFproblemGetObjvar(SCIPgetProbData(masterscip)), kepobj) );
+      }
 
       SCIP_CALL( SCIPgetAttackPattern(scip, SCIPgetBestSol(scip), attackpattern, &nattacks, graph->nnodes, method) );
       SCIPinfoMessage(masterscip, NULL, "nattacks: %d\n", nattacks);
@@ -1084,7 +1175,7 @@ SCIP_RETCODE solveMasterPICEFProblem(
       totaltime, timesecondstage, timethirdstage);
    }
 
-   SCIPinfoMessage(masterscip, NULL, "\n[patterns]\n", totaltime);
+   SCIPinfoMessage(masterscip, NULL, "\n[patterns]\n");
 
    /* print attack patterns */
    probdata = SCIPgetProbData(masterscip);

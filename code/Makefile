@@ -23,7 +23,6 @@
 
 SCIPDIR         =       $(SCIP_PATH)
 
-
 #-----------------------------------------------------------------------------
 # include default project Makefile from SCIP (need to do this twice, once to
 # find the correct binary, then, after getting the correct flags from the
@@ -71,9 +70,9 @@ TABUITERS	=	1000000
 FEASTOL		=	default
 PERMUTE         =       0
 SETCUTOFF	=	false
-CLIENTTMPDIR    =	/tmp
+CLIENTTMPDIR    =	/home/mcs001/s145344/mytmp/
 PPN		=	-1
-QUEUE		=	moskito
+QUEUE		=	mcs.default.q
 
 # symmetry settings for CPLEX - can be -1 (automatic), 0 (off), 1-5 (increasingly aggressive)
 SYMM		=   	5

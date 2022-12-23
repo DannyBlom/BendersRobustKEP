@@ -223,15 +223,6 @@ SCIP_RETCODE findcycles(
    (*cycles)->nodelistsbegin[cntcycle] = int(cntnodesincycle);
    (*cycles)->maxcyclelen = maxcyclelen;
 
-   // for(int i=0; i < cntcycle; ++i)
-   // {
-   //    for(int j=nodelistsbegin[i]; j < nodelistsbegin[i+1]; ++j)
-   //    {
-   //       printf("%d ", (*cycles)->nodelists[j]);
-   //    }
-   //    printf("\n");
-   // }
-
    return SCIP_OKAY;
 }
 
@@ -248,9 +239,9 @@ SCIP_RETCODE findchains(
    SCIP_CALL( SCIPallocBlockMemory(scip, chains) );
    cout << "Enumerating all chains" << endl;
 
-   SCIP_Bool issubchain;
+   // SCIP_Bool issubchain;
    int maxchainlen = 0;
-   int chainlen;
+   // int chainlen;
    int chainlengthlimit;
 
    SCIP_CALL( SCIPgetIntParam(scip, "kidney/maxchainlength", &chainlengthlimit) );
@@ -261,13 +252,17 @@ SCIP_RETCODE findchains(
 
    int cntchain = 0;
    int cntnodesinchain = 0;
+   int subchainidx = -1;
+   int npopped = 0;
    vector<int> nodelists(0);
    vector<int> nodelistsbegin(0);
+   vector<int> subchains(0);
+   queue<vector<int>> paths; // A queue (to allow deleting elements at the front) including all current paths.
+
 
    // We loop through all vertices as possible starting points of the chains.
    for (int i = G->npairs; i < G->nnodes; i++)
    {
-      queue<vector<int>> paths; // A queue (to allow deleting elements at the front) including all current paths.
 
       // We intialize the queue by adding all arcs from the initial vertex (if a short enough return path exists).
       for (int j = G->adjacencylistbegins[i]; j < G->adjacencylistbegins[i + 1]; j++)
@@ -292,43 +287,52 @@ SCIP_RETCODE findchains(
          for(int k = 0; k < int(init_vector.size()); k++)
             nodelists.push_back(init_vector[k]);
          paths.push(init_vector);
+
+         // Keep track of subchain indices
+         subchains.push_back(subchainidx);
       }
+   }
 
-      while ( ! paths.empty() )
+   while ( ! paths.empty() )
+   {
+      vector<int> path_vector = paths.front(); // Get the first path out and delete it from the queue.
+      subchainidx = npopped;
+      paths.pop();
+      npopped++;
+
+      int endvertex = path_vector[path_vector.size() - 1];
+
+      // Go through the arcs starting from the current last vertex on the path.
+      for (int j = G->adjacencylistbegins[endvertex]; j < G->adjacencylistbegins[endvertex + 1]; j++)
       {
-         vector<int> path_vector = paths.front(); // Get the first path out and delete it from the queue.
-         paths.pop();
-         int endvertex = path_vector[path_vector.size() - 1];
-
-         // Go through the arcs starting from the current last vertex on the path.
-         for (int j = G->adjacencylistbegins[endvertex]; j < G->adjacencylistbegins[endvertex + 1]; j++)
+         // stop: there shouldn't be arcs arriving at an undirected donor
+         if ( G->adjacencylists[j] >= G->npairs )
          {
-            // stop: there shouldn't be arcs arriving at an undirected donor
-            if ( G->adjacencylists[j] >= G->npairs )
-            {
-               SCIPerrorMessage("there shouldn't be arcs arriving at an undirected donor, but found %d -> %d",
-                  endvertex, G->adjacencylists[j]);
-               SCIPfreeBlockMemory(scip, &chains);
-               return SCIP_ERROR;
-            }
+            SCIPerrorMessage("there shouldn't be arcs arriving at an undirected donor, but found %d -> %d",
+               endvertex, G->adjacencylists[j]);
+            SCIPfreeBlockMemory(scip, &chains);
+            return SCIP_ERROR;
+         }
 
-            // Only consider the next arc if it does no return to pair found earlier in the path.
-            if (!Is_already_in_path(path_vector, G->adjacencylists[j]))
-            {
-               vector<int> new_path = path_vector;
-               new_path.push_back(G->adjacencylists[j]);
+         // Only consider the next arc if it does no return to pair found earlier in the path.
+         if (!Is_already_in_path(path_vector, G->adjacencylists[j]))
+         {
+            vector<int> new_path = path_vector;
+            new_path.push_back(G->adjacencylists[j]);
 
-               // Add the chain to the list.
-               cntchain = cntchain + 1;
-               cntnodesinchain = cntnodesinchain + int(new_path.size());
-               nodelistsbegin.push_back(nodelists.size());
-               for(int k = 0; k < int(new_path.size()); k++)
-                  nodelists.push_back(new_path[k]);
+            // Add the chain to the list.
+            cntchain = cntchain + 1;
+            cntnodesinchain = cntnodesinchain + int(new_path.size());
+            nodelistsbegin.push_back(nodelists.size());
+            for(int k = 0; k < int(new_path.size()); k++)
+               nodelists.push_back(new_path[k]);
 
-               // If the maximum chainlength is not yet reached, add path back to the queue for possible later additions.
-               if( int(new_path.size()) <= chainlengthlimit )
-                  paths.push(new_path);
-            }
+            // Set its subchain index to the index of path_vector (equal to number of vectors popped from the paths queue before path_vector)
+            subchains.push_back(subchainidx);
+
+            // If the maximum chainlength is not yet reached, add path back to the queue for possible later additions.
+            if( int(new_path.size()) <= chainlengthlimit )
+               paths.push(new_path);
          }
       }
    }
@@ -346,12 +350,13 @@ SCIP_RETCODE findchains(
 
    for (int i = 0; i < cntnodesinchain; i++)
       (*chains)->nodelists[i] = nodelists[i];
-   cout << endl;
 
    for(int i = 0; i < cntchain; i++)
    {
       (*chains)->nodelistsbegin[i] = nodelistsbegin[i];
       (*chains)->chainweights[i] = nodelistsbegin[i+1] - nodelistsbegin[i] - 1; // -1 as we must count the number of transplants (NDD does not receive a transplant)
+      (*chains)->subchains[i] = subchains[i];
+      // cout << "Subchain of " << i << "-th chain: " << (*chains)->subchains[i] << endl;
 
       /* keep track of maximum chain length */
       if ( (*chains)->chainweights[i] > maxchainlen )
@@ -360,37 +365,6 @@ SCIP_RETCODE findchains(
    (*chains)->nodelistsbegin[cntchain] = int(cntnodesinchain);
    (*chains)->maxchainlen = maxchainlen;
 
-   /**< We make use of the fact that smaller chains have smaller indices based on our chain finding algorithm */
-   for( int i = 0; i < cntchain; i++ )
-   {
-      (*chains)->subchains[i] = -1;
-      chainlen = nodelistsbegin[i+1] - nodelistsbegin[i];
-
-      // This chain has no proper subchain
-      if( chainlen == 2 )
-         continue;
-
-      for( int j = 0; j < i; ++j )
-      {
-         if( chainlen != nodelistsbegin[j+1] - nodelistsbegin[j] + 1 )
-            continue;
-
-         issubchain = TRUE;
-         for( int k = 0; k < chainlen - 1; ++k )
-         {
-            if( (*chains)->nodelists[nodelistsbegin[i]+k] != (*chains)->nodelists[nodelistsbegin[j]+k] )
-            {
-               issubchain = FALSE;
-               break;
-            }
-         }
-         if( issubchain )
-         {
-            (*chains)->subchains[i] = j;
-            break;
-         }
-      }
-   }
    return SCIP_OKAY;
 }
 

@@ -48,7 +48,8 @@ SCIP_Bool SCIPchainIsAttacked(
    int*                  attackpattern,      /**< array of attacked vertices */
    int                   nattacks,           /**< number of attacked vertices */
    Chains*               chains,             /**< data structure for the chains in the graph of suitable length */
-   int                   chainidx            /**< index of chain in chains data structure */
+   int                   chainidx,           /**< index of chain in chains data structure */
+   int                   vertex              /**< Consider only chain up until vertex (if NULL, consider entire chain) */
    );
 
 /** get objvar */

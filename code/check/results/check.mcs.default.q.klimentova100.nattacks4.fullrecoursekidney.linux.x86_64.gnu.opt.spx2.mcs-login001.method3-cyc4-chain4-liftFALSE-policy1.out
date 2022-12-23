@@ -1,0 +1,3852 @@
+
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt ===========
+-----------------------------
+Thu Nov 24 12:38:54 CET 2022
+-----------------------------
+@03 1669289934
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_0.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 16463
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 415257
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.29
+Create the model
+Time to create master model:	0.8
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 43.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 3 	4 	17 	26 	
+update upper bound from 100000000000000000000.000000 to 36.000000
+@95 optimal solution found: ub is 36.000000 and masterbound is 43.000000
+nattacks: 4
+first attack: 3
+@98 masteriteration 2: objective value 37.000000.
+@97 Set up Glorie model 2.
+Attack Pattern: 9 	15 	97 	98 	
+update upper bound from 100000000000000000000.000000 to 38.000000
+@95 branch on node 9
+Attack Pattern: 9 	15 	97 	98 	
+@95 branch on node 15
+Attack Pattern: 9 	15 	97 	98 	
+@95 branch on node 97
+Attack Pattern: 9 	15 	97 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	42 	
+@95 branch on node 42
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	3 	
+@95 branch on node 3
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	14 	
+@95 branch on node 14
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	90 	
+@95 branch on node 90
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	65 	
+@95 branch on node 65
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	29 	
+@95 branch on node 29
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	96 	
+@95 branch on node 96
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 38.000000)
+Attack Pattern: 9 	15 	97 	43 	
+@95 branch on node 43
+update upper bound from 38.000000 to 37.000000
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 37.000000)
+Attack Pattern: 9 	15 	97 	37 	
+@95 branch on node 37
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 37.000000)
+Attack Pattern: 9 	15 	97 	48 	
+@95 branch on node 48
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 37.000000)
+Attack Pattern: 9 	15 	97 	71 	
+@95 branch on node 71
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 37.000000)
+Attack Pattern: 9 	15 	97 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 37.000000)
+Attack Pattern: 9 	15 	97 	16 	
+@95 branch on node 16
+@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3610.380000 seconds (stage 2: 2143.720000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       3       4      17      26
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 863638 (863637 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293546
+-----------------------------
+Thu Nov 24 13:39:06 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt ===========
+-----------------------------
+Thu Nov 24 12:38:54 CET 2022
+-----------------------------
+@03 1669289934
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_1.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 12889
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1144552
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.78
+Create the model
+Time to create master model:	2.31
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 47.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	3 	4 	5 	
+update upper bound from 100000000000000000000.000000 to 42.000000
+@95 optimal solution found: ub is 42.000000 and masterbound is 47.000000
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3614.210000 seconds (stage 2: 1198.990000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2       3       4       5
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2315077 (2315076 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 490 initial, 490 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293551
+-----------------------------
+Thu Nov 24 13:39:11 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA012 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt ===========
+-----------------------------
+Mon Oct 31 18:03:37 CET 2022
+-----------------------------
+@03 1667235817
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_2.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 37929
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 111945
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.09
+Create the model
+Time to create master model:	0.24
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 48.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 18 	34 	35 	99 	
+update upper bound from 100000000000000000000.000000 to 44.000000
+@95 optimal solution found: ub is 44.000000 and masterbound is 48.000000
+nattacks: 4
+first attack: 18
+@98 masteriteration 2: objective value 45.000000.
+@97 Set up Glorie model 2.
+Attack Pattern: 0 	2 	27 	30 	
+update upper bound from 100000000000000000000.000000 to 41.000000
+@95 optimal solution found: ub is 41.000000 and masterbound is 45.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 3: objective value 43.000000.
+@97 Set up Glorie model 3.
+Attack Pattern: 0 	1 	11 	22 	
+update upper bound from 100000000000000000000.000000 to 42.000000
+@95 optimal solution found: ub is 42.000000 and masterbound is 43.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 4: objective value 42.000000.
+@97 Set up Glorie model 4.
+Attack Pattern: 2 	12 	13 	22 	
+update upper bound from 100000000000000000000.000000 to 42.000000
+@95 branch on node 2
+Attack Pattern: 2 	12 	13 	22 	
+@95 branch on node 12
+Attack Pattern: 2 	12 	13 	22 	
+@95 branch on node 13
+Attack Pattern: 2 	12 	13 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	47 	
+@95 branch on node 47
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	34 	
+@95 branch on node 34
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	96 	
+@95 branch on node 96
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	81 	
+@95 branch on node 81
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	89 	
+@95 branch on node 89
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	95 	
+@95 branch on node 95
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	37 	
+@95 branch on node 37
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	51 	
+@95 branch on node 51
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	53 	
+@95 branch on node 53
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	38 	
+@95 branch on node 38
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	54 	
+@95 branch on node 54
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	74 	
+@95 branch on node 74
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	44 	
+@95 branch on node 44
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	84 	
+@95 branch on node 84
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	72 	
+@95 branch on node 72
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	70 	
+@95 branch on node 70
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	15 	
+@95 branch on node 15
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	90 	
+@95 branch on node 90
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	35 	
+@95 branch on node 35
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	6 	
+@95 branch on node 6
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	5 	
+@95 branch on node 5
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	31 	
+@95 branch on node 31
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	11 	
+@95 branch on node 11
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	66 	
+@95 branch on node 66
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	18 	
+@95 branch on node 18
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	42 	
+@95 branch on node 42
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	24 	
+@95 branch on node 24
+@95 prune node: 4 / 4 or (lb 32.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	0 	
+@95 branch on node 0
+@95 prune node: 4 / 4 or (lb 33.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	23 	
+@95 branch on node 23
+@95 prune node: 4 / 4 or (lb 33.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	1 	
+@95 branch on node 1
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	3 	
+@95 branch on node 3
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	4 	
+@95 branch on node 4
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	7 	
+@95 branch on node 7
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	9 	
+@95 branch on node 9
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	14 	
+@95 branch on node 14
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	16 	
+@95 branch on node 16
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	17 	
+@95 branch on node 17
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	21 	
+@95 branch on node 21
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	25 	
+@95 branch on node 25
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	26 	
+@95 branch on node 26
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	29 	
+@95 branch on node 29
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	30 	
+@95 branch on node 30
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	33 	
+@95 branch on node 33
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	39 	
+@95 branch on node 39
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	43 	
+@95 branch on node 43
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	45 	
+@95 branch on node 45
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	46 	
+@95 branch on node 46
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	48 	
+@95 branch on node 48
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	49 	
+@95 branch on node 49
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	50 	
+@95 branch on node 50
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	52 	
+@95 branch on node 52
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	55 	
+@95 branch on node 55
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	56 	
+@95 branch on node 56
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	57 	
+@95 branch on node 57
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	58 	
+@95 branch on node 58
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	59 	
+@95 branch on node 59
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	60 	
+@95 branch on node 60
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	61 	
+@95 branch on node 61
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	62 	
+@95 branch on node 62
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	63 	
+@95 branch on node 63
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	65 	
+@95 branch on node 65
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	68 	
+@95 branch on node 68
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	69 	
+@95 branch on node 69
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	71 	
+@95 branch on node 71
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	73 	
+@95 branch on node 73
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	75 	
+@95 branch on node 75
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	76 	
+@95 branch on node 76
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	77 	
+@95 branch on node 77
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	79 	
+@95 branch on node 79
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	80 	
+@95 branch on node 80
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	85 	
+@95 branch on node 85
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	86 	
+@95 branch on node 86
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	87 	
+@95 branch on node 87
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	88 	
+@95 branch on node 88
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	93 	
+@95 branch on node 93
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 35.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	13 	98 	
+@95 branch on node 98
+Attack Pattern: 2 	12 	26 	22 	
+@95 branch on node 26
+Attack Pattern: 2 	12 	26 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	47 	
+@95 branch on node 47
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	34 	
+@95 branch on node 34
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	96 	
+@95 branch on node 96
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	81 	
+@95 branch on node 81
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	89 	
+@95 branch on node 89
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	95 	
+@95 branch on node 95
+@95 prune node: 4 / 4 or (lb 31.000000 >= ub 42.000000)
+Attack Pattern: 2 	12 	26 	37 	
+@95 branch on node 37
+@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3603.010000 seconds (stage 2: 2977.810000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      18      34      35      99
+[scenario]    1:	       0       2      27      30
+[scenario]    2:	       0       1      11      22
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 599894 (599893 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1098 initial, 1098 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667239422
+-----------------------------
+Mon Oct 31 19:03:42 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA009 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt ===========
+-----------------------------
+Thu Nov 24 12:38:54 CET 2022
+-----------------------------
+@03 1669289934
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_3.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 26165
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1528644
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.56
+Create the model
+Time to create master model:	4.24
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3838.040000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1554910 (1554909 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293776
+-----------------------------
+Thu Nov 24 13:42:56 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt ===========
+-----------------------------
+Thu Nov 24 12:38:54 CET 2022
+-----------------------------
+@03 1669289934
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_4.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 26420
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 935073
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.76
+Create the model
+Time to create master model:	2.3
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 62.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	4 	6 	8 	
+update upper bound from 100000000000000000000.000000 to 56.000000
+@95 optimal solution found: ub is 56.000000 and masterbound is 62.000000
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 4092.080000 seconds (stage 2: 433.820000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2       4       6       8
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1923183 (1923182 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 494 initial, 494 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669294029
+-----------------------------
+Thu Nov 24 13:47:09 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt ===========
+-----------------------------
+Thu Nov 24 12:38:55 CET 2022
+-----------------------------
+@03 1669289935
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_5.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 17405
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 677587
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.46
+Create the model
+Time to create master model:	1.39
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 39.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 6 	14 	15 	31 	
+update upper bound from 100000000000000000000.000000 to 33.000000
+@95 optimal solution found: ub is 33.000000 and masterbound is 39.000000
+nattacks: 4
+first attack: 6
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 4082.350000 seconds (stage 2: 72.230000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       6      14      15      31
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1390182 (1390181 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669294020
+-----------------------------
+Thu Nov 24 13:47:00 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA001 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt ===========
+-----------------------------
+Mon Oct 31 18:03:38 CET 2022
+-----------------------------
+@03 1667235818
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_6.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 6558
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 49780
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.03
+Create the model
+Time to create master model:	0.1
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 41.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 3 	8 	10 	21 	
+update upper bound from 100000000000000000000.000000 to 34.000000
+@95 optimal solution found: ub is 34.000000 and masterbound is 41.000000
+nattacks: 4
+first attack: 3
+@98 masteriteration 2: objective value 35.000000.
+@97 Set up Glorie model 2.
+Attack Pattern: 2 	3 	4 	9 	
+update upper bound from 100000000000000000000.000000 to 36.000000
+@95 branch on node 2
+Attack Pattern: 2 	3 	4 	9 	
+@95 branch on node 3
+Attack Pattern: 2 	3 	4 	9 	
+@95 branch on node 4
+Attack Pattern: 2 	3 	4 	9 	
+@95 branch on node 9
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	11 	
+@95 branch on node 11
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 36.000000)
+Attack Pattern: 2 	3 	4 	88 	
+@95 branch on node 88
+update upper bound from 36.000000 to 35.000000
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	21 	
+@95 branch on node 21
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	84 	
+@95 branch on node 84
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	89 	
+@95 branch on node 89
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	38 	
+@95 branch on node 38
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	75 	
+@95 branch on node 75
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	50 	
+@95 branch on node 50
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	31 	
+@95 branch on node 31
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	87 	
+@95 branch on node 87
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	0 	
+@95 branch on node 0
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	1 	
+@95 branch on node 1
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	5 	
+@95 branch on node 5
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	6 	
+@95 branch on node 6
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	7 	
+@95 branch on node 7
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	12 	
+@95 branch on node 12
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	14 	
+@95 branch on node 14
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	15 	
+@95 branch on node 15
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	16 	
+@95 branch on node 16
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	17 	
+@95 branch on node 17
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	18 	
+@95 branch on node 18
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	23 	
+@95 branch on node 23
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	24 	
+@95 branch on node 24
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	25 	
+@95 branch on node 25
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	26 	
+@95 branch on node 26
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	29 	
+@95 branch on node 29
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	30 	
+@95 branch on node 30
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	33 	
+@95 branch on node 33
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	34 	
+@95 branch on node 34
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	35 	
+@95 branch on node 35
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	37 	
+@95 branch on node 37
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	39 	
+@95 branch on node 39
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	42 	
+@95 branch on node 42
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	43 	
+@95 branch on node 43
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	44 	
+@95 branch on node 44
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	45 	
+@95 branch on node 45
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	46 	
+@95 branch on node 46
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	47 	
+@95 branch on node 47
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	48 	
+@95 branch on node 48
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	49 	
+@95 branch on node 49
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	51 	
+@95 branch on node 51
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	52 	
+@95 branch on node 52
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	53 	
+@95 branch on node 53
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	54 	
+@95 branch on node 54
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	55 	
+@95 branch on node 55
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	56 	
+@95 branch on node 56
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	57 	
+@95 branch on node 57
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	58 	
+@95 branch on node 58
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	59 	
+@95 branch on node 59
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	60 	
+@95 branch on node 60
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	61 	
+@95 branch on node 61
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	62 	
+@95 branch on node 62
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	63 	
+@95 branch on node 63
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	65 	
+@95 branch on node 65
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	66 	
+@95 branch on node 66
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	68 	
+@95 branch on node 68
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	69 	
+@95 branch on node 69
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	70 	
+@95 branch on node 70
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	71 	
+@95 branch on node 71
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	72 	
+@95 branch on node 72
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	73 	
+@95 branch on node 73
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	74 	
+@95 branch on node 74
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	76 	
+@95 branch on node 76
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	77 	
+@95 branch on node 77
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	79 	
+@95 branch on node 79
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	80 	
+@95 branch on node 80
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	81 	
+@95 branch on node 81
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	85 	
+@95 branch on node 85
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	86 	
+@95 branch on node 86
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	90 	
+@95 branch on node 90
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	93 	
+@95 branch on node 93
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	95 	
+@95 branch on node 95
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	4 	96 	
+@95 branch on node 96
+Attack Pattern: 2 	3 	57 	9 	
+@95 branch on node 57
+Attack Pattern: 2 	3 	57 	9 	
+@95 branch on node 9
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	11 	
+@95 branch on node 11
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	88 	
+@95 branch on node 88
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	21 	
+@95 branch on node 21
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	84 	
+@95 branch on node 84
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	89 	
+@95 branch on node 89
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	38 	
+@95 branch on node 38
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	75 	
+@95 branch on node 75
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	50 	
+@95 branch on node 50
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	31 	
+@95 branch on node 31
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	87 	
+@95 branch on node 87
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	0 	
+@95 branch on node 0
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	1 	
+@95 branch on node 1
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	5 	
+@95 branch on node 5
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	6 	
+@95 branch on node 6
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	7 	
+@95 branch on node 7
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	12 	
+@95 branch on node 12
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	14 	
+@95 branch on node 14
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	15 	
+@95 branch on node 15
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	16 	
+@95 branch on node 16
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	17 	
+@95 branch on node 17
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	18 	
+@95 branch on node 18
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	23 	
+@95 branch on node 23
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	24 	
+@95 branch on node 24
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	25 	
+@95 branch on node 25
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	26 	
+@95 branch on node 26
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	29 	
+@95 branch on node 29
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	30 	
+@95 branch on node 30
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	33 	
+@95 branch on node 33
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	34 	
+@95 branch on node 34
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	35 	
+@95 branch on node 35
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	37 	
+@95 branch on node 37
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	39 	
+@95 branch on node 39
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	42 	
+@95 branch on node 42
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	43 	
+@95 branch on node 43
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	44 	
+@95 branch on node 44
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	45 	
+@95 branch on node 45
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	46 	
+@95 branch on node 46
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	47 	
+@95 branch on node 47
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	48 	
+@95 branch on node 48
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	49 	
+@95 branch on node 49
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	51 	
+@95 branch on node 51
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	52 	
+@95 branch on node 52
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	53 	
+@95 branch on node 53
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	54 	
+@95 branch on node 54
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	55 	
+@95 branch on node 55
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	56 	
+@95 branch on node 56
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	58 	
+@95 branch on node 58
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	59 	
+@95 branch on node 59
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	60 	
+@95 branch on node 60
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	61 	
+@95 branch on node 61
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	62 	
+@95 branch on node 62
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	63 	
+@95 branch on node 63
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	65 	
+@95 branch on node 65
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	66 	
+@95 branch on node 66
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	68 	
+@95 branch on node 68
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	69 	
+@95 branch on node 69
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	70 	
+@95 branch on node 70
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	71 	
+@95 branch on node 71
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	72 	
+@95 branch on node 72
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	73 	
+@95 branch on node 73
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	74 	
+@95 branch on node 74
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	76 	
+@95 branch on node 76
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	77 	
+@95 branch on node 77
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	79 	
+@95 branch on node 79
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	80 	
+@95 branch on node 80
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	81 	
+@95 branch on node 81
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	85 	
+@95 branch on node 85
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	86 	
+@95 branch on node 86
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	90 	
+@95 branch on node 90
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	93 	
+@95 branch on node 93
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	95 	
+@95 branch on node 95
+@95 prune node: 4 / 4 or (lb 28.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	57 	96 	
+@95 branch on node 96
+Attack Pattern: 2 	3 	39 	9 	
+@95 branch on node 39
+Attack Pattern: 2 	3 	39 	9 	
+@95 branch on node 9
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	11 	
+@95 branch on node 11
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	39 	88 	
+@95 branch on node 88
+update upper bound from 35.000000 to 34.000000
+@95 optimal solution found: ub is 34.000000 and masterbound is 35.000000
+nattacks: 4
+first attack: 2
+@98 masteriteration 3: objective value 35.000000.
+@97 Set up Glorie model 3.
+Attack Pattern: 19 	21 	36 	41 	
+update upper bound from 100000000000000000000.000000 to 35.000000
+@95 branch on node 19
+Attack Pattern: 19 	21 	36 	41 	
+@95 branch on node 21
+Attack Pattern: 19 	21 	36 	41 	
+@95 branch on node 36
+Attack Pattern: 19 	21 	36 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	17 	
+@95 branch on node 17
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	4 	
+@95 branch on node 4
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 19 	21 	36 	57 	
+@95 branch on node 57
+update upper bound from 35.000000 to 34.000000
+@95 optimal solution found: ub is 34.000000 and masterbound is 35.000000
+nattacks: 4
+first attack: 19
+@98 masteriteration 4: objective value 35.000000.
+@97 Set up Glorie model 4.
+Attack Pattern: 11 	17 	21 	32 	
+update upper bound from 100000000000000000000.000000 to 37.000000
+@95 branch on node 11
+Attack Pattern: 11 	17 	21 	32 	
+@95 branch on node 17
+Attack Pattern: 11 	17 	21 	32 	
+@95 branch on node 21
+Attack Pattern: 11 	17 	21 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 37.000000)
+Attack Pattern: 11 	17 	21 	36 	
+@95 branch on node 36
+update upper bound from 37.000000 to 35.000000
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	2 	
+@95 branch on node 2
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	4 	
+@95 branch on node 4
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	57 	
+@95 branch on node 57
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	12 	
+@95 branch on node 12
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	88 	
+@95 branch on node 88
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 26.000000 >= ub 35.000000)
+Attack Pattern: 11 	17 	21 	69 	
+@95 branch on node 69
+update upper bound from 35.000000 to 34.000000
+@95 optimal solution found: ub is 34.000000 and masterbound is 35.000000
+nattacks: 4
+first attack: 11
+@98 masteriteration 5: objective value 34.000000.
+@97 Set up Glorie model 5.
+Attack Pattern: 2 	3 	17 	21 	
+update upper bound from 100000000000000000000.000000 to 35.000000
+@95 branch on node 2
+Attack Pattern: 2 	3 	17 	21 	
+@95 branch on node 3
+Attack Pattern: 2 	3 	17 	21 	
+@95 branch on node 17
+Attack Pattern: 2 	3 	17 	21 	
+@95 branch on node 21
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	39 	
+@95 branch on node 39
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	38 	
+@95 branch on node 38
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	50 	
+@95 branch on node 50
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	87 	
+@95 branch on node 87
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	31 	
+@95 branch on node 31
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	84 	
+@95 branch on node 84
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	86 	
+@95 branch on node 86
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	69 	
+@95 branch on node 69
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	70 	
+@95 branch on node 70
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	75 	
+@95 branch on node 75
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	0 	
+@95 branch on node 0
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	1 	
+@95 branch on node 1
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	4 	
+@95 branch on node 4
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	5 	
+@95 branch on node 5
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	6 	
+@95 branch on node 6
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	7 	
+@95 branch on node 7
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	9 	
+@95 branch on node 9
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	11 	
+@95 branch on node 11
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	12 	
+@95 branch on node 12
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	13 	
+@95 branch on node 13
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	14 	
+@95 branch on node 14
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	15 	
+@95 branch on node 15
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	16 	
+@95 branch on node 16
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	18 	
+@95 branch on node 18
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	23 	
+@95 branch on node 23
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	24 	
+@95 branch on node 24
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	25 	
+@95 branch on node 25
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	26 	
+@95 branch on node 26
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	27 	
+@95 branch on node 27
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	29 	
+@95 branch on node 29
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	30 	
+@95 branch on node 30
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	32 	
+@95 branch on node 32
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	33 	
+@95 branch on node 33
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	34 	
+@95 branch on node 34
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	35 	
+@95 branch on node 35
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	37 	
+@95 branch on node 37
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	42 	
+@95 branch on node 42
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	43 	
+@95 branch on node 43
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	44 	
+@95 branch on node 44
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	45 	
+@95 branch on node 45
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	46 	
+@95 branch on node 46
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	47 	
+@95 branch on node 47
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	48 	
+@95 branch on node 48
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	49 	
+@95 branch on node 49
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	51 	
+@95 branch on node 51
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	52 	
+@95 branch on node 52
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	53 	
+@95 branch on node 53
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	54 	
+@95 branch on node 54
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	55 	
+@95 branch on node 55
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	56 	
+@95 branch on node 56
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	57 	
+@95 branch on node 57
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	58 	
+@95 branch on node 58
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	59 	
+@95 branch on node 59
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	60 	
+@95 branch on node 60
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	61 	
+@95 branch on node 61
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	62 	
+@95 branch on node 62
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	63 	
+@95 branch on node 63
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	65 	
+@95 branch on node 65
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	66 	
+@95 branch on node 66
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	68 	
+@95 branch on node 68
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	71 	
+@95 branch on node 71
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	72 	
+@95 branch on node 72
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	73 	
+@95 branch on node 73
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	74 	
+@95 branch on node 74
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	76 	
+@95 branch on node 76
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	77 	
+@95 branch on node 77
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	79 	
+@95 branch on node 79
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	80 	
+@95 branch on node 80
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	81 	
+@95 branch on node 81
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	85 	
+@95 branch on node 85
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	88 	
+@95 branch on node 88
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	89 	
+@95 branch on node 89
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	90 	
+@95 branch on node 90
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	92 	
+@95 branch on node 92
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	93 	
+@95 branch on node 93
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	95 	
+@95 branch on node 95
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	17 	96 	
+@95 branch on node 96
+Attack Pattern: 2 	3 	61 	21 	
+@95 branch on node 61
+Attack Pattern: 2 	3 	61 	21 	
+@95 branch on node 21
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	64 	
+@95 branch on node 64
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	39 	
+@95 branch on node 39
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	38 	
+@95 branch on node 38
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	22 	
+@95 branch on node 22
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	97 	
+@95 branch on node 97
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	50 	
+@95 branch on node 50
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	41 	
+@95 branch on node 41
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	83 	
+@95 branch on node 83
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	94 	
+@95 branch on node 94
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	78 	
+@95 branch on node 78
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	99 	
+@95 branch on node 99
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	87 	
+@95 branch on node 87
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	31 	
+@95 branch on node 31
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	84 	
+@95 branch on node 84
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 23.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	86 	
+@95 branch on node 86
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	19 	
+@95 branch on node 19
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	69 	
+@95 branch on node 69
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	70 	
+@95 branch on node 70
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	98 	
+@95 branch on node 98
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	75 	
+@95 branch on node 75
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	28 	
+@95 branch on node 28
+@95 prune node: 4 / 4 or (lb 24.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	36 	
+@95 branch on node 36
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 25.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	0 	
+@95 branch on node 0
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	1 	
+@95 branch on node 1
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 35.000000)
+Attack Pattern: 2 	3 	61 	4 	
+@95 branch on node 4
+@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3602.010000 seconds (stage 2: 3097.400000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       3       8      10      21
+[scenario]    1:	       2       3      39      88
+[scenario]    2:	      19      21      36      57
+[scenario]    3:	      11      17      21      69
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 282183 (282182 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1389 initial, 1389 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1667239425
+-----------------------------
+Mon Oct 31 19:03:45 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt ===========
+-----------------------------
+Thu Nov 24 12:38:55 CET 2022
+-----------------------------
+@03 1669289935
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_7.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 156324
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 3235101
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	2.58
+Create the model
+Time to create master model:	9.08
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 5581.860000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 3391526 (3391525 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669295522
+-----------------------------
+Thu Nov 24 14:12:02 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt ===========
+-----------------------------
+Thu Nov 24 12:38:58 CET 2022
+-----------------------------
+@03 1669289938
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_8.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 68251
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 2456639
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.82
+Create the model
+Time to create master model:	5.07
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3611.650000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2524991 (2524990 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293553
+-----------------------------
+Thu Nov 24 13:39:13 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt ===========
+-----------------------------
+Thu Nov 24 12:39:02 CET 2022
+-----------------------------
+@03 1669289942
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_9.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 129024
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 6930447
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	5.74
+Create the model
+Time to create master model:	16.46
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+memory limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 185.980000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 7059572 (7059571 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669290138
+-----------------------------
+Thu Nov 24 12:42:18 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt ===========
+-----------------------------
+Thu Nov 24 12:39:14 CET 2022
+-----------------------------
+@03 1669289954
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_10.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 66143
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 2878692
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	2.44
+Create the model
+Time to create master model:	6.87
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 5358.940000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2944936 (2944935 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669295318
+-----------------------------
+Thu Nov 24 14:08:38 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt ===========
+-----------------------------
+Thu Nov 24 12:39:17 CET 2022
+-----------------------------
+@03 1669289957
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_11.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 52645
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 680436
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.55
+Create the model
+Time to create master model:	1.5
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 61.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 4 	5 	6 	8 	
+update upper bound from 100000000000000000000.000000 to 55.000000
+@95 optimal solution found: ub is 55.000000 and masterbound is 61.000000
+nattacks: 4
+first attack: 4
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3737.670000 seconds (stage 2: 114.210000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       4       5       6       8
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1466362 (1466361 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 500 initial, 500 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293698
+-----------------------------
+Thu Nov 24 13:41:38 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt ===========
+-----------------------------
+Thu Nov 24 12:39:17 CET 2022
+-----------------------------
+@03 1669289957
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_12.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 34167
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1184510
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.88
+Create the model
+Time to create master model:	2.74
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 66.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 0 	2 	5 	10 	
+update upper bound from 100000000000000000000.000000 to 57.000000
+@95 optimal solution found: ub is 57.000000 and masterbound is 66.000000
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3610.570000 seconds (stage 2: 486.790000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0       2       5      10
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2437550 (2437549 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 492 initial, 492 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293572
+-----------------------------
+Thu Nov 24 13:39:32 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt ===========
+-----------------------------
+Thu Nov 24 12:39:20 CET 2022
+-----------------------------
+@03 1669289960
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_13.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 76579
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 886289
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.7
+Create the model
+Time to create master model:	2.22
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 58.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 0 	1 	2 	3 	
+update upper bound from 100000000000000000000.000000 to 52.000000
+@95 optimal solution found: ub is 52.000000 and masterbound is 58.000000
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3823.930000 seconds (stage 2: 532.170000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0       1       2       3
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1925936 (1925935 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 500 initial, 500 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293788
+-----------------------------
+Thu Nov 24 13:43:08 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt ===========
+-----------------------------
+Thu Nov 24 12:39:23 CET 2022
+-----------------------------
+@03 1669289963
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_14.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 18129
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1055222
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.78
+Create the model
+Time to create master model:	2.37
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 50.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 12 	22 	24 	34 	
+update upper bound from 100000000000000000000.000000 to 46.000000
+@95 optimal solution found: ub is 46.000000 and masterbound is 50.000000
+nattacks: 4
+first attack: 12
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3767.730000 seconds (stage 2: 569.490000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	      12      22      24      34
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2146898 (2146897 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 492 initial, 492 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293734
+-----------------------------
+Thu Nov 24 13:42:14 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt ===========
+-----------------------------
+Thu Nov 24 12:39:24 CET 2022
+-----------------------------
+@03 1669289964
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_15.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 21628
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1098176
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.81
+Create the model
+Time to create master model:	2.51
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 59.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 0 	5 	10 	13 	
+update upper bound from 100000000000000000000.000000 to 55.000000
+@95 optimal solution found: ub is 55.000000 and masterbound is 59.000000
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3614.780000 seconds (stage 2: 1465.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0       5      10      13
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2239804 (2239803 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 492 initial, 492 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293583
+-----------------------------
+Thu Nov 24 13:39:43 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA006 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt ===========
+-----------------------------
+Thu Nov 24 12:39:32 CET 2022
+-----------------------------
+@03 1669289972
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_16.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 37344
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 826521
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.58
+Create the model
+Time to create master model:	1.67
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 50.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 3 	9 	12 	15 	
+update upper bound from 100000000000000000000.000000 to 45.000000
+@95 optimal solution found: ub is 45.000000 and masterbound is 50.000000
+nattacks: 4
+first attack: 3
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3654.550000 seconds (stage 2: 181.420000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       3       9      12      15
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1727928 (1727927 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293630
+-----------------------------
+Thu Nov 24 13:40:30 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt ===========
+-----------------------------
+Thu Nov 24 12:39:35 CET 2022
+-----------------------------
+@03 1669289975
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_17.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 21030
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 118522
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.09
+Create the model
+Time to create master model:	0.28
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 44.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 1 	2 	3 	15 	
+update upper bound from 100000000000000000000.000000 to 40.000000
+@95 optimal solution found: ub is 40.000000 and masterbound is 44.000000
+nattacks: 4
+first attack: 1
+@98 masteriteration 2: objective value 42.000000.
+@97 Set up Glorie model 2.
+Attack Pattern: 0 	2 	5 	13 	
+update upper bound from 100000000000000000000.000000 to 39.000000
+@95 optimal solution found: ub is 39.000000 and masterbound is 42.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 3: objective value 41.000000.
+@97 Set up Glorie model 3.
+Attack Pattern: 0 	6 	14 	19 	
+update upper bound from 100000000000000000000.000000 to 37.000000
+@95 optimal solution found: ub is 37.000000 and masterbound is 41.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 4: objective value 41.000000.
+@97 Set up Glorie model 4.
+Attack Pattern: 0 	2 	3 	14 	
+update upper bound from 100000000000000000000.000000 to 38.000000
+@95 optimal solution found: ub is 38.000000 and masterbound is 41.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 5: objective value 39.000000.
+@97 Set up Glorie model 5.
+Attack Pattern: 0 	6 	28 	62 	
+update upper bound from 100000000000000000000.000000 to 38.000000
+@95 optimal solution found: ub is 38.000000 and masterbound is 39.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 6: objective value 39.000000.
+@97 Set up Glorie model 6.
+Attack Pattern: 2 	3 	11 	20 	
+update upper bound from 100000000000000000000.000000 to 39.000000
+@95 branch on node 2
+Attack Pattern: 2 	3 	11 	20 	
+@95 branch on node 3
+Attack Pattern: 2 	3 	11 	20 	
+@95 branch on node 11
+Attack Pattern: 2 	3 	11 	20 	
+@95 branch on node 20
+@95 prune node: 4 / 4 or (lb 27.000000 >= ub 39.000000)
+Attack Pattern: 2 	3 	11 	64 	
+@95 branch on node 64
+update upper bound from 39.000000 to 38.000000
+@95 optimal solution found: ub is 38.000000 and masterbound is 39.000000
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3607.040000 seconds (stage 2: 250.990000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       1       2       3      15
+[scenario]    1:	       0       2       5      13
+[scenario]    2:	       0       6      14      19
+[scenario]    3:	       0       2       3      14
+[scenario]    4:	       0       6      28      62
+[scenario]    5:	       2       3      11      64
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 977553 (977552 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 1983 initial, 1983 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293584
+-----------------------------
+Thu Nov 24 13:39:44 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt ===========
+-----------------------------
+Thu Nov 24 12:39:37 CET 2022
+-----------------------------
+@03 1669289977
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_18.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 20661
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1262551
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.06
+Create the model
+Time to create master model:	3
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 61.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	3 	22 	94 	
+@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3932.100000 seconds (stage 2: 899.640000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1283313 (1283312 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293911
+-----------------------------
+Thu Nov 24 13:45:11 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt ===========
+-----------------------------
+Thu Nov 24 12:39:41 CET 2022
+-----------------------------
+@03 1669289981
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_19.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 77016
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1248490
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.05
+Create the model
+Time to create master model:	3.13
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 52.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 1 	2 	5 	9 	
+update upper bound from 100000000000000000000.000000 to 48.000000
+@95 optimal solution found: ub is 48.000000 and masterbound is 52.000000
+nattacks: 4
+first attack: 1
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3611.650000 seconds (stage 2: 464.020000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       1       2       5       9
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2651210 (2651209 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293597
+-----------------------------
+Thu Nov 24 13:39:57 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt ===========
+-----------------------------
+Thu Nov 24 12:39:42 CET 2022
+-----------------------------
+@03 1669289982
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_20.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 44954
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1134941
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.99
+Create the model
+Time to create master model:	2.65
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 54.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 1 	2 	4 	14 	
+update upper bound from 100000000000000000000.000000 to 50.000000
+@95 optimal solution found: ub is 50.000000 and masterbound is 54.000000
+nattacks: 4
+first attack: 1
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3644.840000 seconds (stage 2: 1005.880000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       1       2       4      14
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2359988 (2359987 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293631
+-----------------------------
+Thu Nov 24 13:40:31 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt ===========
+-----------------------------
+Thu Nov 24 12:39:46 CET 2022
+-----------------------------
+@03 1669289986
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_21.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 33610
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 799806
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.64
+Create the model
+Time to create master model:	1.84
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 55.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 0 	5 	11 	12 	
+update upper bound from 100000000000000000000.000000 to 49.000000
+@95 optimal solution found: ub is 49.000000 and masterbound is 55.000000
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3631.360000 seconds (stage 2: 257.060000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0       5      11      12
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1667027 (1667026 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 490 initial, 490 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293621
+-----------------------------
+Thu Nov 24 13:40:21 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA005 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt ===========
+-----------------------------
+Thu Nov 24 12:39:50 CET 2022
+-----------------------------
+@03 1669289990
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_22.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 40002
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1327392
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.07
+Create the model
+Time to create master model:	2.92
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 56.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 0 	38 	53 	94 	
+update upper bound from 100000000000000000000.000000 to 52.000000
+@95 optimal solution found: ub is 52.000000 and masterbound is 56.000000
+nattacks: 4
+first attack: 0
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 4740.710000 seconds (stage 2: 323.440000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       0      38      53      94
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2734983 (2734982 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 490 initial, 490 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669294737
+-----------------------------
+Thu Nov 24 13:58:57 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA009 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt ===========
+-----------------------------
+Thu Nov 24 12:39:51 CET 2022
+-----------------------------
+@03 1669289991
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_23.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 48125
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 313185
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.36
+Create the model
+Time to create master model:	1.06
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 59.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	3 	4 	5 	
+update upper bound from 100000000000000000000.000000 to 53.000000
+@95 optimal solution found: ub is 53.000000 and masterbound is 59.000000
+nattacks: 4
+first attack: 2
+@98 masteriteration 2: objective value 53.000000.
+@97 Set up Glorie model 2.
+Attack Pattern: 0 	8 	9 	10 	
+update upper bound from 100000000000000000000.000000 to 53.000000
+@95 branch on node 0
+Attack Pattern: 0 	8 	9 	10 	
+@95 branch on node 8
+Attack Pattern: 0 	8 	9 	10 	
+@95 branch on node 9
+Attack Pattern: 0 	8 	9 	10 	
+@95 branch on node 10
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 53.000000)
+Attack Pattern: 0 	8 	9 	25 	
+@95 branch on node 25
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 53.000000)
+Attack Pattern: 0 	8 	9 	60 	
+@95 branch on node 60
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 53.000000)
+Attack Pattern: 0 	8 	9 	40 	
+@95 branch on node 40
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 53.000000)
+Attack Pattern: 0 	8 	9 	15 	
+@95 branch on node 15
+update upper bound from 53.000000 to 52.000000
+@95 optimal solution found: ub is 52.000000 and masterbound is 53.000000
+nattacks: 4
+first attack: 0
+@98 masteriteration 3: objective value 52.000000.
+@97 Set up Glorie model 3.
+Attack Pattern: 0 	3 	7 	8 	
+update upper bound from 100000000000000000000.000000 to 52.000000
+@95 branch on node 0
+Attack Pattern: 0 	3 	7 	8 	
+@95 branch on node 3
+Attack Pattern: 0 	3 	7 	8 	
+@95 branch on node 7
+Attack Pattern: 0 	3 	7 	8 	
+@95 branch on node 8
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	33 	
+@95 branch on node 33
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	59 	
+@95 branch on node 59
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	67 	
+@95 branch on node 67
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	15 	
+@95 branch on node 15
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	18 	
+@95 branch on node 18
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	91 	
+@95 branch on node 91
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	82 	
+@95 branch on node 82
+@95 prune node: 4 / 4 or (lb 43.000000 >= ub 52.000000)
+Attack Pattern: 0 	3 	7 	20 	
+@95 branch on node 20
+update upper bound from 52.000000 to 47.000000
+@95 optimal solution found: ub is 47.000000 and masterbound is 52.000000
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3609.280000 seconds (stage 2: 1321.570000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2       3       4       5
+[scenario]    1:	       0       8       9      15
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1084227 (1084226 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 795 initial, 795 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293605
+-----------------------------
+Thu Nov 24 13:40:05 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt ===========
+-----------------------------
+Thu Nov 24 12:39:56 CET 2022
+-----------------------------
+@03 1669289996
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_24.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 50373
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1031586
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.89
+Create the model
+Time to create master model:	2.47
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 49.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	3 	16 	53 	
+update upper bound from 100000000000000000000.000000 to 44.000000
+@95 optimal solution found: ub is 44.000000 and masterbound is 49.000000
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3610.240000 seconds (stage 2: 443.830000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2       3      16      53
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2164114 (2164113 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 492 initial, 492 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293610
+-----------------------------
+Thu Nov 24 13:40:10 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt ===========
+-----------------------------
+Thu Nov 24 12:39:59 CET 2022
+-----------------------------
+@03 1669289999
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_25.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 49425
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 796797
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.68
+Create the model
+Time to create master model:	1.88
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 48.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 9 	13 	26 	28 	
+update upper bound from 100000000000000000000.000000 to 44.000000
+@95 optimal solution found: ub is 44.000000 and masterbound is 48.000000
+nattacks: 4
+first attack: 9
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3608.280000 seconds (stage 2: 194.200000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       9      13      26      28
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 1692643 (1692642 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 498 initial, 498 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293610
+-----------------------------
+Thu Nov 24 13:40:10 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA009 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt ===========
+-----------------------------
+Thu Nov 24 12:40:14 CET 2022
+-----------------------------
+@03 1669290014
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_26.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 51796
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1953320
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	2.08
+Create the model
+Time to create master model:	6.47
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 4000.560000 seconds (stage 2: 0.000000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2005217 (2005216 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 201 initial, 201 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669294020
+-----------------------------
+Thu Nov 24 13:47:00 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA003 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt ===========
+-----------------------------
+Thu Nov 24 12:40:40 CET 2022
+-----------------------------
+@03 1669290040
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_27.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 29170
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 993213
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.81
+Create the model
+Time to create master model:	2.61
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 49.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 2 	4 	11 	23 	
+update upper bound from 100000000000000000000.000000 to 44.000000
+@95 optimal solution found: ub is 44.000000 and masterbound is 49.000000
+nattacks: 4
+first attack: 2
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3753.420000 seconds (stage 2: 820.780000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       2       4      11      23
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2044963 (2044962 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 494 initial, 494 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293796
+-----------------------------
+Thu Nov 24 13:43:16 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt ===========
+-----------------------------
+Thu Nov 24 12:40:42 CET 2022
+-----------------------------
+@03 1669290042
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_28.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 62554
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 1312427
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	1.06
+Create the model
+Time to create master model:	3.58
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 66.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 3 	6 	7 	11 	
+update upper bound from 100000000000000000000.000000 to 59.000000
+@95 optimal solution found: ub is 59.000000 and masterbound is 66.000000
+nattacks: 4
+first attack: 3
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3613.950000 seconds (stage 2: 895.070000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       3       6       7      11
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2750159 (2750158 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 494 initial, 494 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293661
+-----------------------------
+Thu Nov 24 13:41:01 CET 2022
+-----------------------------
+
+=ready=
+Linux mcs-computeA007 5.10.11-1.el7.elrepo.x86_64 #1 SMP Tue Jan 26 10:44:32 EST 2021 x86_64 x86_64 x86_64 GNU/Linux
+@01 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt ===========
+-----------------------------
+Thu Nov 24 12:40:49 CET 2022
+-----------------------------
+@03 1669290049
+/home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../bin/fullrecoursekidney.linux.x86_64.gnu.opt.spx2 /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt 4 -t 3600 -m 24000 -n 2100000000 -d 10000 -s /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set
+SCIP version 8.0.2 [precision: 8 byte] [memory: block] [mode: optimized] [LP solver: Soplex 6.0.2] [GitHash: 5f0473c4fb]
+Copyright (C) 2002-2022 Konrad-Zuse-Zentrum fuer Informationstechnik Berlin (ZIB)
+
+
+Reading parameters from </home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../settings/method3-cyc4-chain4-liftFALSE-policy1.set>.
+
+Changed settings:
+misc/usesymmetry = 0
+kidney/maxcyclelength = 4
+kidney/maxchainlength = 4
+kidney/method = 3
+kidney/liftbenderscuts = FALSE
+kidney/recoursepolicy = 1
+
+Setting time limit to 3600.
+Setting memory limit to 24000.
+Setting node limit to 2100000000.
+Setting display frequency to 10000.
+
+Reading the graph
+Reading graph from file /home/mcs001/s145344/20221025/FullRecourseKEP/code/check/../../instances/KlimentovaInstances100/Klimentova_100_29.txt
+Finding the cycles
+Enumerating all cycles
+Number of cycles: 50745
+
+Finding the chains
+Enumerating all chains
+Chain length maximum: 4
+Number of chains: 993256
+Strengthening the node bounds
+Find the triplets
+Time needed to read graph and detecting cycles/chains/triplets:	0.83
+Create the model
+Time to create master model:	2.16
+Solve the model
+@99 Start master loop of trilevel optimization algorithm.
+@98 masteriteration 1: objective value 58.000000.
+@97 Set up Glorie model 1.
+Attack Pattern: 3 	5 	13 	14 	
+update upper bound from 100000000000000000000.000000 to 53.000000
+@95 optimal solution found: ub is 53.000000 and masterbound is 58.000000
+nattacks: 4
+first attack: 3
+time limit reached@05================================================================================
+   ================================   STATISTICS   ================================
+[suboptimal] terminated after 3680.990000 seconds (stage 2: 638.870000, stage 3: 0.000000).
+
+[patterns]
+Used attack patterns:
+[scenario]    0:	       3       5      13      14
+@06================================================================================
+
+SCIP Status        : problem creation / modification
+Total Time         :       0.00
+  reading          :       0.00
+Original Problem   :
+  Problem name     : name
+  Variables        : 2088200 (2088199 binary, 0 integer, 0 implicit integer, 1 continuous)
+  Constraints      : 496 initial, 496 maximal
+  Objective        : maximize, 1 non-zeros (abs.min = 1, abs.max = 1)
+Free the model
+@04 1669293734
+-----------------------------
+Thu Nov 24 13:42:14 CET 2022
+-----------------------------
+
+=ready=

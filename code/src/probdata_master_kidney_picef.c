@@ -56,6 +56,7 @@ struct SCIP_ProbData
    SCIP_VAR***           xcyclevarscenario;  /**< variables for assignments after attack per scenario */
    SCIP_VAR**            arcvarinit;         /**< variables for arc assignment before attack */
    SCIP_VAR***           arcvarscenario;     /**< variables for arc assignment after attack per scenario */
+   SCIP_VAR***           betavarscenario;    /**< variables for enforcing initially selected non-interdicted posarcs */
 
    SCIP_VAR***           yvarscenario;       /**< variables indicating surviving assignments per scenario */
    SCIP_VAR**            dummyyvars;         /**< dummy variables for initial problem */
@@ -69,7 +70,12 @@ struct SCIP_ProbData
    SCIP_CONS***          piefscenarioconss;  /**< constraint imposing the use of arcs only with existing preceding arcs */
    SCIP_CONS**           dummyconss;         /**< dummy constraints for initial problem */
    SCIP_CONS*            dummyobjcons;       /**< dummy constraints for initial objective bound problem */
-   SCIP_CONS***          enforcementconss;   /**< constraints enforcing the use of initial position-indexed arcs if the subchain up to the posarc is not attacked */
+
+   /* Only relevant for the FSE setting where we enforce position-indexed arcs of the initial solution where possible */
+   SCIP_CONS***          betavarinitialconss;/**< position-indexed arcs can be enforced only if used in initial solution */
+   SCIP_CONS***          betavarprecconss;   /**< position-indexed arcs (going out of a pair) can be enforced only if a preceding posarc is enforced */
+   SCIP_CONS***          betavarlbconss;     /**< constraints for enforcing betavars to 1 if feasible within previous constraints */
+
 };
 
 /**@name Local methods
@@ -101,6 +107,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    SCIP_VAR***           xvarscenario,       /**< variables for cycle assignments after attack per scenario */
    SCIP_VAR**            zarcposvarinit,     /**< variables for arc assignment before attack */
    SCIP_VAR***           zarcposvarscenario, /**< variables for arc assignment after attack per scenario */
+   SCIP_VAR***           betavarscenario,    /**< variables for enforcing initially selected non-interdicted posarcs */
    SCIP_VAR***           yvarscenario,       /**< variables indicating surviving assignments per scenario */
    SCIP_VAR**            dummyyvars,         /**< dummy variables for initial problem */
 
@@ -115,9 +122,14 @@ SCIP_RETCODE masterPICEFProbdataCreate(
                                               *   in order to be eligible for use in each scenario */
    SCIP_CONS**           dummyconss,         /**< dummy constraints for initial problem */
    SCIP_CONS*            dummyobjcons,       /**< dummy constraints for initial objective bound problem */
-   SCIP_CONS***          enforcementconss    /**< constraints enforcing the use of initial position-indexed arcs if the subchain up to the posarc is not attacked */
+   
+   SCIP_CONS***          betavarinitialconss,/**< position-indexed arcs can be enforced only if used in initial solution */
+   SCIP_CONS***          betavarprecconss,   /**< position-indexed arcs (going out of a pair) can be enforced only if a preceding posarc is enforced */
+   SCIP_CONS***          betavarlbconss      /**< constraints for enforcing betavars to 1 if feasible within previous constraints */
+
    )
 {
+   int narcs;
    int ncycles;
    int i;
    int policy;
@@ -142,6 +154,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    (*probdata)->adversarybound = adversarybound;
    (*probdata)->cycles = cycles;
    (*probdata)->ncycles = cycles->ncycles;
+   narcs = graph->narcs;
    ncycles = cycles->ncycles;
 
    (*probdata)->posarcs = posarcs;
@@ -150,7 +163,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    (*probdata)->nscenarios = nscenarios;
    (*probdata)->nmaxscenarios = nmaxscenarios;
 
-   if ( scenarios != NULL )
+   if( scenarios != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->scenarios, scenarios, adversarybound * nmaxscenarios) );
    }
@@ -158,17 +171,17 @@ SCIP_RETCODE masterPICEFProbdataCreate(
       (*probdata)->scenarios = NULL;
 
    /* possible copy variable array for cycle variables, both initially and in each scenario */
-   if ( xvarinit != NULL )
+   if( xvarinit != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->xcyclevarinit, xvarinit, ncycles) );
    }
    else
       (*probdata)->xcyclevarinit = NULL;
 
-   if ( xvarscenario != NULL )
+   if( xvarscenario != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->xcyclevarscenario, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->xcyclevarscenario[i],
                xvarscenario[i], ncycles) );
@@ -178,17 +191,17 @@ SCIP_RETCODE masterPICEFProbdataCreate(
       (*probdata)->xcyclevarscenario = NULL;
 
    /* possible copy variable array for positioned arc variables, both initially and in each scenario */
-   if ( zarcposvarinit != NULL )
+   if( zarcposvarinit != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->arcvarinit, zarcposvarinit, nposarcs) );
    }
    else
       (*probdata)->arcvarinit = NULL;
 
-   if ( zarcposvarscenario != NULL )
+   if( zarcposvarscenario != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->arcvarscenario, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->arcvarscenario[i],
                zarcposvarscenario[i], nposarcs) );
@@ -197,8 +210,20 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->arcvarscenario = NULL;
 
+   if( betavarscenario != NULL )
+   {
+      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->betavarscenario, nmaxscenarios) );
+      for( i = 0; i < nscenarios; ++i )
+      {
+         SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->betavarscenario[i],
+               betavarscenario[i], narcs) );
+      }
+   }
+   else
+      (*probdata)->betavarscenario = NULL;
+
    /* possible copy variable array for dummy variables, both initial and for each scenario */
-   if ( dummyyvars  != NULL )
+   if( dummyyvars  != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->dummyyvars,
             dummyyvars, nnodes) );
@@ -206,10 +231,10 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->dummyyvars = NULL;
 
-   if ( yvarscenario != NULL )
+   if( yvarscenario != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->yvarscenario, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->yvarscenario[i],
                yvarscenario[i], npairs) );
@@ -222,7 +247,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    (*probdata)->objvar = objvar;
 
    /* duplicate constraint arrays */
-   if ( objboundconss != NULL )
+   if( objboundconss != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->objboundconss,
             objboundconss, nmaxscenarios) );
@@ -230,7 +255,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->objboundconss = NULL;
 
-   if ( boundxinitconss != NULL )
+   if( boundxinitconss != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->boundxinitconss,
             boundxinitconss, nnodes) );
@@ -238,10 +263,10 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->boundxinitconss = NULL;
 
-   if ( boundxscenarioconss != NULL )
+   if( boundxscenarioconss != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->boundxscenarioconss, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->boundxscenarioconss[i],
                boundxscenarioconss[i], nnodes) );
@@ -250,10 +275,10 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->boundxscenarioconss = NULL;
 
-   if ( boundyinitconss != NULL )
+   if( boundyinitconss != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->boundyinitconss, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->boundyinitconss[i],
                boundyinitconss[i], npairs) );
@@ -262,10 +287,10 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->boundyinitconss = NULL;
 
-   if ( boundyscenarioconss != NULL )
+   if( boundyscenarioconss != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->boundyscenarioconss, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->boundyscenarioconss[i],
                boundyscenarioconss[i], npairs) );
@@ -274,7 +299,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->boundyscenarioconss = NULL;
 
-   if ( piefinitconss != NULL )
+   if( piefinitconss != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->piefinitconss,
             piefinitconss, graph->npairs*(posarcs->npositions-1)) );
@@ -282,10 +307,10 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->piefinitconss = NULL;
 
-   if ( piefscenarioconss != NULL )
+   if( piefscenarioconss != NULL )
    {
       SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->piefscenarioconss, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      for( i = 0; i < nscenarios; ++i )
       {
          SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->piefscenarioconss[i],
                piefscenarioconss[i], npairs*(npositions-1)) );
@@ -294,7 +319,7 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->piefscenarioconss = NULL;
 
-   if ( dummyconss != NULL )
+   if( dummyconss != NULL )
    {
       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->dummyconss,
             dummyconss, nnodes) );
@@ -302,22 +327,55 @@ SCIP_RETCODE masterPICEFProbdataCreate(
    else
       (*probdata)->dummyconss = NULL;
 
-   if ( dummyobjcons != NULL )
+   if( dummyobjcons != NULL )
       (*probdata)->dummyobjcons = dummyobjcons;
    else
       (*probdata)->dummyobjcons = NULL;
 
-   if ( enforcementconss != NULL && policy == POLICY_KEEPUNAFFECTEDCC )
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
-      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->enforcementconss, nmaxscenarios) );
-      for (i = 0; i < nscenarios; ++i)
+      if( betavarinitialconss != NULL )
       {
-         SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->enforcementconss[i],
-               enforcementconss[i], nposarcs) );
+         SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->betavarinitialconss, nmaxscenarios) );
+         for( i = 0; i < nscenarios; ++i )
+         {
+            SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->betavarinitialconss[i],
+                  betavarinitialconss[i], narcs) );
+         }
       }
+      else
+         (*probdata)->betavarinitialconss = NULL;
+
+      if( betavarprecconss != NULL )
+      {
+         SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->betavarprecconss, nmaxscenarios) );
+         for( i = 0; i < nscenarios; ++i )
+         {
+            SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->betavarprecconss[i],
+                  betavarprecconss[i], npairs) );
+         }
+      }
+      else
+         (*probdata)->betavarprecconss = NULL;
+
+      if( betavarlbconss != NULL )
+      {
+         SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->betavarlbconss, nmaxscenarios) );
+         for( i = 0; i < nscenarios; ++i )
+         {
+            SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->betavarlbconss[i],
+                  betavarlbconss[i], narcs) );
+         }
+      }
+      else
+         (*probdata)->betavarlbconss = NULL;
    }
    else
-      (*probdata)->enforcementconss = NULL;
+   {
+      (*probdata)->betavarinitialconss = NULL;
+      (*probdata)->betavarprecconss = NULL;
+      (*probdata)->betavarlbconss = NULL;
+   }
 
    return SCIP_OKAY;
 }
@@ -334,6 +392,7 @@ SCIP_RETCODE masterPICEFProbdataFree(
    int nnodes;
    int npairs;
    int ncycles;
+   int narcs;
    int nposarcs;
    int npositions;
    int npiefconss;
@@ -357,6 +416,7 @@ SCIP_RETCODE masterPICEFProbdataFree(
    nposarcs = (*probdata)->nposarcs;
    npositions = (*probdata)->npositions;
    npiefconss = npairs*(npositions-1);
+   narcs = (*probdata)->graph->narcs;
 
    assert( nnodes > 0 );
    assert( npairs >= 0 );
@@ -367,58 +427,58 @@ SCIP_RETCODE masterPICEFProbdataFree(
    assert( npositions >= 0);
 
    /* release all variables */
-   for (i = 0; i < ncycles; ++i)
+   for( i = 0; i < ncycles; ++i )
    {
       SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->xcyclevarinit[i]) );
    }
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
-      for (j = 0; j < ncycles; ++j)
+      for( j = 0; j < ncycles; ++j )
       {
          SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->xcyclevarscenario[i][j]) );
       }
    }
-   for (i = 0; i < nposarcs; ++i)
+   for( i = 0; i < nposarcs; ++i )
    {
       SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->arcvarinit[i]) );
    }
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
-      for (j = 0; j < nposarcs; ++j)
+      for( j = 0; j < nposarcs; ++j )
       {
          SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->arcvarscenario[i][j]) );
       }
    }
 
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
-      for (j = 0; j < npairs; ++j)
+      for( j = 0; j < npairs; ++j )
       {
          SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->yvarscenario[i][j]) );
       }
    }
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
       SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->dummyyvars[i]) );
    }
    SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->objvar) );
 
    /* release constraints */
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->objboundconss[i]) );
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->objboundconss, nmaxscenarios);
 
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->boundxinitconss[i]) );
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundxinitconss, nnodes);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   for( i = nscenarios - 1; i >= 0; --i )
    {
-      for (j = 0; j < nnodes; ++j)
+      for( j = 0; j < nnodes; ++j )
       {
          SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->boundxscenarioconss[i][j]) );
       }
@@ -426,9 +486,9 @@ SCIP_RETCODE masterPICEFProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundxscenarioconss, nmaxscenarios);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   for( i = nscenarios - 1; i >= 0; --i )
    {
-      for (j = 0; j < npairs; ++j)
+      for( j = 0; j < npairs; ++j )
       {
          SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->boundyscenarioconss[i][j]) );
       }
@@ -436,9 +496,9 @@ SCIP_RETCODE masterPICEFProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundyscenarioconss, nmaxscenarios);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   for( i = nscenarios - 1; i >= 0; --i )
    {
-      for (j = 0; j < npairs; ++j)
+      for( j = 0; j < npairs; ++j )
       {
          SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->boundyinitconss[i][j]) );
       }
@@ -446,16 +506,16 @@ SCIP_RETCODE masterPICEFProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundyinitconss, nmaxscenarios);
 
-   for (j = npiefconss-1; j >= 0; --j)
+   for( j = npiefconss-1; j >= 0; --j )
    {
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->piefinitconss[j]) );
    }
 
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->piefinitconss, npiefconss);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   for( i = nscenarios - 1; i >= 0; --i )
    {
-      for (j = 0; j < npiefconss; ++j)
+      for( j = 0; j < npiefconss; ++j)
       {
          SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->piefscenarioconss[i][j]) );
       }
@@ -463,46 +523,69 @@ SCIP_RETCODE masterPICEFProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->piefscenarioconss, nmaxscenarios);
 
-   for (i = nnodes - 1; i >= 0; --i)
+   for( i = nnodes - 1; i >= 0; --i )
    {
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->dummyconss[i]) );
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->dummyconss, nnodes);
    SCIPreleaseCons(scip, &(*probdata)->dummyobjcons);
 
-   if( policy == POLICY_KEEPUNAFFECTEDCC )
+   if( policy == POLICY_KEEPUNAFFECTEDCC)
    {
-      for (i = nscenarios - 1; i >= 0; --i)
+      for( i = 0; i < nscenarios; ++i )
       {
-         for (j = 0; j < nposarcs; ++j)
-         {
-            SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->enforcementconss[i][j]) );
-         }
-         SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcementconss[i], nposarcs );
+         for( j = 0; j < narcs; ++j )
+            SCIP_CALL( SCIPreleaseVar(scip, &(*probdata)->betavarscenario[i][j]) );
       }
-      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcementconss, nmaxscenarios);
+
+      for( i = nscenarios - 1; i >= 0; --i )
+      {
+         SCIPfreeBlockMemoryArray(scip, &(*probdata)->betavarscenario[i], narcs);
+      }
+      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarscenario, nmaxscenarios);
+
+      for( i = nscenarios - 1; i >= 0; --i )
+      {
+         for( j = 0; j < narcs; ++j )
+         {
+            SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->betavarinitialconss[i][j]) );
+            SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->betavarlbconss[i][j]) );
+         }
+         for( j = 0; j < npairs; ++j )
+            SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->betavarprecconss[i][j]) );
+
+         SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarinitialconss[i], narcs );
+         SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarprecconss[i], npairs );
+         SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarlbconss[i], narcs );
+      }
+      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarinitialconss, nmaxscenarios);
+      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarprecconss, nmaxscenarios);
+      SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->betavarlbconss, nmaxscenarios);
    }
 
    /* free memory of variable arrays */
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->xcyclevarinit, ncycles);
-   for (i = nscenarios - 1; i >= 0; --i)
+   
+   for( i = nscenarios - 1; i >= 0; --i )
    {
       SCIPfreeBlockMemoryArray(scip, &(*probdata)->xcyclevarscenario[i], ncycles);
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->xcyclevarscenario, nmaxscenarios);
 
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->arcvarinit, nposarcs);
-   for (i = nscenarios - 1; i >= 0; --i)
+   
+   for( i = nscenarios - 1; i >= 0; --i )
    {
       SCIPfreeBlockMemoryArray(scip, &(*probdata)->arcvarscenario[i], nposarcs);
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->arcvarscenario, nmaxscenarios);
 
-   for (i = nscenarios - 1; i >= 0; --i)
+   for( i = nscenarios - 1; i >= 0; --i )
    {
       SCIPfreeBlockMemoryArray(scip, &(*probdata)->yvarscenario[i], npairs);
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->yvarscenario, nmaxscenarios);
+   
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->dummyyvars, nnodes);
 
    /* free memory of scenario arrays */
@@ -526,6 +609,8 @@ SCIP_RETCODE SCIPcreateInitialVars(
    int ncycles;
    SCIP_Real nnodes;
    int i;
+   int k;
+
 
    assert( scip != NULL );
    assert( probdata != NULL );
@@ -537,7 +622,7 @@ SCIP_RETCODE SCIPcreateInitialVars(
 
    /* create initial variables for each cycle */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->xcyclevarinit, ncycles) );
-   for (i = 0; i < ncycles; ++i)
+   for( i = 0; i < ncycles; ++i )
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "xcyclevarinit_%d", i);
 
@@ -548,9 +633,13 @@ SCIP_RETCODE SCIPcreateInitialVars(
 
    /* create initial variable for each position indexed arcs */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->arcvarinit, nposarcs) );
-   for (i = 0; i < nposarcs; ++i)
+   
+   k = 0;
+   for( i = 0; i < nposarcs; ++i )
    {
-      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvarinit_%d", i);
+      while( probdata->posarcs->positionbegins[k+1] <= 2*i )
+         k++;
+      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvarinit_(%d,%d),%d", probdata->posarcs->nodelists[2*i], probdata->posarcs->nodelists[2*i+1], k);
 
       SCIP_CALL( SCIPcreateVar(scip, &probdata->arcvarinit[i], name, 0.0, 1.0, 0.0,
             SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
@@ -564,7 +653,7 @@ SCIP_RETCODE SCIPcreateInitialVars(
 
    /* create dummy variables */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->dummyyvars, nnodes) );
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "dummyy_%d", i);
 
@@ -608,7 +697,7 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
 
    nnodes = probdata->graph->nnodes;
    npairs = probdata->graph->npairs;
-   maxnvars = MAX(nnodes + 1, probdata->ncycles + probdata->nposarcs + 1);
+   maxnvars = 2*MAX(nnodes + 1, probdata->ncycles + probdata->nposarcs + 1);
    nposarcs = probdata->nposarcs;
 
    node2cycles = probdata->graph->node2cycles;
@@ -621,28 +710,28 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundxinitconss), nnodes) );
 
    /* add boundxinitcons for each node based on cycle and chain edge vars */
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
       cnt = 0;
 
-      if ( i < npairs )
+      if( i < npairs )
       {
-         for (j = node2cyclesbegin[i]; j < node2cyclesbegin[i + 1]; ++j)
+         for( j = node2cyclesbegin[i]; j < node2cyclesbegin[i + 1]; ++j )
             vars[cnt++] = probdata->xcyclevarinit[node2cycles[j]];
 
-         for (j = 0; j < nposarcs; ++j)
+         for( j = 0; j < nposarcs; ++j)
          {
-            if ( posarcs->nodelists[2*j+1] == i )
+            if( posarcs->nodelists[2*j+1] == i )
                /* then the variable with index j corresponds to an arc going into i */
                vars[cnt++] = probdata->arcvarinit[j];
          }
       }
       else
       {
-         for (j = 0; j < nposarcs; ++j)
+         for( j = 0; j < nposarcs; ++j )
          {
-            if ( posarcs->nodelists[2*j] == i )
-               /* then the variable with index j corresponds to an arc going into i */
+            if( posarcs->nodelists[2*j] == i )
+               /* then the variable with index j corresponds to an arc going out of i */
                vars[cnt++] = probdata->arcvarinit[j];
          }
       }
@@ -660,28 +749,28 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
     */
    SCIP_CALL( SCIPallocBufferArray(scip, &vals, maxnvars) );
    index = 0;
-   for (i = 0; i < npairs; ++i)
+   for( i = 0; i < npairs; ++i )
    {
       int k;
 
-      for (k = 2; k <= posarcs->npositions; ++k)
+      for( k = 2; k <= posarcs->npositions; ++k )
       {
          int p;
          cnt = 0;
 
          /* Loop to get incoming arcs with pos k-1 */
-         for (p = posarcs->positionbegins[k-2]+1; p < posarcs->positionbegins[k-1]; p += 2)
+         for( p = posarcs->positionbegins[k-2]+1; p < posarcs->positionbegins[k-1]; p += 2 )
          {
-            if ( posarcs->nodelists[p] == i)
+            if( posarcs->nodelists[p] == i ) 
             {
                vars[cnt] = probdata->arcvarinit[p/2];
                vals[cnt++] = 1.0;
             }
          }
          /* Loop to get outgoing arcs with pos k */
-         for (p = posarcs->positionbegins[k-1]; p < posarcs->positionbegins[k]; p += 2)
+         for( p = posarcs->positionbegins[k-1]; p < posarcs->positionbegins[k]; p += 2 )
          {
-            if ( posarcs->nodelists[p] == i)
+            if( posarcs->nodelists[p] == i )
             {
                vars[cnt] = probdata->arcvarinit[p/2];
                vals[cnt++] = -1.0;
@@ -698,19 +787,20 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
    /* create dummy constraints */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->dummyconss), nnodes) );
    vals[0] = -1.0;
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
-      vars[0] = probdata->dummyyvars[i];
-      cnt = 1;
-      for (j = node2cyclesbegin[i]; j < node2cyclesbegin[i + 1]; ++j)
+      cnt = 0;
+      vars[cnt++] = probdata->dummyyvars[i];
+   
+      for( j = node2cyclesbegin[i]; j < node2cyclesbegin[i + 1]; ++j )
       {
          vars[cnt] = probdata->xcyclevarinit[node2cycles[j]];
          vals[cnt++] = 1.0;
       }
 
-      for (j = 0; j < nposarcs; ++j)
+      for( j = 0; j < nposarcs; ++j )
       {
-         if ( posarcs->nodelists[2 * j + 1] == i )
+         if( posarcs->nodelists[2 * j + 1] == i )
          {
             /* then the variable with index j corresponds to an arc going into i */
             vars[cnt] = probdata->arcvarinit[j];
@@ -723,16 +813,16 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
             TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
       SCIP_CALL( SCIPaddCons(scip, probdata->dummyconss[i]) );
 
-      if ( nmaxvars < cnt )
+      if( nmaxvars < cnt )
          nmaxvars = cnt;
    }
 
    /* create dummy objective constraint */
-   for (i = nmaxvars; i < nnodes + 1; ++i)
+   for( i = nmaxvars; i < nnodes + 1; ++i )
       vals[i] = 1.0;
 
    vars[0] = probdata->objvar;
-   for (i = 0; i < npairs; ++i)
+   for( i = 0; i < npairs; ++i )
       vars[i + 1] = probdata->dummyyvars[i];
 
    SCIP_CALL( SCIPcreateConsBasicLinear(scip, &(probdata->dummyobjcons), "dummyobjcons", npairs + 1,
@@ -762,15 +852,19 @@ SCIP_RETCODE SCIPcreateVariablesAttackpattern(
    int nposarcs;
    int ncycles;
    int npairs;
+   int narcs;
+   int policy;
    int c;
    int i;
    int j;
+   int k;
    int v;
 
    assert( scip != NULL );
    assert( attackpattern != NULL );
    assert( nattacks >= 0 );
 
+   SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
    probdata = SCIPgetProbData(scip);
    assert( probdata != NULL );
    assert( probdata->graph != NULL );
@@ -780,12 +874,13 @@ SCIP_RETCODE SCIPcreateVariablesAttackpattern(
    nposarcs = probdata->nposarcs;
    ncycles = probdata->ncycles;
    npairs = probdata->graph->npairs;
+   narcs = probdata->graph->narcs;
    graph = probdata->graph;
    posarcs = probdata->posarcs;
 
    /* add variables for each cycle */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->xcyclevarscenario[nscenarios], ncycles) );
-   for (c = 0; c < ncycles; ++c)
+   for( c = 0; c < ncycles; ++c )
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "xscenario_%d_%d", nscenarios, c);
 
@@ -796,9 +891,12 @@ SCIP_RETCODE SCIPcreateVariablesAttackpattern(
 
    /* add variables for each position indexed arc var */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->arcvarscenario[nscenarios], nposarcs) );
-   for (c = 0; c < nposarcs; ++c)
+   k = 0;
+   for( c = 0; c < nposarcs; ++c )
    {
-      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvarscenario_%d_%d", nscenarios, c);
+      while( posarcs->positionbegins[k+1] <= 2*c )
+         k++;
+      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "arcvarscenario_(%d,%d),%d_%d", posarcs->nodelists[2*c], posarcs->nodelists[2*c+1], k, nscenarios);
 
       SCIP_CALL( SCIPcreateVar(scip, &probdata->arcvarscenario[nscenarios][c], name, 0.0, 1.0, 0.0,
             SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
@@ -807,7 +905,7 @@ SCIP_RETCODE SCIPcreateVariablesAttackpattern(
 
    /* add variables for each pair */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->yvarscenario[nscenarios], npairs) );
-   for (c = 0; c < npairs; ++c)
+   for( c = 0; c < npairs; ++c )
    {
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "yscenario_%d_%d", nscenarios, c);
 
@@ -816,33 +914,66 @@ SCIP_RETCODE SCIPcreateVariablesAttackpattern(
       SCIP_CALL( SCIPaddVar(scip, probdata->yvarscenario[nscenarios][c]) );
    }
 
+   /* add variables used for enforcing initially selected position-indexed arcs */
+   if( policy == POLICY_KEEPUNAFFECTEDCC )
+   {
+      i = 0;
+      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->betavarscenario[nscenarios], narcs) );
+      for( c = 0; c < narcs; ++c )
+      {
+         while( probdata->graph->adjacencylistbegins[i+1] <= c)
+            i++;
+         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarscenario_(%d,%d)_%d", i, probdata->graph->adjacencylists[c], nscenarios);
+
+         SCIP_CALL( SCIPcreateVar(scip, &probdata->betavarscenario[nscenarios][c], name, 0.0, 1.0, 0.0,
+            SCIP_VARTYPE_BINARY, TRUE, FALSE, NULL, NULL, NULL, NULL, NULL) );
+         SCIP_CALL( SCIPaddVar(scip, probdata->betavarscenario[nscenarios][c]) );
+      }
+   }
+
    /* update variable bounds according to attack pattern*/
-   for (i = 0; i < nattacks; ++i)
+   for( i = 0; i < nattacks; ++i )
    {
       v = attackpattern[i];
 
       /* fix upper bound of y to 0 if a pair node is attacked */
-      if ( v < npairs )
+      if( v < npairs )
       {
          SCIP_CALL( SCIPchgVarUb(scip, probdata->yvarscenario[nscenarios][v], 0.0) );
       }
 
       /* fix upper bound of cycle variables to 0 if the cycle contains an attacked node */
-      for (c = graph->node2cyclesbegin[v]; c < graph->node2cyclesbegin[v + 1]; ++c)
+      for( c = graph->node2cyclesbegin[v]; c < graph->node2cyclesbegin[v + 1]; ++c )
       {
          j = graph->node2cycles[c];
          SCIP_CALL( SCIPchgVarUb(scip, probdata->xcyclevarscenario[nscenarios][j], 0.0) );
       }
 
-      /* fix upper bound of cycle variables to 0 if the cycle contains an attacked node */
-      for (c = 0; c < nposarcs; ++c)
+      /* fix upper bound of position-indexed arc variables to 0 if the arc contains an attacked node */
+      for( c = 0; c < nposarcs; ++c )
       {
-         if ( posarcs->nodelists[2*c] == v || posarcs->nodelists[2*c+1] == v )
+         if( posarcs->nodelists[2*c] == v || posarcs->nodelists[2*c+1] == v )
          {
             SCIP_CALL( SCIPchgVarUb(scip, probdata->arcvarscenario[nscenarios][c], 0.0) );
          }
       }
 
+      
+      if( policy == POLICY_KEEPUNAFFECTEDCC )
+      {
+         /* fix upper bound of position-indexed arc variables to 0 if the arc contains an attacked node */
+         j = 0;
+         for( c = 0; c < narcs; ++c )
+         {
+            while( graph->adjacencylistbegins[j+1] <= c )
+               j++;
+
+            if( j == v || graph->adjacencylists[c] == v )
+            {
+               SCIP_CALL( SCIPchgVarUb(scip, probdata->betavarscenario[nscenarios][c], 0.0) );
+            }
+         }
+      }
    }
    return SCIP_OKAY;
 }
@@ -865,17 +996,20 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
    int nposarcs;
    int nnodes;
    int npairs;
+   int narcs;
    int c;
    int i;
    int j;
    int k;
+   int v;
    int cnt;
+   int src;
    int index;
+   int attacked;
    int nmaxvars;
    int policy;
    SCIP_VAR** vars;
    SCIP_Real* vals;
-   SCIP_Bool attposarc;
 
    assert( scip != NULL );
    assert( attackpattern != NULL );
@@ -895,38 +1029,41 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
    ncycles = probdata->cycles->ncycles;
    nnodes = probdata->nnodes;
    npairs = graph->npairs;
+   narcs = graph->narcs;
 
-   nmaxvars = MAX(nnodes, ncycles+nposarcs) + 1;
+   nmaxvars = 2*MAX(nnodes, ncycles+nposarcs) + 1;
    SCIP_CALL( SCIPallocBufferArray(scip, &vars, nmaxvars) );
    SCIP_CALL( SCIPallocBufferArray(scip, &vals, nmaxvars) );
    vals[0] = -1.0;
-   for (c = 1; c < nmaxvars; ++c)
+   for( c = 1; c < nmaxvars; ++c )
       vals[c] = 1.0;
 
    /* create objective constraint */
    (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "objscenario_%d", nscenarios);
-   vars[0] = probdata->objvar;
-   for (c = 0; c < npairs; ++c)
-      vars[c + 1] = probdata->yvarscenario[nscenarios][c];
+   cnt = 0;
+   vars[cnt++] = probdata->objvar;
+   for( c = 0; c < npairs; ++c )
+      vars[cnt++] = probdata->yvarscenario[nscenarios][c];
+
    SCIP_CALL( SCIPcreateConsBasicLinear(scip, &(probdata->objboundconss[nscenarios]), name,
-         npairs + 1, vars, vals, 0.0, SCIPinfinity(scip)) );
+         cnt, vars, vals, 0.0, SCIPinfinity(scip)) );
    SCIP_CALL( SCIPaddCons(scip, probdata->objboundconss[nscenarios]) );
 
    /* create linking cons between new yvars and init xvars */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundyinitconss[nscenarios]), npairs) );
-   for (c = 0; c < npairs; ++c)
+   for( c = 0; c < npairs; ++c )
    {
-      vars[0] = probdata->yvarscenario[nscenarios][c];
-      cnt = 1;
+      cnt = 0;
+      vars[cnt++] = probdata->yvarscenario[nscenarios][c];
 
-      for (i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i)
+      for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
       {
          j = graph->node2cycles[i];
          vars[cnt++] = probdata->xcyclevarinit[j];
       }
-      for (i = 0; i < nposarcs; ++i)
+      for( i = 0; i < nposarcs; ++i )
       {
-         if ( posarcs->nodelists[2*i+1] == c )
+         if( posarcs->nodelists[2*i+1] == c )
             vars[cnt++] = probdata->arcvarinit[i];
       }
 
@@ -938,19 +1075,19 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    /* create linking cons between new yvars and new xvars */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundyscenarioconss[nscenarios]), npairs) );
-   for (c = 0; c < npairs; ++c)
+   for( c = 0; c < npairs; ++c)
    {
-      vars[0] = probdata->yvarscenario[nscenarios][c];
-      cnt = 1;
+      cnt = 0;
+      vars[cnt++] = probdata->yvarscenario[nscenarios][c];
 
-      for (i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i)
+      for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
       {
          j = graph->node2cycles[i];
          vars[cnt++] = probdata->xcyclevarscenario[nscenarios][j];
       }
-      for (i = 0; i < nposarcs; ++i)
+      for( i = 0; i < nposarcs; ++i )
       {
-         if ( posarcs->nodelists[2*i+1] == c )
+         if( posarcs->nodelists[2*i+1] == c )
             vars[cnt++] = probdata->arcvarscenario[nscenarios][i];
       }
 
@@ -963,6 +1100,14 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
             if( !SCIPcycleIsAttacked(attackpattern, nattacks, probdata->cycles, j) )
                vars[cnt++] = probdata->xcyclevarinit[j];
          }
+
+         for( i = 0; i < narcs; ++i )
+         {
+            j = graph->adjacencylists[i];
+            if( j == c )
+               /* This is an index of an incoming arc of c */
+               vars[cnt++] = probdata->betavarscenario[nscenarios][i];
+         }
       }
 
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "bound_scenario_y_scenario_cons_%d_%d", nscenarios, c);
@@ -973,23 +1118,23 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    /* create matching constraints for new xvars */
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundxscenarioconss[nscenarios]), nnodes) );
-   for (i = 0; i < nnodes; ++i)
+   for( i = 0; i < nnodes; ++i )
    {
       cnt = 0;
-
-      if ( i < npairs )
+      if( i < npairs )
       {
-         for (j = graph->node2cyclesbegin[i]; j < graph->node2cyclesbegin[i + 1]; ++j)
+         for( j = graph->node2cyclesbegin[i]; j < graph->node2cyclesbegin[i + 1]; ++j )
             vars[cnt++] = probdata->xcyclevarscenario[nscenarios][graph->node2cycles[j]];
 
-         for (j = 0; j < nposarcs; ++j)
+         for( j = 0; j < nposarcs; ++j )
          {
             /* if the variable with index j corresponds to an arc going into i */
-            if ( posarcs->nodelists[2*j+1] == i )
+            if( posarcs->nodelists[2*j+1] == i )
                vars[cnt++] = probdata->arcvarscenario[nscenarios][j];
          }
-
-         if( policy == POLICY_KEEPUNAFFECTEDCC )
+         
+         /* incorporate betavarscenario variables */
+         if( policy == POLICY_KEEPUNAFFECTEDCC)
          {
             /* Add variables for initially selected cycles that include c and are not attacked by attackpattern */
             for( c = graph->node2cyclesbegin[i]; c < graph->node2cyclesbegin[i + 1]; ++c )
@@ -998,15 +1143,31 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
                if( !SCIPcycleIsAttacked(attackpattern, nattacks, probdata->cycles, j) )
                   vars[cnt++] = probdata->xcyclevarinit[j];
             }
+            
+
+            for( c = 0; c < narcs; ++c )
+            {
+               j = graph->adjacencylists[c];
+               if( j == i)
+                  /* This is an index of an incoming arc of c */
+                  vars[cnt++] = probdata->betavarscenario[nscenarios][c];
+            }
          }
       }
       else
       {
-         for (j = 0; j < nposarcs; ++j)
+         for( j = 0; j < nposarcs; ++j )
          {
-            /* if the variable with index j corresponds to an arc going into i */
-            if ( posarcs->nodelists[2*j] == i )
+            /* if the posarc variable with index j corresponds to an arc going into i */
+            if( posarcs->nodelists[2*j] == i )
                vars[cnt++] = probdata->arcvarscenario[nscenarios][j];
+         }
+
+         if( policy == POLICY_KEEPUNAFFECTEDCC )
+         {
+            /* Add arc variables for each arc going out of NDD i */
+            for( j = graph->adjacencylistbegins[i]; j < graph->adjacencylistbegins[i+1]; ++j )
+               vars[cnt++] = probdata->betavarscenario[nscenarios][j];
          }
       }
 
@@ -1017,17 +1178,17 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    index = 0;
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->piefscenarioconss[nscenarios]), npairs*(posarcs->npositions-1)) );
-   for (i = 0; i < npairs; ++i)
+   for( i = 0; i < npairs; ++i )
    {
-      for (k = 2; k <= posarcs->npositions; ++k)
+      for( k = 2; k <= posarcs->npositions; ++k )
       {
          int p;
          cnt = 0;
 
          /* loop to get incoming arcs with pos k-1 */
-         for (p = posarcs->positionbegins[k-2] + 1; p < posarcs->positionbegins[k-1]; p += 2)
+         for( p = posarcs->positionbegins[k-2] + 1; p < posarcs->positionbegins[k-1]; p += 2 )
          {
-            if ( posarcs->nodelists[p] == i)
+            if( posarcs->nodelists[p] == i )
             {
                vars[cnt] = probdata->arcvarscenario[nscenarios][p/2];
                vals[cnt++] = 1.0;
@@ -1035,9 +1196,9 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
          }
 
          /* loop to get outgoing arcs with pos k */
-         for (p = posarcs->positionbegins[k-1]; p < posarcs->positionbegins[k]; p+=2)
+         for( p = posarcs->positionbegins[k-1]; p < posarcs->positionbegins[k]; p += 2 )
          {
-            if ( posarcs->nodelists[p] == i)
+            if( posarcs->nodelists[p] == i )
             {
                vars[cnt] = probdata->arcvarscenario[nscenarios][p/2];
                vals[cnt++] = -1.0;
@@ -1053,36 +1214,147 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    if( policy == POLICY_KEEPUNAFFECTEDCC )
    {
-      /* create constraints enforcing nonattacked initial posarcs */
-      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->enforcementconss[nscenarios]), nposarcs) );
-      for (i = 0; i < nposarcs; ++i)
+      /* Create constraints saying we can enforce only initially used position-indexed arc variables */
+      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->betavarinitialconss[nscenarios]), narcs) );
+      src = 0;
+      for( i = 0; i < narcs; ++i )
+      {
+         /* Determine the vertex from which the i-th arc is going out */
+         while( graph->adjacencylistbegins[src+1] <= i )
+            src++;
+
+         cnt = 0;
+         vals[cnt] = -1.0;
+         vars[cnt++] = probdata->betavarscenario[nscenarios][i];
+         
+         /* Determine indices of posarcs with same source and destination as the i-th arc */
+         j = 0;
+         while( j < nposarcs )
+         {
+            if( posarcs->nodelists[2*j] == src && posarcs->nodelists[2*j+1] == graph->adjacencylists[i] )
+            {
+               vals[cnt] = 1.0;
+               vars[cnt++] = probdata->arcvarinit[j];
+            }
+            ++j;
+         }
+
+         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarinitialcons_%d_%d", nscenarios, i);
+         SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->betavarinitialconss[nscenarios][i]), name, cnt, vars, vals, 0.0, SCIPinfinity(scip),
+            TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
+         SCIP_CALL( SCIPaddCons(scip, probdata->betavarinitialconss[nscenarios][i]) );
+         
+      }
+
+      /* Create constraints saying we can enforce arc variables only when a direct preceding arc is enforced */
+      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->betavarprecconss[nscenarios]), npairs) );
+      for( i = 0; i < npairs; ++i )
       {
          cnt = 0;
-         vals[cnt] = 1.0;
-         vars[cnt++] = probdata->arcvarscenario[nscenarios][i];
 
-         attposarc = FALSE;
-         for( j = 0; j < nattacks; ++j )
+         /* Determine betavarscenario variables of outgoing arcs of pair i */
+         for( j = graph->adjacencylistbegins[i]; j < graph->adjacencylistbegins[i+1]; ++j )
          {
-            if( attackpattern[j] == posarcs->nodelists[2*i] || attackpattern[j] == posarcs->nodelists[2*i+1] )
+            vals[cnt] = -1.0;
+            vars[cnt++] = probdata->betavarscenario[nscenarios][j];
+         }
+         
+         /* Determine betavarscenario variables of incoming arcs of pair i */
+         for( j = 0; j < narcs; ++j )
+         {
+            if( graph->adjacencylists[j] == i )
             {
-               attposarc = TRUE;
-               break;
+               vals[cnt] = 1.0;
+               vars[cnt++] = probdata->betavarscenario[nscenarios][j];
             }
          }
 
-         if( !attposarc )
-            vals[cnt] = -1.0;
-         else
-            /* If it is attacked, then the constraint added is redundant. */
-            vals[cnt] = 1.0;
+         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarpreccons_%d_%d", nscenarios, i);
+         SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->betavarprecconss[nscenarios][i]), name, cnt, vars, vals, 0.0, SCIPinfinity(scip),
+            TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
+         SCIP_CALL( SCIPaddCons(scip, probdata->betavarprecconss[nscenarios][i]) );
+      
+      }
 
-         vars[cnt++] = probdata->arcvarinit[i];
+      /* Create constraints saying we can enforce arc variables only when a direct preceding arc is enforced */
+      SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->betavarlbconss[nscenarios]), narcs) );
+      src = 0;
+      for( i = 0; i < narcs; ++i )
+      {
+         cnt = 0;
 
-         (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "enforcement_cons_%d_%d", nscenarios, i);
-         SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->enforcementconss[nscenarios][i]), name, cnt, vars, vals, 0.0, SCIPinfinity(scip),
+         /* Determine the vertex from which the i-th arc is going out */
+         while( graph->adjacencylistbegins[src+1] <= i )
+            src++;
+
+         vals[cnt] = 1.0;
+         vars[cnt++] = probdata->betavarscenario[nscenarios][i];
+
+         attacked = FALSE;
+         for( v = 0; v < nattacks; ++v )
+         {
+            if( attackpattern[v] == src || attackpattern[v] == graph->adjacencylists[i] )
+               attacked = TRUE;
+         }
+
+         if( attacked )
+         {
+            /* Arc will not be enforced, but instead we add a redundant constraint */
+            (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarlbcons_%d_%d", nscenarios, i);
+            SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->betavarlbconss[nscenarios][i]), name, cnt, vars, vals, 0.0, 0.0,
                TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
-         SCIP_CALL( SCIPaddCons(scip, probdata->enforcementconss[nscenarios][i]) );
+            SCIP_CALL( SCIPaddCons(scip, probdata->betavarlbconss[nscenarios][i]) );
+         }
+         else
+         {
+            if( src < npairs) {
+               /* We enforce betavar to 1 if both (i) in initial solution, and (2) some directly preceding arc is enforced.
+                * Determine indices of posarcs with same source and destination as the i-th arc */
+               j = 0;
+               while( j < nposarcs )
+               {
+                  if( posarcs->nodelists[2*j] == src && posarcs->nodelists[2*j+1] == graph->adjacencylists[i] )
+                  {
+                     vals[cnt] = -1.0;
+                     vars[cnt++] = probdata->arcvarinit[j];
+                  }
+                  ++j;
+               }
+
+               for( j = 0; j < narcs; ++j )
+               {
+                  if( graph->adjacencylists[j] == src )
+                  {
+                     vals[cnt] = -1.0;
+                     vars[cnt++] = probdata->betavarscenario[nscenarios][j];
+                  }
+               }
+               (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarlbcons_%d_%d", nscenarios, i);
+               SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->betavarlbconss[nscenarios][i]), name, cnt, vars, vals, -1.0, SCIPinfinity(scip),
+                  TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
+               SCIP_CALL( SCIPaddCons(scip, probdata->betavarlbconss[nscenarios][i]) );
+            }
+            else
+            {
+               /* We enforce betavar to 1 if it is in the initial solution */
+               j = 0;
+               while( TRUE )
+               {
+                  if( posarcs->nodelists[2*j] == src && posarcs->nodelists[2*j+1] == graph->adjacencylists[i] )
+                  {
+                     vals[cnt] = -1.0;
+                     vars[cnt++] = probdata->arcvarinit[j];
+                     break;
+                  }
+                  ++j;
+               }
+               (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "betavarlbcons_%d_%d", nscenarios, i);
+               SCIP_CALL( SCIPcreateConsLinear(scip, &(probdata->betavarlbconss[nscenarios][i]), name, cnt, vars, vals, 0.0, SCIPinfinity(scip),
+                  TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE) );
+               SCIP_CALL( SCIPaddCons(scip, probdata->betavarlbconss[nscenarios][i]) );
+            }
+            
+         }      
       }
    }
 
@@ -1119,6 +1391,7 @@ SCIP_DECL_PROBTRANS(probtransMasterPICEFKidney)
    int i;
    int nnodes;
    int npairs;
+   int narcs;
    int nposarcs;
    int npositions;
    int ncycles;
@@ -1132,13 +1405,14 @@ SCIP_DECL_PROBTRANS(probtransMasterPICEFKidney)
          sourcedata->adversarybound, sourcedata->cycles, sourcedata->posarcs, sourcedata->nposarcs,
          sourcedata->npositions, sourcedata->scenarios, sourcedata->nscenarios, sourcedata->nmaxscenarios,
          sourcedata->objvar, sourcedata->xcyclevarinit, sourcedata->xcyclevarscenario, sourcedata->arcvarinit,
-         sourcedata->arcvarscenario, sourcedata->yvarscenario, sourcedata->dummyyvars, sourcedata->objboundconss,
+         sourcedata->arcvarscenario, sourcedata->betavarscenario, sourcedata->yvarscenario, sourcedata->dummyyvars, sourcedata->objboundconss,
          sourcedata->boundxinitconss, sourcedata->boundxscenarioconss, sourcedata->boundyinitconss,
          sourcedata->boundyscenarioconss, sourcedata->piefinitconss, sourcedata->piefscenarioconss,
-         sourcedata->dummyconss, sourcedata->dummyobjcons, sourcedata->enforcementconss) );
+         sourcedata->dummyconss, sourcedata->dummyobjcons, sourcedata->betavarinitialconss, sourcedata->betavarprecconss, sourcedata->betavarlbconss) );
 
    nnodes = sourcedata->graph->nnodes;
    npairs = sourcedata->graph->npairs;
+   narcs = sourcedata->graph->narcs;
    nposarcs = sourcedata->nposarcs;
    npositions = sourcedata->npositions;
    ncycles = sourcedata->cycles->ncycles;
@@ -1148,14 +1422,18 @@ SCIP_DECL_PROBTRANS(probtransMasterPICEFKidney)
    SCIP_CALL( SCIPtransformConss(scip, nscenarios, (*targetdata)->objboundconss, (*targetdata)->objboundconss) );
    SCIP_CALL( SCIPtransformConss(scip, nnodes, (*targetdata)->boundxinitconss, (*targetdata)->boundxinitconss) );
    SCIP_CALL( SCIPtransformConss(scip, npairs*(npositions-1), (*targetdata)->piefinitconss, (*targetdata)->piefinitconss) );
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
       SCIP_CALL( SCIPtransformConss(scip, nnodes, (*targetdata)->boundxscenarioconss[i], (*targetdata)->boundxscenarioconss[i]) );
       SCIP_CALL( SCIPtransformConss(scip, npairs, (*targetdata)->boundyinitconss[i], (*targetdata)->boundyinitconss[i]) );
       SCIP_CALL( SCIPtransformConss(scip, npairs, (*targetdata)->boundyscenarioconss[i], (*targetdata)->boundyscenarioconss[i]) );
       SCIP_CALL( SCIPtransformConss(scip, npairs*(npositions-1), (*targetdata)->piefscenarioconss[i], (*targetdata)->piefscenarioconss[i]) );
       if( policy == POLICY_KEEPUNAFFECTEDCC )
-         SCIP_CALL( SCIPtransformConss(scip, nposarcs, (*targetdata)->enforcementconss[i], (*targetdata)->enforcementconss[i]) );
+      {
+         SCIP_CALL( SCIPtransformConss(scip, narcs, (*targetdata)->betavarinitialconss[i], (*targetdata)->betavarinitialconss[i]) );
+         SCIP_CALL( SCIPtransformConss(scip, npairs, (*targetdata)->betavarprecconss[i], (*targetdata)->betavarprecconss[i]) );
+         SCIP_CALL( SCIPtransformConss(scip, narcs, (*targetdata)->betavarlbconss[i], (*targetdata)->betavarlbconss[i]) );
+      }
    }
    SCIP_CALL( SCIPtransformConss(scip, nnodes, (*targetdata)->dummyconss, (*targetdata)->dummyconss) );
    SCIP_CALL( SCIPtransformCons(scip, (*targetdata)->dummyobjcons, &(*targetdata)->dummyobjcons) );
@@ -1165,11 +1443,13 @@ SCIP_DECL_PROBTRANS(probtransMasterPICEFKidney)
    SCIP_CALL( SCIPtransformVars(scip, ncycles, (*targetdata)->xcyclevarinit, (*targetdata)->xcyclevarinit) );
    SCIP_CALL( SCIPtransformVars(scip, nposarcs, (*targetdata)->arcvarinit, (*targetdata)->arcvarinit) );
 
-   for (i = 0; i < nscenarios; ++i)
+   for( i = 0; i < nscenarios; ++i )
    {
       SCIP_CALL( SCIPtransformVars(scip, ncycles, (*targetdata)->xcyclevarscenario[i], (*targetdata)->xcyclevarscenario[i]) );
       SCIP_CALL( SCIPtransformVars(scip, nposarcs, (*targetdata)->arcvarscenario[i], (*targetdata)->arcvarscenario[i]) );
       SCIP_CALL( SCIPtransformVars(scip, npairs, (*targetdata)->yvarscenario[i], (*targetdata)->yvarscenario[i]) );
+      if( policy == POLICY_KEEPUNAFFECTEDCC )
+         SCIP_CALL( SCIPtransformVars(scip, narcs, (*targetdata)->betavarscenario[i], (*targetdata)->betavarscenario[i]) );
    }
    SCIP_CALL( SCIPtransformVars(scip, nnodes, (*targetdata)->dummyyvars, (*targetdata)->dummyyvars) );
 
@@ -1226,7 +1506,7 @@ SCIP_RETCODE SCIPmasterPICEFProbdataCreate(
    /* create problem data */
    SCIP_CALL( masterPICEFProbdataCreate(scip, &probdata, graph, graph->nnodes, graph->npairs, adversarybound,
          cycles, posarcs, posarcs->nposarcs, posarcs->npositions, NULL, 0, 0,
-         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) );
+         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) );
 
    /* create initial variables */
    SCIP_CALL( SCIPcreateInitialVars(scip, probdata) );
@@ -1266,9 +1546,9 @@ SCIP_RETCODE SCIPupdateMasterPICEFProblem(
 
    adversarybound = probdata->adversarybound;
 
-   if ( probdata->nscenarios == probdata->nmaxscenarios )
+   if( probdata->nscenarios == probdata->nmaxscenarios )
    {
-      if ( probdata->nmaxscenarios == 0 )
+      if( probdata->nmaxscenarios == 0 )
       {
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->scenarios, adversarybound * probdata->nnodes) );
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->xcyclevarscenario, probdata->nnodes) );
@@ -1281,8 +1561,12 @@ SCIP_RETCODE SCIPupdateMasterPICEFProblem(
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->objboundconss, probdata->nnodes) );
 
          if( policy == POLICY_KEEPUNAFFECTEDCC )
-            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->enforcementconss, probdata->nnodes) );
-
+         {
+            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->betavarscenario, probdata->nnodes) );
+            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->betavarinitialconss, probdata->nnodes) );
+            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->betavarprecconss, probdata->nnodes) );
+            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->betavarlbconss, probdata->nnodes) );
+         }
          probdata->nmaxscenarios = probdata->nnodes;
       }
       else
@@ -1302,7 +1586,12 @@ SCIP_RETCODE SCIPupdateMasterPICEFProblem(
          SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->objboundconss, probdata->nmaxscenarios, newsize) );
 
          if( policy == POLICY_KEEPUNAFFECTEDCC )
-            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->enforcementconss, probdata->nmaxscenarios, newsize) );
+         {
+            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->betavarscenario, probdata->nmaxscenarios, newsize) );
+            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->betavarinitialconss, probdata->nmaxscenarios, newsize) );
+            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->betavarprecconss, probdata->nmaxscenarios, newsize) );
+            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->betavarlbconss, probdata->nmaxscenarios, newsize) );
+         }
 
          probdata->nmaxscenarios = newsize;
       }
@@ -1311,9 +1600,9 @@ SCIP_RETCODE SCIPupdateMasterPICEFProblem(
 
    /* store attack pattern */
    pos = adversarybound * probdata->nscenarios;
-   for (i = 0; i < adversarybound; ++i, ++pos)
+   for( i = 0; i < adversarybound; ++i, ++pos )
    {
-      if ( i < nattacks )
+      if( i < nattacks )
          probdata->scenarios[pos] = attackpattern[i];
       else
          probdata->scenarios[pos] = -1;
@@ -1335,7 +1624,7 @@ SCIP_VAR* masterPICEFproblemGetObjvar(
    SCIP_PROBDATA*        probdata            /**< problem data */
    )
 {
-   assert ( probdata != NULL );
+   assert( probdata != NULL );
    return probdata->objvar;
 }
 
@@ -1344,7 +1633,7 @@ Cycles* masterPICEFProblemGetCycles(
    SCIP_PROBDATA*        probdata            /**< problem data */
    )
 {
-   assert ( probdata != NULL );
+   assert( probdata != NULL );
    return probdata->cycles;
 }
 

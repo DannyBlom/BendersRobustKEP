@@ -105,7 +105,7 @@ SCIP_RETCODE solveKidneyExchangeProblem(
    }
    if ( nodeLimit < SCIP_LONGINT_MAX )
    {
-      SCIPinfoMessage(masterscip, 0, "Setting node limit to %ld.\n", nodeLimit);
+      SCIPinfoMessage(masterscip, 0, "Setting node limit to %lld.\n", nodeLimit);
       SCIP_CALL( SCIPsetLongintParam(masterscip, "limits/nodes", nodeLimit) );
    }
    if ( displayFreq < INT_MAX )

@@ -62,8 +62,6 @@ struct SCIP_ProbData
    SCIP_CONS***          boundyscenarioconss; /**< constraint bounding scenario based yvars */
    SCIP_CONS**           dummyconss;         /**< dummy constraints for initial problem */
    SCIP_CONS*            dummyobjcons;       /**< dummy constraints for initial objective bound problem */
-
-   SCIP_CONS***          enforcexscenarioconss; /**< constraints enforcing use of xvarscenario if xvarinit is 1 */
 };
 
 
@@ -102,15 +100,12 @@ SCIP_RETCODE masterProbdataCreate(
    SCIP_VAR**            dummyyvars,           /**< dummy variables for initial problem */
    SCIP_CONS**           dummyconss,           /**< dummy constraints for initial problem */
    SCIP_CONS*            dummyobjcons          /**< dummy constraints for initial objective bound problem */
-
-   // SCIP_CONS***          enforcexscenarioconss /**< constraints enforcing use of xvarscenario if xvarinit is 1 (NULL if policy != KUCC)*/
    )
 {
    int ncycles;
    int nchains;
    int ncycleschains;
    int i;
-   // int policy;
 
    assert( scip != NULL );
    assert( probdata != NULL );
@@ -124,7 +119,6 @@ SCIP_RETCODE masterProbdataCreate(
 
    /* allocate memory */
    SCIP_CALL( SCIPallocBlockMemory(scip, probdata) );
-   // SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    (*probdata)->graph = graph;
    (*probdata)->nnodes = nnodes;
@@ -258,18 +252,6 @@ SCIP_RETCODE masterProbdataCreate(
    else
       (*probdata)->dummyobjcons = NULL;
 
-   // if ( enforcexscenarioconss != NULL && policy == POLICY_KEEPUNAFFECTEDCC )
-   // {
-   //    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(*probdata)->enforcexscenarioconss, nmaxscenarios) );
-   //    for (i = 0; i < nscenarios; ++i)
-   //    {
-   //       SCIP_CALL( SCIPduplicateBlockMemoryArray(scip, &(*probdata)->enforcexscenarioconss[i],
-   //             enforcexscenarioconss[i], ncycleschains) );
-   //    }
-   // }
-   // else
-   //    (*probdata)->enforcexscenarioconss = NULL;
-
    return SCIP_OKAY;
 }
 
@@ -289,7 +271,6 @@ SCIP_RETCODE masterProbdataFree(
    int ncycleschains;
    int nscenarios;
    int nmaxscenarios;
-   // int policy;
 
    assert( scip != NULL );
    assert( probdata != NULL );
@@ -302,8 +283,6 @@ SCIP_RETCODE masterProbdataFree(
    nchains = (*probdata)->nchains;
    nscenarios = (*probdata)->nscenarios;
    nmaxscenarios = (*probdata)->nmaxscenarios;
-
-   // SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    assert( nnodes > 0 );
    assert( npairs >= 0 );
@@ -378,19 +357,6 @@ SCIP_RETCODE masterProbdataFree(
    }
    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->boundyinitconss, nmaxscenarios);
 
-   // if( policy == POLICY_KEEPUNAFFECTEDCC )
-   // {
-   //    for (i = nscenarios - 1; i >= 0; --i)
-   //    {
-   //       for (j = 0; j < ncycleschains; ++j)
-   //       {
-   //          SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->enforcexscenarioconss[i][j]) );
-   //       }
-   //       SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss[i], ncycleschains);
-   //    }
-   //    SCIPfreeBlockMemoryArrayNull(scip, &(*probdata)->enforcexscenarioconss, nmaxscenarios);
-   // }
-
    for (i = nnodes - 1; i >= 0; --i)
       SCIP_CALL( SCIPreleaseCons(scip, &(*probdata)->dummyconss[i]) );
 
@@ -446,20 +412,29 @@ SCIP_Bool SCIPchainIsAttacked(
    int*                  attackpattern,      /**< array of attacked vertices */
    int                   nattacks,           /**< number of attacked vertices */
    Chains*               chains,             /**< data structure for the chains in the graph of suitable length */
-   int                   chainidx            /**< index of chain in chains data structure */
+   int                   chainidx,           /**< index of chain in chains data structure */
+   int                   vertex              /**< Consider only chain up until vertex (if -1, consider entire chain) */
    )
 {
    int i;
    int j;
+   int v;
 
-   for (i = 0; i < nattacks; ++i)
+   if (vertex == -1)
+      /* if no vertex is specified, consider entire chain */
+      vertex = chains->nodelists[chains->nodelistsbegin[chainidx + 1] - 1];
+
+   for (j = chains->nodelistsbegin[chainidx]; j < chains->nodelistsbegin[chainidx + 1]; ++j)
    {
-      for (j = chains->nodelistsbegin[chainidx]; j < chains->nodelistsbegin[chainidx+1]; ++j)
+      v = chains->nodelists[j];
+      for (i = 0; i < nattacks; ++i)
       {
-         if (attackpattern[i] == chains->nodelists[j])
+         if (attackpattern[i] == v)
             return TRUE;
       }
-   }
+      if (v == vertex)
+         return FALSE;
+   }   
    return FALSE;
 }
 
@@ -542,7 +517,7 @@ SCIP_RETCODE SCIPcreateInitialConstraints(
 
    nnodes = probdata->graph->nnodes;
    npairs = probdata->graph->npairs;
-   maxnvars = MAX(nnodes + 1, probdata->ncycles + probdata->nchains + 1);
+   maxnvars = 2*MAX(nnodes + 1, probdata->ncycles + probdata->nchains + 1);
    ncycles = probdata->ncycles;
 
    node2cycles = probdata->graph->node2cycles;
@@ -720,6 +695,7 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
    int i;
    int j;
    int cnt;
+   int successor;
    int nmaxvars;
    SCIP_VAR** vars;
    SCIP_Real* vals;
@@ -746,7 +722,7 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
-   nmaxvars = MAX(nnodes, ncycleschains) + 1;
+   nmaxvars = 2*MAX(nnodes, ncycleschains) + 1;
    SCIP_CALL( SCIPallocBufferArray(scip, &vars, nmaxvars) );
    SCIP_CALL( SCIPallocBufferArray(scip, &vals, nmaxvars) );
    vals[0] = -1.0;
@@ -766,8 +742,8 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundyinitconss[nscenarios]), npairs) );
    for (c = 0; c < npairs; ++c)
    {
-      vars[0] = probdata->yvarscenario[nscenarios][c];
-      cnt = 1;
+      cnt = 0;
+      vars[cnt++] = probdata->yvarscenario[nscenarios][c];
 
       for (i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i)
       {
@@ -790,8 +766,27 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->boundyscenarioconss[nscenarios]), npairs) );
    for (c = 0; c < npairs; ++c)
    {
-      vars[0] = probdata->yvarscenario[nscenarios][c];
-      cnt = 1;
+      cnt = 0;
+      vars[cnt++] = probdata->yvarscenario[nscenarios][c];
+
+      if( policy == POLICY_KEEPUNAFFECTEDCC )
+      {
+         /* Consider the terms for all enforceable initial exchanges where j receives a transplant
+          * these consist of all non-interdicted cycles and chains with no interdictions in the subchain up to and including j */
+         for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
+         {
+            j = graph->node2cycles[i];
+            if( !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, j) )
+               vars[cnt++] = probdata->xvarinit[j];
+         }
+
+         for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
+         {
+            j = graph->node2chains[i];
+            if( !SCIPchainIsAttacked(attackpattern, nattacks, chains, j, c) )
+               vars[cnt++] = probdata->xvarinit[cycles->ncycles + j];
+         }
+      }
 
       for (i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i)
       {
@@ -803,24 +798,6 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
          j = probdata->cycles->ncycles + graph->node2chains[i];
          vars[cnt++] = probdata->xvarscenario[nscenarios][j];
       }
-
-      if( policy == POLICY_KEEPUNAFFECTEDCC )
-      {
-         for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
-         {
-            j = graph->node2cycles[i];
-            if( !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, j) )
-               vars[cnt++] = probdata->xvarinit[j];
-         }
-
-         for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
-         {
-            j = graph->node2chains[i];
-            if( !SCIPchainIsAttacked(attackpattern, nattacks, chains, j) )
-               vars[cnt++] = probdata->xvarinit[cycles->ncycles + j];
-         }
-      }
-
 
       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "bound_scenario_y_scenario_cons_%d_%d", nscenarios, c);
       SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->boundyscenarioconss[nscenarios][c], name,
@@ -834,37 +811,6 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
 
    for (c = 0; c < nnodes; ++c)
    {
-      cnt = 0;
-
-      for (i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i)
-      {
-         j = graph->node2cycles[i];
-         vars[cnt++] = probdata->xvarscenario[nscenarios][j];
-      }
-      for (i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i)
-      {
-         j = probdata->cycles->ncycles + graph->node2chains[i];
-         vars[cnt++] = probdata->xvarscenario[nscenarios][j];
-      }
-
-      if( policy == POLICY_KEEPUNAFFECTEDCC )
-      {
-         for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
-         {
-            j = graph->node2cycles[i];
-            if( !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, j) )
-               vars[cnt++] = probdata->xvarinit[j];
-         }
-
-         for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
-         {
-            j = graph->node2chains[i];
-            if( !SCIPchainIsAttacked(attackpattern, nattacks, chains, j) )
-               vars[cnt++] = probdata->xvarinit[cycles->ncycles + j];
-         }
-      }
-
-      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "bound_scenario_x_cons_%d_%d", nscenarios, c);
       attacked_node = FALSE;
       for( i = 0; i < nattacks; ++i )
       {
@@ -875,45 +821,80 @@ SCIP_RETCODE SCIPcreateConstraintsAttackpattern(
          }
       }
 
-      SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->boundxscenarioconss[nscenarios][c], name,
-         cnt, vars, vals, 0.0, 1.0) );
-      if( attacked_node )
-         SCIP_CALL( SCIPchgRhsLinear(scip, probdata->boundxscenarioconss[nscenarios][c], 0.0) );
+      cnt = 0;
 
+      if( c < npairs )
+      {
+         /* Consider the terms for all enforceable initial exchanges where j receives a transplant
+          * these consist of all non-interdicted cycles and chains with no interdictions in the subchain up to and including j */
+         if( policy == POLICY_KEEPUNAFFECTEDCC && !attacked_node )
+         {
+            for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
+            {
+               j = graph->node2cycles[i];
+               if( !SCIPcycleIsAttacked(attackpattern, nattacks, cycles, j) )
+                  vars[cnt++] = probdata->xvarinit[j];
+            }
+
+            for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
+            {
+               j = graph->node2chains[i];
+               if( !SCIPchainIsAttacked(attackpattern, nattacks, chains, j, c) )
+                  vars[cnt++] = probdata->xvarinit[cycles->ncycles + j];
+            }
+         }
+         
+         /* Furthermore, add the variables for each possible scenario cycle and chain
+          * If not feasible, these variables are already fixed to zero */
+         for( i = graph->node2cyclesbegin[c]; i < graph->node2cyclesbegin[c + 1]; ++i )
+         {
+            j = graph->node2cycles[i];
+            vars[cnt++] = probdata->xvarscenario[nscenarios][j];
+         }
+
+         for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
+         {
+            j = probdata->cycles->ncycles + graph->node2chains[i];
+            vars[cnt++] = probdata->xvarscenario[nscenarios][j];
+         }         
+      }
+      else
+      {
+         /* In this case, c is a non-directed donor.
+          * That means we have to consider
+          * (i) initial chains such that c and its direct predecessor are not interdicted
+          * (ii) all scenario chain variables involving NDD c (if interdicted, it is fixed to zero already anyway) */
+         
+         if( policy == POLICY_KEEPUNAFFECTEDCC && !attacked_node)
+         {
+            for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
+            {
+               j = graph->node2chains[i];
+               successor = chains->nodelists[chains->nodelistsbegin[j]+1];
+               /* We only enforce part of chain if both !attacked_node and its direct successor in the chain (first recipient-donor pair) */
+
+               if( !SCIPchainIsAttacked(attackpattern, nattacks, chains, j, successor) )
+                  vars[cnt++] = probdata->xvarinit[cycles->ncycles + j];
+            }
+         }
+         
+         for( i = graph->node2chainsbegin[c]; i < graph->node2chainsbegin[c + 1]; ++i )
+         {
+            j = probdata->cycles->ncycles + graph->node2chains[i];
+            vars[cnt++] = probdata->xvarscenario[nscenarios][j];
+         }
+      }
+      
+
+      (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "bound_scenario_x_cons_%d_%d", nscenarios, c);
+      
+      if( !attacked_node )
+         SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->boundxscenarioconss[nscenarios][c], name, cnt, vars, vals, 0.0, 1.0) );
+      else
+         SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->boundxscenarioconss[nscenarios][c], name, cnt, vars, vals, 0.0, 0.0) );
+   
       SCIP_CALL( SCIPaddCons(scip, probdata->boundxscenarioconss[nscenarios][c]) );
    }
-
-
-   // /* Add additional constraints enforcing that unaffected cycles and chains should be kept (only whenever this recourse policy is selected) */
-   // if( policy == POLICY_KEEPUNAFFECTEDCC )
-   // {
-   //    vals[0] = -1.0;
-   //    /* create matching constraints for new xvars */
-   //    SCIP_CALL( SCIPallocBlockMemoryArray(scip, &(probdata->enforcexscenarioconss[nscenarios]), ncycleschains) );
-   //    for (c = 0; c < ncycleschains; ++c)
-   //    {
-   //       if( c < cycles->ncycles )
-   //          attacked_node = SCIPcycleIsAttacked(attackpattern, nattacks, cycles, c);
-   //       else
-   //          attacked_node = SCIPchainIsAttacked(attackpattern, nattacks, chains, c - cycles->ncycles);
-   //
-   //       cnt = 0;
-   //
-   //       vars[cnt++] = probdata->xvarinit[c];
-   //       vars[cnt++] = probdata->xvarscenario[nscenarios][c];
-   //
-   //       /* lhs of constraint is -1 if cycle / chain is attacked, 0 otherwise */
-   //       (void) SCIPsnprintf(name, SCIP_MAXSTRLEN, "enforce_scenario_x_cons_%d_%d", nscenarios, c);
-   //       if( attacked_node )
-   //          SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->enforcexscenarioconss[nscenarios][c], name,
-   //             cnt, vars, vals, -1.0, SCIPinfinity(scip)) );
-   //       else
-   //          SCIP_CALL( SCIPcreateConsBasicLinear(scip, &probdata->enforcexscenarioconss[nscenarios][c], name,
-   //             cnt, vars, vals, 0.0, SCIPinfinity(scip)) );
-   //
-   //       SCIP_CALL( SCIPaddCons(scip, probdata->enforcexscenarioconss[nscenarios][c]) );
-   //    }
-   // }
 
    SCIPfreeBufferArray(scip, &vals);
    SCIPfreeBufferArray(scip, &vars);
@@ -950,21 +931,18 @@ SCIP_DECL_PROBTRANS(probtransMasterKidney)
    int npairs;
    int ncycleschains;
    int nscenarios;
-   // int policy;
 
    /* create transform probdata */
    SCIP_CALL( masterProbdataCreate(scip, targetdata, sourcedata->graph, sourcedata->nnodes, sourcedata->npairs, sourcedata->adversarybound,
          sourcedata->cycles, sourcedata->chains, sourcedata->scenarios, sourcedata->nscenarios, sourcedata->nmaxscenarios,
          sourcedata->objvar, sourcedata->xvarinit, sourcedata->xvarscenario, sourcedata->yvarscenario,
          sourcedata->objboundconss, sourcedata->boundxinitconss, sourcedata->boundxscenarioconss,
-         sourcedata->boundyinitconss, sourcedata->boundyscenarioconss, sourcedata->dummyyvars, sourcedata->dummyconss, sourcedata->dummyobjcons) );//, sourcedata->enforcexscenarioconss) );
+         sourcedata->boundyinitconss, sourcedata->boundyscenarioconss, sourcedata->dummyyvars, sourcedata->dummyconss, sourcedata->dummyobjcons) );
 
    nnodes = sourcedata->graph->nnodes;
    npairs = sourcedata->graph->npairs;
    ncycleschains = sourcedata->cycles->ncycles + sourcedata->chains->nchains;
    nscenarios = sourcedata->nscenarios;
-
-   // SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    /* transform all constraints */
    SCIP_CALL( SCIPtransformConss(scip, nscenarios, (*targetdata)->objboundconss, (*targetdata)->objboundconss) );
@@ -974,8 +952,6 @@ SCIP_DECL_PROBTRANS(probtransMasterKidney)
       SCIP_CALL( SCIPtransformConss(scip, nnodes, (*targetdata)->boundxscenarioconss[i], (*targetdata)->boundxscenarioconss[i]) );
       SCIP_CALL( SCIPtransformConss(scip, npairs, (*targetdata)->boundyinitconss[i], (*targetdata)->boundyinitconss[i]) );
       SCIP_CALL( SCIPtransformConss(scip, npairs, (*targetdata)->boundyscenarioconss[i], (*targetdata)->boundyscenarioconss[i]) );
-      // if( policy == POLICY_KEEPUNAFFECTEDCC )
-      //    SCIP_CALL( SCIPtransformConss(scip, ncycleschains, (*targetdata)->enforcexscenarioconss[i], (*targetdata)->enforcexscenarioconss[i]) );
    }
    SCIP_CALL( SCIPtransformConss(scip, nnodes, (*targetdata)->dummyconss, (*targetdata)->dummyconss) );
    SCIP_CALL( SCIPtransformCons(scip, (*targetdata)->dummyobjcons, &(*targetdata)->dummyobjcons) );
@@ -1043,7 +1019,7 @@ SCIP_RETCODE SCIPmasterProbdataCreate(
 
    /* create problem data */
    SCIP_CALL( masterProbdataCreate(scip, &probdata, graph, graph->nnodes, graph->npairs, adversarybound, cycles, chains,
-         NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) );// NULL) );
+         NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL) );
 
    /* create initial variables */
    SCIP_CALL( SCIPcreateInitialVars(scip, probdata) );
@@ -1069,7 +1045,6 @@ SCIP_RETCODE SCIPupdateMasterProblem(
    int adversarybound;
    int i;
    int pos;
-   int policy;
 
    assert( scip != NULL );
    assert( attackpattern != NULL );
@@ -1078,8 +1053,6 @@ SCIP_RETCODE SCIPupdateMasterProblem(
    /* ensure that new pattern fits into data structures */
    probdata = SCIPgetProbData(scip);
    assert( probdata != NULL );
-
-   SCIP_CALL( SCIPgetIntParam(scip, "kidney/recoursepolicy", &policy) );
 
    adversarybound = probdata->adversarybound;
 
@@ -1094,8 +1067,6 @@ SCIP_RETCODE SCIPupdateMasterProblem(
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->boundyscenarioconss, probdata->nnodes) );
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->boundyinitconss, probdata->nnodes) );
          SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->objboundconss, probdata->nnodes) );
-         if( policy == POLICY_KEEPUNAFFECTEDCC )
-            SCIP_CALL( SCIPallocBlockMemoryArray(scip, &probdata->enforcexscenarioconss, probdata->ncycles + probdata->nchains) );
 
 
          probdata->nmaxscenarios = probdata->nnodes;
@@ -1112,8 +1083,6 @@ SCIP_RETCODE SCIPupdateMasterProblem(
          SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->boundyscenarioconss, probdata->nmaxscenarios, newsize) );
          SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->boundyinitconss, probdata->nmaxscenarios, newsize) );
          SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->objboundconss, probdata->nmaxscenarios, newsize) );
-         if( policy == POLICY_KEEPUNAFFECTEDCC )
-            SCIP_CALL( SCIPreallocBlockMemoryArray(scip, &probdata->enforcexscenarioconss, probdata->nmaxscenarios, newsize) );
 
          probdata->nmaxscenarios = newsize;
       }
